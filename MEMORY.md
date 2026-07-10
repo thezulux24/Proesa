@@ -1,0 +1,57 @@
+# Memoria del Proyecto (Base de Conocimiento)
+
+Este archivo sirve como memoria persistente para el agente de IA. Aquí se documentan las decisiones críticas de diseño, la infraestructura, la base de datos y cómo interactúan las distintas partes de la Suite Data Universal para PROESA / Banco Mundial.
+
+## 1. Infraestructura de Servidor
+- **Hardware/OS:** Windows Server 2016 con Interfaz Gráfica, 100GB RAM, 16 núcleos AMD Epyc.
+- **Ejecución Automatizada:** Los scrapers se ejecutan de manera diaria y sin interrupciones.
+- **Notificaciones:** Se utiliza **Resend** para el envío de alertas y reportes diarios por correo (indicando éxito o detalles de fallo de cada scraper).
+
+## 2. Esquema de Base de Datos (SQLite Local)
+Por requerimiento de simplicidad extrema, nula concurrencia de escritura, y retrocompatibilidad con la Interfaz Gráfica original, se decidió mantener la base de datos en **SQLite** (`suite_data.db`) tras un intento de migrar a PostgreSQL.
+Para mantener la UI funcionando sin reescribir todo `suite_app.py`, `database.py` actúa como una "vista" de traducción en memoria, renombrando dinámicamente columnas como `comercio -> fuente` y `descuento_porcentaje -> descuento` al entregar los DataFrames.
+**Tabla principal (`productos`)**:
+- `id` (PK)
+- `fecha_extraccion` (Ej: 2026-06-23)
+- `fuente` (Ej: Éxito, Jumbo, Rappi, Alkosto, D1, Carulla)
+- `internal_id`
+- `nombre`, `marca`, `referencia`, `categoria`
+- `tipo_producto` (Puede ser "Alcohol", "Tabaco", "Ultraprocesado" o "NULL")
+- `grados_alcohol`, `medida`
+- `precio_original`, `precio_final`, `descuento`, `precio_unidad`, `disponibilidad`
+- `url_producto`, `descripcion`
+- `raw_data` (JSON con metadatos adicionales)
+- `deleted` (Int 0 o 1. "Soft Deletes" para Falsos Positivos detectados por Gemini).
+
+## 3. Decisiones de Interfaz de Usuario (`suite_app.py`)
+- Desarrollada con `CustomTkinter`, `Matplotlib` y `Seaborn`.
+- Diseñada para correr directamente en el Windows Server 2016.
+- **Pestaña Análisis:** Resumen, distribución de descuentos, marcas más vendidas, heatmap de correlación, etc. Filtros dinámicos.
+- **Pestaña Comparativas:** Búsqueda cruzada de guerra de precios y evolución temporal de inflación de productos.
+- **Pestaña Limpieza IA:** Usa el modelo `gemini-2.5-flash-lite` para limpiar falsos positivos enviando chunks de 50 (con espera de 10s ante error HTTP 503).
+
+## 4. Scrapers y Transferencia de Conocimiento
+- **Extracción Actual:** Éxito (`scraper_exito/`).
+- **Nuevos Scrapers (Carulla, Jumbo, Rappi, Alkosto, D1):** Adaptarse al esquema de Postgres. Si hay antibot (ej. Cloudflare), utilizar `scrapling-official`. **IMPORTANTE:** Todos los scrapers sin excepción deben operar de forma **HTTP ONLY** empleando Scrapling para no requerir la carga pesada de navegadores Headless y optimizar recursos.
+- **Transferencia a PROESA:** Todo el código debe estar altamente documentado (inline y guías operativas) para que el equipo técnico pueda apropiarse de la metodología, solucionar errores frecuentes y entender la extracción automatizada.
+
+## 5. Notas de Contexto Recientes (Bitácora)
+- *2026-06-30:* Se actualizaron los requerimientos para migrar a PostgreSQL local, correr en el servidor Windows con 100GB RAM, implementar el monitoreo con alertas diarias por correo vía Resend, e incluir productos ultraprocesados.
+- **D1 (Next.js App Router / FastStore)**: `scraper_d1/scraper.py`
+  - Utiliza `requests` puro ya que su WAF (Cloudflare/VTEX) no bloquea peticiones estáticas estándar sin headers sospechosos, mientras que `AsyncDynamicSession` devolvía HTML vacío (posiblemente bloqueando la fingerprint).
+  - Los datos de los productos vienen embebidos en el payload RSC (React Server Components) en la etiqueta `<script>self.__next_f.push(...)`.
+  - La extracción se hace mediante *regex* y el parseo estructurado de las cadenas JSON dentro del payload `__next_f.push`.
+  - Las características clave, como `sku`, `name`, `price`, se extraen rompiendo la cadena JSON con `split('"sku":"')` y reconstruyendo las variables por producto.
+  - La lógica de paginación se da mediante paso por URL (`?page=2`).
+- **Cañaveral**: `scraper_canaveral/scraper.py`
+  - Utiliza la misma arquitectura Next.js / FastStore (RSC) que D1.
+  - La extracción se hace limpiamente buscando las cadenas JSON dentro de `__next_f.push` del código fuente, lo que nos permite usar requests puro sin bloquearnos por antibots.
+- **Olímpica**: `scraper_olimpica/scraper.py`
+  - Los cigarrillos/vaporizadores tienen una ruta totalmente independiente (`/supermercado/cigarrillos-y-vaporizadores`). Se debe iterar explícitamente ambas rutas para extraer el catálogo completo (que asciende a más de 2200 productos).
+- **Makro (Next.js FastStore Complejo)**: `scraper_makro/scraper.py`
+  - Se utiliza extracción Regex iterando el chunk `__next_f.push`.
+  - La categoría viene oculta en referencias de estado JSON (RSC). Se programó un *unpacking* recursivo (`categoriesData` -> `$fd` -> `["$fe", "$ff"]`) para extraer el árbol de jerarquía (ej. `Bebidas > Cervezas, Vinos y Licores > Whisky`).
+  - **Diferencia Crítica de Paginación:** FastStore en Makro no usa `page=` sino `currentPage=` en la URL, y además **la paginación está basada en el índice 1** (no en 0). Esto se documenta para futuros desarrollos en ecosistemas similares.
+- **Robustez del Orquestador y Alertas**:
+  - `main.py` fue modificado para detectar "Fallos Silenciosos". Si un scraper termina sin errores de excepción pero devuelve 0 productos extraídos (Ej. Cloudflare bloquea la data pero devuelve un HTTP 200 con el HTML del captcha), el orquestador lo reclasifica como un Error Crítico y lo envía en la alerta.
+  - El sistema de correos con **Resend** fue migrado a usar un Dominio Verificado (`bzuluaga.site`) enviando correos formales (sin emojis, con HTML estructurado) a múltiples destinatarios configurados dinámicamente en el `.env`.

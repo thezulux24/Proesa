@@ -1,0 +1,10 @@
+customtkinter
+pandas
+matplotlib
+google-genai
+requests
+scrapling
+python-dotenv
+psycopg2-binary==2.9.9
+resend==2.1.0
+python-dotenv==1.0.1
