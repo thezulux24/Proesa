@@ -14,9 +14,7 @@ __pycache__/
 *.so
 
 # Database
-*.sqlite3
-*.db
-suite_data.db
+
 
 # Data files
 data/

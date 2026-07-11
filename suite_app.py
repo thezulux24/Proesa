@@ -8,11 +8,8 @@ from tkinter import messagebox, ttk
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-import matplotlib.ticker as ticker
-from tkinter import filedialog
-from google import genai
-from google.genai import types
 import database
 import time
 from dotenv import load_dotenv
@@ -25,6 +22,11 @@ ctk.set_default_color_theme("blue")
 class App(ctk.CTk):
     def __init__(self):
         super().__init__()
+        
+        # Ensure database tables exist
+        db = database.DataSuiteDB()
+        db.init_db()
+        
         self.title("Suite Universal de Scraping & Analítica")
         self.geometry("1300x850")
         self.grid_rowconfigure(0, weight=1)
@@ -33,7 +35,7 @@ class App(ctk.CTk):
         # Sidebar
         self.sidebar_frame = ctk.CTkFrame(self, width=220, corner_radius=0)
         self.sidebar_frame.grid(row=0, column=0, sticky="nsew")
-        self.sidebar_frame.grid_rowconfigure(5, weight=1)
+        self.sidebar_frame.grid_rowconfigure(7, weight=1)
 
         self.logo_label = ctk.CTkLabel(self.sidebar_frame, text="🚀 Suite Data", font=ctk.CTkFont(size=24, weight="bold"))
         self.logo_label.grid(row=0, column=0, padx=20, pady=(20, 30))
@@ -41,57 +43,77 @@ class App(ctk.CTk):
         self.btn_extraccion = ctk.CTkButton(self.sidebar_frame, text="📥 Extracción", font=ctk.CTkFont(size=15), command=self.show_extraccion)
         self.btn_extraccion.grid(row=1, column=0, padx=20, pady=10)
 
-        self.btn_viewer = ctk.CTkButton(self.sidebar_frame, text="📄 Visor de Datos", font=ctk.CTkFont(size=15), command=self.show_viewer)
+        self.btn_viewer = ctk.CTkButton(self.sidebar_frame, text="📄 Visor RAW", font=ctk.CTkFont(size=15), command=self.show_viewer)
         self.btn_viewer.grid(row=2, column=0, padx=20, pady=10)
 
-        self.btn_analysis = ctk.CTkButton(self.sidebar_frame, text="📊 Análisis", font=ctk.CTkFont(size=15), command=self.show_analysis)
-        self.btn_analysis.grid(row=3, column=0, padx=20, pady=10)
+        self.btn_norm_viewer = ctk.CTkButton(self.sidebar_frame, text="🎯 Visor Normalizado", font=ctk.CTkFont(size=15), fg_color="#2980b9", hover_color="#1c5980", command=self.show_norm_viewer)
+        self.btn_norm_viewer.grid(row=3, column=0, padx=20, pady=10)
 
-        self.btn_gemini = ctk.CTkButton(self.sidebar_frame, text="🤖 Limpieza IA", font=ctk.CTkFont(size=15), command=self.show_gemini)
-        self.btn_gemini.grid(row=4, column=0, padx=20, pady=10)
+        self.btn_analysis = ctk.CTkButton(self.sidebar_frame, text="📊 Análisis", font=ctk.CTkFont(size=15), command=self.show_analysis)
+        self.btn_analysis.grid(row=4, column=0, padx=20, pady=10)
+
+        self.btn_deepseek = ctk.CTkButton(self.sidebar_frame, text="🤖 Limpieza IA", font=ctk.CTkFont(size=15), command=self.show_deepseek)
+        self.btn_deepseek.grid(row=5, column=0, padx=20, pady=10)
 
         self.btn_compare = ctk.CTkButton(self.sidebar_frame, text="🌐 Comparativas", font=ctk.CTkFont(size=15), fg_color="#8e44ad", hover_color="#732d91", command=self.show_compare)
-        self.btn_compare.grid(row=5, column=0, padx=20, pady=10)
+        self.btn_compare.grid(row=6, column=0, padx=20, pady=10)
+
+        self.btn_normalization = ctk.CTkButton(self.sidebar_frame, text="🔗 Normalización", font=ctk.CTkFont(size=15), fg_color="#f39c12", hover_color="#d68910", command=self.show_normalization)
+        self.btn_normalization.grid(row=7, column=0, padx=20, pady=10)
 
         # Main Frames
         self.frame_extraccion = ExtraccionFrame(self)
         self.frame_viewer = DataViewerFrame(self)
+        self.frame_norm_viewer = NormalizedViewerFrame(self)
         self.frame_analysis = AnalysisFrame(self)
-        self.frame_gemini = GeminiFrame(self)
+        self.frame_deepseek = DeepSeekFilterFrame(self)
         self.frame_compare = CompareFrame(self)
+        self.frame_normalization = NormalizationFrame(self)
 
         self.show_analysis() # Default tab
 
-    def hide_all(self):
+    def hide_all_frames(self):
         self.frame_extraccion.grid_forget()
         self.frame_viewer.grid_forget()
+        self.frame_norm_viewer.grid_forget()
         self.frame_analysis.grid_forget()
-        self.frame_gemini.grid_forget()
+        self.frame_deepseek.grid_forget()
         self.frame_compare.grid_forget()
+        self.frame_normalization.grid_forget()
 
     def show_extraccion(self):
-        self.hide_all()
+        self.hide_all_frames()
         self.frame_extraccion.grid(row=0, column=1, sticky="nsew", padx=20, pady=20)
 
     def show_viewer(self):
-        self.hide_all()
+        self.hide_all_frames()
         self.frame_viewer.load_filters()
         self.frame_viewer.grid(row=0, column=1, sticky="nsew", padx=20, pady=20)
+        
+    def show_norm_viewer(self):
+        self.hide_all_frames()
+        self.frame_norm_viewer.load_filters()
+        self.frame_norm_viewer.grid(row=0, column=1, sticky="nsew", padx=20, pady=20)
 
     def show_analysis(self):
-        self.hide_all()
+        self.hide_all_frames()
         self.frame_analysis.load_filters()
         self.frame_analysis.grid(row=0, column=1, sticky="nsew", padx=20, pady=20)
 
-    def show_gemini(self):
-        self.hide_all()
-        self.frame_gemini.load_filters()
-        self.frame_gemini.grid(row=0, column=1, sticky="nsew", padx=20, pady=20)
+    def show_deepseek(self):
+        self.hide_all_frames()
+        self.frame_deepseek.load_filters()
+        self.frame_deepseek.grid(row=0, column=1, sticky="nsew", padx=20, pady=20)
 
     def show_compare(self):
-        self.hide_all()
+        self.hide_all_frames()
         self.frame_compare.load_data()
         self.frame_compare.grid(row=0, column=1, sticky="nsew", padx=20, pady=20)
+
+    def show_normalization(self):
+        self.hide_all_frames()
+        self.frame_normalization.load_data()
+        self.frame_normalization.grid(row=0, column=1, sticky="nsew", padx=20, pady=20)
 
 
 class ExtraccionFrame(ctk.CTkFrame):
@@ -166,7 +188,7 @@ class DataViewerFrame(ctk.CTkFrame):
         self.grid_rowconfigure(2, weight=1)
         self.grid_columnconfigure(0, weight=1)
 
-        self.label = ctk.CTkLabel(self, text="📄 Visor de Datos (Crudos)", font=ctk.CTkFont(size=24, weight="bold"))
+        self.label = ctk.CTkLabel(self, text="📄 Visor RAW (Crudos)", font=ctk.CTkFont(size=24, weight="bold"))
         self.label.grid(row=0, column=0, padx=20, pady=(20, 10), sticky="w")
 
         # Filters
@@ -297,6 +319,112 @@ class DataViewerFrame(ctk.CTkFrame):
             
         messagebox.showinfo("Éxito", f"Se eliminaron (soft delete) {count} registros.")
 
+
+class NormalizedViewerFrame(ctk.CTkFrame):
+    def __init__(self, master):
+        super().__init__(master)
+        self.grid_rowconfigure(2, weight=1)
+        self.grid_columnconfigure(0, weight=1)
+
+        self.label = ctk.CTkLabel(self, text="🎯 Visor Normalizado (MDM)", font=ctk.CTkFont(size=24, weight="bold"))
+        self.label.grid(row=0, column=0, padx=20, pady=(20, 10), sticky="w")
+
+        # Filters
+        self.filters_frame = ctk.CTkFrame(self, fg_color="transparent")
+        self.filters_frame.grid(row=1, column=0, padx=20, pady=5, sticky="ew")
+
+        self.fuente_var = ctk.StringVar(value="Todas")
+        self.fuente_combo = ctk.CTkComboBox(self.filters_frame, variable=self.fuente_var, command=self.update_data, width=120)
+        self.fuente_combo.pack(side="left", padx=5)
+
+        self.fecha_var = ctk.StringVar(value="Todas")
+        self.fecha_combo = ctk.CTkComboBox(self.filters_frame, variable=self.fecha_var, command=self.update_data, width=120)
+        self.fecha_combo.pack(side="left", padx=5)
+
+        self.btn_refresh = ctk.CTkButton(self.filters_frame, text="🔄 Refrescar", width=100, command=self.load_filters)
+        self.btn_refresh.pack(side="left", padx=10)
+        
+        self.btn_export = ctk.CTkButton(self.filters_frame, text="💾 Exportar a Excel", fg_color="#27ae60", hover_color="#219150", width=150, command=self.export_data)
+        self.btn_export.pack(side="left", padx=10)
+
+        # Treeview
+        self.tree_frame = ctk.CTkFrame(self)
+        self.tree_frame.grid(row=2, column=0, padx=20, pady=(0, 20), sticky="nsew")
+        self.tree_frame.grid_rowconfigure(0, weight=1)
+        self.tree_frame.grid_columnconfigure(0, weight=1)
+
+        import tkinter.ttk as ttk
+        columns = ("Código", "Fuente", "Nombre Estándar", "Marca", "Categoría", "Tipo", "Precio Original", "Precio Final", "Descuento")
+        self.tree = ttk.Treeview(self.tree_frame, columns=columns, show="headings")
+        
+        self.tree.heading("Código", text="Código Universal")
+        self.tree.column("Código", width=100, anchor="center")
+        self.tree.heading("Fuente", text="Fuente")
+        self.tree.column("Fuente", width=80, anchor="center")
+        self.tree.heading("Nombre Estándar", text="Nombre Estándar")
+        self.tree.column("Nombre Estándar", width=300)
+        self.tree.heading("Marca", text="Marca")
+        self.tree.column("Marca", width=100)
+        self.tree.heading("Categoría", text="Categoría")
+        self.tree.column("Categoría", width=120)
+        self.tree.heading("Tipo", text="Tipo")
+        self.tree.column("Tipo", width=80, anchor="center")
+        self.tree.heading("Precio Original", text="Precio Original")
+        self.tree.column("Precio Original", width=90, anchor="e")
+        self.tree.heading("Precio Final", text="Precio Final")
+        self.tree.column("Precio Final", width=90, anchor="e")
+        self.tree.heading("Descuento", text="Dcto")
+        self.tree.column("Descuento", width=60, anchor="center")
+
+        self.tree.grid(row=0, column=0, sticky="nsew")
+
+        scrollbar = ttk.Scrollbar(self.tree_frame, orient="vertical", command=self.tree.yview)
+        self.tree.configure(yscroll=scrollbar.set)
+        scrollbar.grid(row=0, column=1, sticky="ns")
+
+    def load_filters(self):
+        import database
+        sources = ["Todas"] + database.get_available_sources()
+        dates = ["Todas"] + database.get_available_dates()
+        self.fuente_combo.configure(values=sources)
+        self.fecha_combo.configure(values=dates)
+        self.update_data()
+
+    def update_data(self, *args):
+        import database
+        import pandas as pd
+        fuente = self.fuente_var.get()
+        fecha = self.fecha_var.get()
+        
+        df = database.get_normalized_data_as_dataframe(fuente=fuente, fecha=fecha)
+        self.df_current = df
+        
+        for item in self.tree.get_children():
+            self.tree.delete(item)
+            
+        if not df.empty:
+            for _, row in df.iterrows():
+                self.tree.insert("", "end", values=(
+                    row.get('id', ''),
+                    row.get('fuente', ''),
+                    row.get('nombre', ''),
+                    row.get('marca_estandar', ''),
+                    row.get('subcategoria_estandar', ''),
+                    row.get('tipo_producto_estandar', ''),
+                    f"${row.get('precio_original', 0):,.0f}" if pd.notnull(row.get('precio_original')) else "N/A",
+                    f"${row.get('precio_final', 0):,.0f}" if pd.notnull(row.get('precio_final')) else "N/A",
+                    row.get('descuento', '0%')
+                ))
+
+    def export_data(self):
+        import tkinter.messagebox as messagebox
+        import tkinter.filedialog as filedialog
+        if hasattr(self, 'df_current') and not self.df_current.empty:
+            filepath = filedialog.asksaveasfilename(defaultextension=".xlsx", filetypes=[("Excel files", "*.xlsx")])
+            if not filepath:
+                return
+            self.df_current.to_excel(filepath, index=False)
+            messagebox.showinfo("Exportar", f"Datos normalizados exportados a {filepath}")
 
 class AnalysisFrame(ctk.CTkFrame):
     def __init__(self, master):
@@ -561,13 +689,13 @@ class AnalysisFrame(ctk.CTkFrame):
         create_card(grid, "Mayor Descuento", txt_desc.split(" (-")[0][:30]+"...", txt_desc).grid(row=2, column=2, padx=10, pady=10, sticky="nsew")
 
 
-class GeminiFrame(ctk.CTkFrame):
+class DeepSeekFilterFrame(ctk.CTkFrame):
     def __init__(self, master):
         super().__init__(master)
         self.grid_rowconfigure(2, weight=1)
         self.grid_columnconfigure(0, weight=1)
 
-        self.label = ctk.CTkLabel(self, text="🤖 Filtro IA (Gemini)", font=ctk.CTkFont(size=24, weight="bold"))
+        self.label = ctk.CTkLabel(self, text="🤖 Filtro IA (DeepSeek)", font=ctk.CTkFont(size=24, weight="bold"))
         self.label.grid(row=0, column=0, padx=20, pady=(20, 10), sticky="w")
 
         self.controls = ctk.CTkFrame(self, fg_color="transparent")
@@ -583,8 +711,8 @@ class GeminiFrame(ctk.CTkFrame):
         self.fecha_combo = ctk.CTkComboBox(self.controls, variable=self.fecha_var, width=120)
         self.fecha_combo.pack(side="left", padx=(0,20))
 
-        self.api_entry = ctk.CTkEntry(self.controls, placeholder_text="Tu Gemini API Key", width=200, show="*")
-        env_key = os.getenv("GEMINI_API_KEY")
+        self.api_entry = ctk.CTkEntry(self.controls, placeholder_text="Tu DeepSeek API Key", width=200, show="*")
+        env_key = os.getenv("DEEPSEEK_API_KEY")
         if env_key:
             self.api_entry.insert(0, env_key)
         self.api_entry.pack(side="left", padx=(0, 10))
@@ -634,22 +762,28 @@ class GeminiFrame(ctk.CTkFrame):
     def detect(self):
         api_key = self.api_entry.get().strip()
         if not api_key:
-            messagebox.showerror("Error", "Ingresa tu API Key de Gemini.")
+            messagebox.showerror("Error", "Ingresa tu API Key de DeepSeek.")
             return
 
         self.btn_detect.configure(state="disabled")
         fuente = self.fuente_var.get()
         fecha = self.fecha_var.get()
-        threading.Thread(target=self._run_gemini, args=(api_key, fuente, fecha), daemon=True).start()
+        threading.Thread(target=self._run_deepseek, args=(api_key, fuente, fecha), daemon=True).start()
 
-    def _run_gemini(self, api_key, fuente, fecha):
+    def _run_deepseek(self, api_key, fuente, fecha):
         try:
-            df = database.get_data_as_dataframe(fuente=fuente, fecha=fecha)
+            df = database.get_normalized_data_as_dataframe(fuente=fuente, fecha=fecha)
             if df.empty:
                 messagebox.showinfo("Info", "La base de datos está vacía para esa fuente.")
                 return
 
-            client = genai.Client(api_key=api_key)
+            try:
+                from openai import OpenAI
+            except ImportError:
+                messagebox.showerror("Error", "Falta librería 'openai'")
+                return
+                
+            client = OpenAI(api_key=api_key, base_url="https://api.deepseek.com")
             prompt = """Eres un auditor de datos experto con amplio conocimiento en marcas y productos de consumo.
 Tu tarea es determinar si los siguientes productos son un "falso positivo" para la categoría de Alcohol o Tabaco basándote principalmente en el NOMBRE.
 
@@ -673,27 +807,28 @@ Si ninguno es falso positivo, devuelve un array vacío: []"""
                 max_retries = 3
                 for attempt in range(max_retries):
                     try:
-                        response = client.models.generate_content(
-                            model='gemini-2.5-flash-lite',
-                            contents=prompt + "\n\n" + json.dumps(chunk_data, ensure_ascii=False),
-                            config=types.GenerateContentConfig(
-                                temperature=0.0,
-                                response_mime_type="application/json"
-                            )
+                        response = client.chat.completions.create(
+                            model='deepseek-v4-flash',
+                            messages=[
+                                {"role": "system", "content": "Return pure JSON array."},
+                                {"role": "user", "content": prompt + "\n\n" + json.dumps(chunk_data, ensure_ascii=False)}
+                            ],
+                            temperature=0.0
                         )
-                        text = response.text.replace("```json", "").replace("```", "").strip()
+                        text = response.choices[0].message.content.strip()
+                        text = text.replace("```json", "").replace("```", "").strip()
                         ids = json.loads(text)
                         if isinstance(ids, list):
                             fp_db_ids.extend([int(x) for x in ids])
                         break
                     except Exception as loop_e:
                         if attempt < max_retries - 1:
-                            print(f"Error 503 o rate limit, reintentando en 10s... ({loop_e})")
-                            time.sleep(10) # Mayor espera por Error 503 de sobrecarga
+                            print(f"Error AI reintentando en 10s... ({loop_e})")
+                            time.sleep(10)
                         else:
                             print(f"Error AI in chunk tras reintentos: {loop_e}")
                             
-                time.sleep(0.5) # Espera entre chunks
+                time.sleep(0.5)
 
             self.false_positives = df[df['id'].isin(fp_db_ids)].to_dict('records')
             self._update_tree()
@@ -902,6 +1037,288 @@ class CompareFrame(ctk.CTkFrame):
         canvas = FigureCanvasTkAgg(fig, master=self.content_frame)
         canvas.draw()
         canvas.get_tk_widget().pack(fill="both", expand=True)
+
+class NormalizationFrame(ctk.CTkFrame):
+    def __init__(self, master):
+        super().__init__(master)
+        self.grid_rowconfigure(2, weight=1)
+        self.grid_columnconfigure((0, 1), weight=1)
+
+        self.label = ctk.CTkLabel(self, text="🔗 Normalización (MDM)", font=ctk.CTkFont(size=24, weight="bold"))
+        self.label.grid(row=0, column=0, columnspan=2, padx=20, pady=(20, 10), sticky="w")
+
+        self.controls = ctk.CTkFrame(self, fg_color="transparent")
+        self.controls.grid(row=1, column=0, columnspan=2, padx=20, pady=5, sticky="ew")
+
+        self.btn_refresh = ctk.CTkButton(self.controls, text="🔄 Refrescar Tablas", command=self.load_data)
+        self.btn_refresh.pack(side="left", padx=5)
+
+        self.btn_etl = ctk.CTkButton(self.controls, text="🚀 Ejecutar ETL Normalización", fg_color="#27ae60", hover_color="#219150", command=self.run_etl)
+        self.btn_etl.pack(side="right", padx=5)
+        
+        self.btn_auto = ctk.CTkButton(self.controls, text="🤖 Auto-Mapeo Básico", fg_color="#8e44ad", hover_color="#732d91", command=self.auto_map)
+        self.btn_auto.pack(side="right", padx=5)
+
+        self.btn_auto_ai = ctk.CTkButton(self.controls, text="🧠 Auto-Mapeo (DeepSeek)", fg_color="#c0392b", hover_color="#922b21", command=self.auto_map_deepseek)
+        self.btn_auto_ai.pack(side="right", padx=5)
+
+        # Left side: Raw unmapped products
+        self.left_frame = ctk.CTkFrame(self)
+        self.left_frame.grid(row=2, column=0, padx=(20, 10), pady=(0, 20), sticky="nsew")
+        self.left_frame.grid_rowconfigure(1, weight=1)
+        self.left_frame.grid_columnconfigure(0, weight=1)
+        
+        ctk.CTkLabel(self.left_frame, text="Productos Sin Mapear (Crudos)", font=ctk.CTkFont(weight="bold")).grid(row=0, column=0, pady=5)
+        self.tree_raw = ttk.Treeview(self.left_frame, columns=("Comercio", "ID", "Nombre", "Marca", "Tipo"), show="headings")
+        self.tree_raw.heading("Comercio", text="Comercio")
+        self.tree_raw.heading("ID", text="ID")
+        self.tree_raw.heading("Nombre", text="Nombre")
+        self.tree_raw.heading("Marca", text="Marca")
+        self.tree_raw.heading("Tipo", text="Tipo")
+        self.tree_raw.column("Comercio", width=80)
+        self.tree_raw.column("ID", width=80)
+        self.tree_raw.column("Nombre", width=200)
+        self.tree_raw.column("Marca", width=100)
+        self.tree_raw.column("Tipo", width=100)
+        self.tree_raw.grid(row=1, column=0, sticky="nsew")
+        
+        scrollbar_raw = ttk.Scrollbar(self.left_frame, orient="vertical", command=self.tree_raw.yview)
+        self.tree_raw.configure(yscroll=scrollbar_raw.set)
+        scrollbar_raw.grid(row=1, column=1, sticky="ns")
+
+        # Right side: Master products
+        self.right_frame = ctk.CTkFrame(self)
+        self.right_frame.grid(row=2, column=1, padx=(10, 20), pady=(0, 20), sticky="nsew")
+        self.right_frame.grid_rowconfigure(1, weight=1)
+        self.right_frame.grid_columnconfigure(0, weight=1)
+
+        ctk.CTkLabel(self.right_frame, text="Maestro de Productos (Diccionario)", font=ctk.CTkFont(weight="bold")).grid(row=0, column=0, pady=5)
+        self.tree_master = ttk.Treeview(self.right_frame, columns=("Código", "Nombre", "Marca", "Tipo"), show="headings")
+        self.tree_master.heading("Código", text="Código")
+        self.tree_master.heading("Nombre", text="Nombre Estándar")
+        self.tree_master.heading("Marca", text="Marca")
+        self.tree_master.heading("Tipo", text="Tipo")
+        self.tree_master.column("Código", width=80)
+        self.tree_master.column("Nombre", width=200)
+        self.tree_master.column("Marca", width=100)
+        self.tree_master.column("Tipo", width=100)
+        self.tree_master.grid(row=1, column=0, sticky="nsew")
+        
+        scrollbar_master = ttk.Scrollbar(self.right_frame, orient="vertical", command=self.tree_master.yview)
+        self.tree_master.configure(yscroll=scrollbar_master.set)
+        scrollbar_master.grid(row=1, column=1, sticky="ns")
+
+        # Bottom controls for linking
+        self.bottom_controls = ctk.CTkFrame(self, fg_color="transparent")
+        self.bottom_controls.grid(row=3, column=0, columnspan=2, padx=20, pady=(0,20), sticky="ew")
+
+        self.btn_link = ctk.CTkButton(self.bottom_controls, text="🔗 Vincular Seleccionados al Maestro", font=ctk.CTkFont(weight="bold"), command=self.link_products)
+        self.btn_link.pack(side="left", padx=5)
+
+        self.btn_new_master = ctk.CTkButton(self.bottom_controls, text="➕ Crear Nuevo Maestro desde Crudo", command=self.create_master_from_raw)
+        self.btn_new_master.pack(side="left", padx=5)
+
+        self.df_raw = pd.DataFrame()
+        self.df_master = pd.DataFrame()
+
+    def load_data(self):
+        for i in self.tree_raw.get_children(): self.tree_raw.delete(i)
+        for i in self.tree_master.get_children(): self.tree_master.delete(i)
+
+        self.df_raw = database.get_unmapped_products()
+        for _, r in self.df_raw.iterrows():
+            self.tree_raw.insert("", "end", values=(r['comercio'], r['producto_id'], r['nombre'], r['marca'], r['tipo_producto']))
+
+        self.df_master = database.get_maestro_products()
+        for _, r in self.df_master.iterrows():
+            self.tree_master.insert("", "end", values=(r['codigo_universal'], r['nombre_estandar'], r['marca_estandar'], r['tipo_producto_estandar']))
+
+    def link_products(self):
+        sel_raw = self.tree_raw.selection()
+        sel_master = self.tree_master.selection()
+        if not sel_raw or not sel_master:
+            messagebox.showwarning("Atención", "Debe seleccionar al menos un producto crudo y un producto maestro.")
+            return
+
+        master_id = self.tree_master.item(sel_master[0])['values'][0]
+        
+        for s in sel_raw:
+            vals = self.tree_raw.item(s)['values']
+            comercio = vals[0]
+            prod_id = vals[1]
+            database.add_mapping(comercio, str(prod_id), master_id)
+        
+        messagebox.showinfo("Éxito", f"Vinculados {len(sel_raw)} productos al maestro {master_id}.")
+        self.load_data()
+
+    def create_master_from_raw(self):
+        sel_raw = self.tree_raw.selection()
+        if not sel_raw:
+            messagebox.showwarning("Atención", "Selecciona un producto crudo para crear su maestro.")
+            return
+
+        vals = self.tree_raw.item(sel_raw[0])['values']
+        comercio, prod_id, nombre, marca, tipo = vals[0], vals[1], vals[2], vals[3], vals[4]
+        
+        row_query = self.df_raw[(self.df_raw['comercio'] == comercio) & (self.df_raw['producto_id'] == str(prod_id))]
+        if row_query.empty:
+            return
+            
+        row = row_query.iloc[0]
+        
+        nuevo_id = database.add_to_maestro(
+            nombre=row['nombre'],
+            marca=row['marca'] if pd.notnull(row['marca']) else 'Desconocida',
+            tipo=row['tipo_producto'] if pd.notnull(row['tipo_producto']) else 'Alcohol',
+            subcategoria='General',
+            volumen=row['medida'] if pd.notnull(row['medida']) else 'N/A',
+            grados=row['grados_alcohol'] if pd.notnull(row['grados_alcohol']) else 'N/A'
+        )
+        
+        for s in sel_raw:
+            v = self.tree_raw.item(s)['values']
+            database.add_mapping(v[0], str(v[1]), nuevo_id)
+            
+        messagebox.showinfo("Éxito", f"Maestro creado con código {nuevo_id} y vinculado automáticamente.")
+        self.load_data()
+
+    def run_etl(self):
+        if messagebox.askyesno("Confirmar", "¿Ejecutar proceso ETL para poblar la tabla Normalizada?"):
+            try:
+                database.run_normalization_etl()
+                messagebox.showinfo("Éxito", "Proceso ETL de normalización completado con éxito.\nAhora puedes consultar la tabla 'productos_normalizados' en la base de datos.")
+            except Exception as e:
+                messagebox.showerror("Error", f"Fallo al ejecutar ETL: {e}")
+
+    def auto_map(self):
+        import difflib
+        if self.df_raw.empty or self.df_master.empty:
+            messagebox.showinfo("Info", "Se requieren productos sin mapear y productos en el maestro.")
+            return
+            
+        mapped_count = 0
+        maestro_names = self.df_master['nombre_estandar'].tolist()
+        
+        for _, r in self.df_raw.iterrows():
+            matches = difflib.get_close_matches(str(r['nombre']), maestro_names, n=1, cutoff=0.85)
+            if matches:
+                matched_name = matches[0]
+                master_row = self.df_master[self.df_master['nombre_estandar'] == matched_name].iloc[0]
+                master_id = master_row['codigo_universal']
+                database.add_mapping(r['comercio'], str(r['producto_id']), master_id)
+                mapped_count += 1
+                
+        messagebox.showinfo("Auto-Mapeo", f"Se mapearon automáticamente {mapped_count} productos usando similitud de texto.")
+        self.load_data()
+
+    def auto_map_deepseek(self):
+        import os
+        import json
+        import threading
+        try:
+            from openai import OpenAI
+        except ImportError:
+            messagebox.showerror("Error", "La librería 'openai' no está instalada. Se requiere para conectar con DeepSeek.")
+            return
+        
+        api_key = os.getenv("DEEPSEEK_API_KEY")
+        if not api_key:
+            messagebox.showerror("Error", "No se encontró DEEPSEEK_API_KEY en el archivo .env")
+            return
+            
+        if self.df_raw.empty or self.df_master.empty:
+            messagebox.showinfo("Info", "Se requieren productos sin mapear y productos en el maestro.")
+            return
+
+        self.btn_auto_ai.configure(state="disabled", text="Procesando...")
+        
+        def _run_ai():
+            try:
+                client = OpenAI(api_key=api_key, base_url="https://api.deepseek.com")
+                
+                master_list = [{"codigo": r['codigo_universal'], "nombre": r['nombre_estandar']} for _, r in self.df_master.iterrows()]
+                
+                total_mapped = 0
+                chunk_size = 30
+                total_raw = len(self.df_raw)
+                
+                for i in range(0, total_raw, chunk_size):
+                    self.after(0, lambda i=i, t=total_raw: self.btn_auto_ai.configure(text=f"Procesando {i}/{t}..."))
+                    
+                    raw_sample = self.df_raw.iloc[i:i+chunk_size]
+                    raw_list = [{"id": f"{r['comercio']}__{r['producto_id']}", "nombre": r['nombre']} for _, r in raw_sample.iterrows()]
+                    
+                    prompt = f"""
+Eres un experto en MDM.
+Tengo un diccionario MAESTRO de productos y una lista de productos CRUDOS.
+Para cada producto crudo, encuentra si existe en el maestro basándote en el nombre.
+Si NO existe, debes marcarlo como "es_nuevo": true y proporcionar un nombre_estandar limpio, la marca, y el tipo (Alcohol, Tabaco, Ultraprocesados).
+
+MAESTRO:
+{json.dumps(master_list, ensure_ascii=False)}
+
+CRUDOS a procesar:
+{json.dumps(raw_list, ensure_ascii=False)}
+
+Devuelve ÚNICAMENTE un JSON array con los resultados para todos los crudos:
+[ 
+  {{"crudo_id": "Comercio__1234", "maestro_codigo": "EAN_123", "es_nuevo": false}},
+  {{"crudo_id": "Comercio__5678", "maestro_codigo": null, "es_nuevo": true, "nombre_estandar": "Ron Ficticio Añejo", "marca": "Ficticio", "tipo": "Alcohol"}}
+]
+NO escribas markdown, solo JSON puro.
+"""
+                    
+                    response = client.chat.completions.create(
+                        model="deepseek-v4-flash",
+                        messages=[
+                            {"role": "system", "content": "You are a helpful data mapping assistant. Output pure JSON only."},
+                            {"role": "user", "content": prompt}
+                        ],
+                        temperature=0.0
+                    )
+                    
+                    text_response = response.choices[0].message.content.strip()
+                    text_response = text_response.replace("```json", "").replace("```", "").strip()
+                    
+                    try:
+                        mappings = json.loads(text_response)
+                        for m in mappings:
+                            crudo_id = m.get("crudo_id")
+                            if not crudo_id or "__" not in crudo_id:
+                                continue
+                                
+                            comercio, prod_id = crudo_id.split("__", 1)
+                            import database
+                            
+                            if m.get("es_nuevo"):
+                                nuevo_id = database.add_to_maestro(
+                                    nombre=m.get("nombre_estandar", "Desconocido"),
+                                    marca=m.get("marca", "Desconocida"),
+                                    tipo=m.get("tipo", "Alcohol"),
+                                    subcategoria="General",
+                                    volumen="N/A",
+                                    grados="N/A"
+                                )
+                                database.add_mapping(comercio, prod_id, nuevo_id)
+                                total_mapped += 1
+                                master_list.append({"codigo": nuevo_id, "nombre": m.get("nombre_estandar", "Desconocido")})
+                            else:
+                                codigo = m.get("maestro_codigo")
+                                if codigo:
+                                    database.add_mapping(comercio, prod_id, codigo)
+                                    total_mapped += 1
+                    except Exception as ex:
+                        print(f"Error parsing JSON chunk: {ex}")
+                        
+                self.after(0, lambda: messagebox.showinfo("Auto-Mapeo IA", f"Proceso finalizado. Se mapearon {total_mapped} productos en total."))
+                self.after(0, self.load_data)
+                
+            except Exception as e:
+                self.after(0, lambda e=e: messagebox.showerror("Error IA", str(e)))
+            finally:
+                self.after(0, lambda: self.btn_auto_ai.configure(state="normal", text="🧠 Auto-Mapeo (DeepSeek)"))
+
+        threading.Thread(target=_run_ai, daemon=True).start()
 
 if __name__ == "__main__":
     app = App()

@@ -178,9 +178,19 @@ def main():
         traceback.print_exc()
 
     # ==========================
-    # FINAL REPORT
+    # FINAL REPORT & ETL
     # ==========================
     print("\n--- Finalizando Extracción ---")
+    
+    print("\n--- Ejecutando ETL de Normalización Automático ---")
+    try:
+        from database import run_normalization_etl
+        run_normalization_etl()
+        print("ETL completado exitosamente. Datos normalizados actualizados.")
+    except Exception as e:
+        errores["ETL_Normalizacion"] = str(e)
+        traceback.print_exc()
+
     print("Estadísticas:", stats)
     print("Errores:", errores)
     
