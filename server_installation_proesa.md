@@ -55,25 +55,40 @@ Gracias al uso de **SQLite**, no es necesario instalar motores pesados. El siste
 2. La terminal mostrará: `Database tables initialized successfully.` y procederá a correr los scrapers (Éxito, Carulla, Jumbo, D1, Cañaveral, Olímpica, Makro).
 3. En la raíz del proyecto verás que se ha creado el archivo `suite_data.db`. Todos los datos residirán de forma segura y portable en este archivo.
 
-## 5. Automatización (Ejecución Diaria)
+## 5. Automatización (Ejecución Diaria) / Automation (Daily Execution)
 
 Para asegurar que la extracción corra todos los días sin intervención humana, usaremos **Windows Task Scheduler (Programador de Tareas)**.
+*To ensure the extraction runs every day without human intervention, we will use **Windows Task Scheduler**.*
 
 1. Abrir **Task Scheduler** en Windows Server 2016.
-2. Hacer clic en **"Create Task..."** (Crear Tarea).
-3. **Pestaña General:**
-   - Nombre: `Proesa Data Suite Automator`
-   - Marcar **"Run whether user is logged on or not"** (Ejecutar sin importar si el usuario inició sesión).
-   - Marcar **"Run with highest privileges"**.
+   *Open **Task Scheduler** on Windows Server 2016.*
+2. En el panel derecho, hacer clic en **"Create Task..."** (Crear Tarea). **No** usar "Create Basic Task...".
+   *In the right pane, click on **"Create Task..."**. **Do not** use "Create Basic Task...".*
+3. **Pestaña General (General Tab):**
+   - **Name (Nombre):** `Proesa Data Suite Automator`
+   - **IMPORTANTE:** Marcar **"Run whether user is logged on or not"** (Ejecutar sin importar si el usuario inició sesión o no). Esto garantiza que corra aunque el servidor se reinicie y nadie inicie sesión.
+     * **IMPORTANT:** Check **"Run whether user is logged on or not"**. This ensures it runs even if the server reboots and no one logs in.*
+   - Marcar **"Run with highest privileges"** (Ejecutar con los privilegios más altos).
+     * Check **"Run with highest privileges"**.*
 4. **Pestaña Triggers (Desencadenadores):**
-   - Nuevo (New...)
-   - Configurar "Daily" (Diariamente) a una hora de bajo tráfico, ej: **02:00 AM**.
+   - Hacer clic en **"New..."** (Nuevo...).
+   - Seleccionar **"Daily"** (Diariamente) y configurar la hora a un horario de bajo tráfico, por ejemplo, **02:00 AM**.
+     * Select **"Daily"** and set the time to a low-traffic hour, e.g., **02:00 AM**.*
+   - Asegurarse de que la casilla **"Enabled"** (Habilitado) esté marcada y presionar OK.
+     * Ensure the **"Enabled"** checkbox is checked and press OK.*
 5. **Pestaña Actions (Acciones):**
-   - Acción: **Start a program**
-   - *Program/script:* `C:\Ruta\Al\Python\python.exe` (Buscar la ruta exacta donde se instaló Python o escribir simplemente `python` si funciona en el PATH estricto del sistema).
-   - *Add arguments:* `main.py`
-   - *Start in (Empezar en):* `C:\projects\WB\Proesa\`
-6. **Guardar y probar:** Ingresar la contraseña del administrador del servidor cuando se solicite. Luego, hacer clic derecho sobre la tarea y seleccionar **"Run"** para verificar que inicie correctamente de fondo.
+   - Hacer clic en **"New..."** (Nuevo...).
+   - **Action (Acción):** Seleccionar **"Start a program"** (Iniciar un programa).
+   - **Program/script:** `C:\projects\WB\Proesa\run_scraper.bat` (Este archivo .bat primero hace un `git pull` para descargar los últimos cambios de GitHub y luego ejecuta el código).
+     * **Program/script:** `C:\projects\WB\Proesa\run_scraper.bat` (This .bat file first does a `git pull` to download the latest changes from GitHub and then runs the code).*
+   - **Start in (Empezar en):** `C:\projects\WB\Proesa\` (Opcional pero recomendado).
+     * **Start in:** `C:\projects\WB\Proesa\` (Optional but recommended).*
+6. **Guardar y probar (Save and test):** 
+   - Hacer clic en **OK**.
+   - Se solicitará la contraseña de administrador (Administrator password) para autorizar que la tarea corra sin inicio de sesión. Ingresarla.
+     * You will be prompted for the administrator password to authorize the task to run without a logged-in user. Enter it.*
+   - Para probar, hacer clic derecho sobre la tarea en la lista y seleccionar **"Run"** (Ejecutar).
+     * To test, right-click the task in the list and select **"Run"**.*
 
 ---
 
