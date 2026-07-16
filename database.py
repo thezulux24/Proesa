@@ -219,6 +219,7 @@ def get_normalized_data_as_dataframe(fuente="Todas", fecha="Todas"):
     with db.get_connection() as conn:
         df = pd.read_sql_query(query, conn, params=params)
         if not df.empty:
+            df.drop(columns=['id'], inplace=True, errors='ignore')
             df.rename(columns={'comercio': 'fuente', 'descuento_porcentaje': 'descuento', 'nombre_estandar': 'nombre', 'precio_final': 'precio_final', 'codigo_universal': 'id'}, inplace=True)
         return df
 

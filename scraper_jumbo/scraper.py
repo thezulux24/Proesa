@@ -157,12 +157,17 @@ class JumboScraper:
             
             # Tipo de Producto dinámico basado en la categoría extraída
             cat_lower = categoria.lower()
-            if "cigarrillo" in cat_lower or "vapeador" in cat_lower or "tabaco" in cat_lower or "puros" in cat_lower:
+            default_cat_lower = default_category.lower()
+            
+            if ("cigarrillo" in cat_lower or "vapeador" in cat_lower or "tabaco" in cat_lower or "puros" in cat_lower) or \
+               ("cigarrillo" in default_cat_lower or "vapeador" in default_cat_lower or "tabaco" in default_cat_lower or "puros" in default_cat_lower):
                 tipo_producto = "Tabaco"
-            elif "pasaboca" in cat_lower or "snack" in cat_lower or "papas" in cat_lower:
+            elif ("pasaboca" in cat_lower or "snack" in cat_lower or "papas" in cat_lower) or \
+                 ("pasaboca" in default_cat_lower or "snack" in default_cat_lower or "papas" in default_cat_lower):
                 tipo_producto = "Ultraprocesados"
             else:
                 tipo_producto = "Alcohol"
+
             
             result_dict = {
                 "ID": node.get('productId', ''),
@@ -240,9 +245,14 @@ def main():
     
     # Path inside API
     licores_path = "/supermercado/vinos-y-licores"
+    tabacos_path = "/supermercado/cigarrillos-y-tabacos"
     
-    # Run the extractions (We only need the main Licores search, it includes Tobacco)
+    # Run the extractions
     all_products = scraper.fetch_products(licores_path, "Vinos y Licores", "Alcohol")
+    tabaco_products = scraper.fetch_products(tabacos_path, "Cigarrillos y Tabacos", "Tabaco")
+    
+    if tabaco_products:
+        all_products.extend(tabaco_products)
     
     if all_products:
         scraper.save_to_csv(all_products)
@@ -252,3 +262,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+

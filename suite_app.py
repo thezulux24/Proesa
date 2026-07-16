@@ -4,12 +4,13 @@ import subprocess
 import threading
 import customtkinter as ctk
 import tkinter as tk
-from tkinter import messagebox, ttk
+from tkinter import messagebox, ttk, filedialog
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+import matplotlib.ticker as ticker
 import database
 import time
 from dotenv import load_dotenv
@@ -701,15 +702,7 @@ class DeepSeekFilterFrame(ctk.CTkFrame):
         self.controls = ctk.CTkFrame(self, fg_color="transparent")
         self.controls.grid(row=1, column=0, padx=20, pady=10, sticky="ew")
 
-        ctk.CTkLabel(self.controls, text="Fuente:", font=ctk.CTkFont(size=14)).pack(side="left", padx=(0,5))
-        self.fuente_var = ctk.StringVar(value="Todas")
-        self.fuente_combo = ctk.CTkComboBox(self.controls, variable=self.fuente_var, width=120)
-        self.fuente_combo.pack(side="left", padx=(0,10))
-
-        ctk.CTkLabel(self.controls, text="Fecha:", font=ctk.CTkFont(size=14)).pack(side="left", padx=(0,5))
-        self.fecha_var = ctk.StringVar(value="Todas")
-        self.fecha_combo = ctk.CTkComboBox(self.controls, variable=self.fecha_var, width=120)
-        self.fecha_combo.pack(side="left", padx=(0,20))
+        ctk.CTkLabel(self.controls, text="Evaluando directamente en Maestro de Productos", text_color="gray", font=ctk.CTkFont(size=12, slant="italic")).pack(side="left", padx=(0,20))
 
         self.api_entry = ctk.CTkEntry(self.controls, placeholder_text="Tu DeepSeek API Key", width=200, show="*")
         env_key = os.getenv("DEEPSEEK_API_KEY")
@@ -722,6 +715,9 @@ class DeepSeekFilterFrame(ctk.CTkFrame):
 
         self.btn_remove = ctk.CTkButton(self.controls, text="🗑️ Eliminar BD (Soft)", fg_color="#d32f2f", hover_color="#9a0007", font=ctk.CTkFont(weight="bold"), command=self.remove_selected)
         self.btn_remove.pack(side="right")
+        
+        self.status_label = ctk.CTkLabel(self.controls, text="", text_color="yellow", font=ctk.CTkFont(weight="bold"))
+        self.status_label.pack(side="right", padx=20)
 
         # Treeview list
         self.tree_frame = ctk.CTkFrame(self)
@@ -729,16 +725,16 @@ class DeepSeekFilterFrame(ctk.CTkFrame):
         self.tree_frame.grid_rowconfigure(0, weight=1)
         self.tree_frame.grid_columnconfigure(0, weight=1)
 
-        self.tree = ttk.Treeview(self.tree_frame, columns=("DB_ID", "Nombre", "Fuente", "Precio"), show="headings")
-        self.tree.heading("DB_ID", text="ID BD")
-        self.tree.heading("Nombre", text="Nombre del Producto")
-        self.tree.heading("Fuente", text="Fuente")
-        self.tree.heading("Precio", text="Precio")
+        self.tree = ttk.Treeview(self.tree_frame, columns=("DB_ID", "Nombre", "Marca", "Tipo"), show="headings")
+        self.tree.heading("DB_ID", text="ID Maestro")
+        self.tree.heading("Nombre", text="Nombre Estándar")
+        self.tree.heading("Marca", text="Marca Estándar")
+        self.tree.heading("Tipo", text="Tipo")
         
-        self.tree.column("DB_ID", width=80, anchor="center")
-        self.tree.column("Nombre", width=550)
-        self.tree.column("Fuente", width=100, anchor="center")
-        self.tree.column("Precio", width=100, anchor="e")
+        self.tree.column("DB_ID", width=150, anchor="center")
+        self.tree.column("Nombre", width=450)
+        self.tree.column("Marca", width=120, anchor="center")
+        self.tree.column("Tipo", width=110, anchor="center")
         self.tree.grid(row=0, column=0, sticky="nsew")
         
         scrollbar = ttk.Scrollbar(self.tree_frame, orient="vertical", command=self.tree.yview)
@@ -748,16 +744,7 @@ class DeepSeekFilterFrame(ctk.CTkFrame):
         self.false_positives = [] 
 
     def load_filters(self):
-        sources = ["Todas"] + database.get_available_sources()
-        dates = ["Todas"] + database.get_available_dates()
-        
-        self.fuente_combo.configure(values=sources)
-        if self.fuente_var.get() not in sources:
-            self.fuente_var.set("Todas")
-            
-        self.fecha_combo.configure(values=dates)
-        if self.fecha_var.get() not in dates:
-            self.fecha_var.set("Todas")
+        pass # Filtros removidos por uso directo de Maestro de Productos
 
     def detect(self):
         api_key = self.api_entry.get().strip()
@@ -766,21 +753,33 @@ class DeepSeekFilterFrame(ctk.CTkFrame):
             return
 
         self.btn_detect.configure(state="disabled")
-        fuente = self.fuente_var.get()
-        fecha = self.fecha_var.get()
-        threading.Thread(target=self._run_deepseek, args=(api_key, fuente, fecha), daemon=True).start()
+        threading.Thread(target=self._run_deepseek, args=(api_key,), daemon=True).start()
 
-    def _run_deepseek(self, api_key, fuente, fecha):
+    def _run_deepseek(self, api_key):
+        def set_status(text):
+            self.after(0, lambda: self.status_label.configure(text=text))
+            
         try:
-            df = database.get_normalized_data_as_dataframe(fuente=fuente, fecha=fecha)
+            set_status("Consultando Maestro de Productos...")
+            df = database.get_maestro_products()
+            # Filtrar los que ya están eliminados
+            if 'deleted' in df.columns:
+                df = df[df['deleted'] == 0]
+                
             if df.empty:
-                messagebox.showinfo("Info", "La base de datos está vacía para esa fuente.")
+                self.after(0, lambda: messagebox.showinfo("Info", "El Maestro de Productos está vacío."))
+                set_status("")
                 return
+
+            # Mapear las columnas para que la IA funcione
+            df.rename(columns={'codigo_universal': 'id', 'nombre_estandar': 'nombre', 'marca_estandar': 'marca', 'tipo_producto_estandar': 'tipo'}, inplace=True)
+            df = df.drop_duplicates(subset=['id'])
 
             try:
                 from openai import OpenAI
             except ImportError:
-                messagebox.showerror("Error", "Falta librería 'openai'")
+                self.after(0, lambda: messagebox.showerror("Error", "Falta librería 'openai'"))
+                set_status("")
                 return
                 
             client = OpenAI(api_key=api_key, base_url="https://api.deepseek.com")
@@ -793,16 +792,20 @@ Criterio:
 3. Si el producto es un Combo o Pack que INCLUYE una bebida alcohólica/tabaco/vape, NO es falso positivo.
 4. Un producto ES un FALSO POSITIVO (true) ÚNICAMENTE si se trata de un elemento no alcohólico/no tabaco por sí solo (ej. copas, vasos, baterías, hieleras, sodas, agua tónica, exprimidores, estuches vacíos, útiles, etc.).
 
-Recibirás un array JSON. Devuelve ÚNICAMENTE un array plano de enteros (IDs) con los 'db_id' de aquellos que sí son falsos positivos (true).
-Ejemplo de salida estricta: [1, 5, 22]
+Recibirás un array JSON. Devuelve ÚNICAMENTE un array plano de cadenas de texto (IDs) con los 'db_id' de aquellos que sí son falsos positivos (true).
+Ejemplo de salida estricta: ["id1", "id2", "id3"]
 Si ninguno es falso positivo, devuelve un array vacío: []"""
             
             chunk_size = 50
             fp_db_ids = []
+            total_chunks = len(df) // chunk_size + (1 if len(df) % chunk_size != 0 else 0)
             
             for i in range(0, len(df), chunk_size):
+                chunk_index = i // chunk_size + 1
+                set_status(f"Analizando bloque {chunk_index} de {total_chunks} con IA...")
+                
                 chunk_df = df.iloc[i:i+chunk_size]
-                chunk_data = [{"db_id": int(r['id']), "nombre": r['nombre']} for _, r in chunk_df.iterrows()]
+                chunk_data = [{"db_id": str(r['id']), "nombre": str(r['nombre'])} for _, r in chunk_df.iterrows()]
                 
                 max_retries = 3
                 for attempt in range(max_retries):
@@ -819,7 +822,7 @@ Si ninguno es falso positivo, devuelve un array vacío: []"""
                         text = text.replace("```json", "").replace("```", "").strip()
                         ids = json.loads(text)
                         if isinstance(ids, list):
-                            fp_db_ids.extend([int(x) for x in ids])
+                            fp_db_ids.extend([str(x) for x in ids])
                         break
                     except Exception as loop_e:
                         if attempt < max_retries - 1:
@@ -831,12 +834,14 @@ Si ninguno es falso positivo, devuelve un array vacío: []"""
                 time.sleep(0.5)
 
             self.false_positives = df[df['id'].isin(fp_db_ids)].to_dict('records')
-            self._update_tree()
+            set_status("¡Análisis completado!")
+            self.after(0, self._update_tree)
 
         except Exception as e:
-            messagebox.showerror("Error IA general", str(e))
+            self.after(0, lambda e=e: messagebox.showerror("Error IA general", str(e)))
+            set_status("")
         finally:
-            self.btn_detect.configure(state="normal")
+            self.after(0, lambda: self.btn_detect.configure(state="normal"))
 
     def _update_tree(self):
         for item in self.tree.get_children():
@@ -844,8 +849,9 @@ Si ninguno es falso positivo, devuelve un array vacío: []"""
         
         all_items = []
         for p in self.false_positives:
-            precio = f"${p['precio_final']/1000:,.0f}K" if pd.notnull(p['precio_final']) else "N/A"
-            item = self.tree.insert("", "end", values=(p['id'], p['nombre'], p['fuente'], precio))
+            marca = p['marca'] if pd.notnull(p['marca']) else "N/A"
+            tipo = p['tipo'] if pd.notnull(p['tipo']) else "N/A"
+            item = self.tree.insert("", "end", values=(p['id'], p['nombre'], marca, tipo))
             all_items.append(item)
             
         # Select all false positives by default so user can just hit delete

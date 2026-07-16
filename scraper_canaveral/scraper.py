@@ -71,6 +71,18 @@ class CanaveralScraper:
                                             sub_category = cat_match.group(1).upper()
                                         else:
                                             sub_category = category_name
+                                        
+                                        # Tipo de producto dinámico
+                                        sub_cat_lower = sub_category.lower()
+                                        cat_name_lower = category_name.lower()
+                                        if ("cigarrillo" in sub_cat_lower or "vapeador" in sub_cat_lower or "tabaco" in sub_cat_lower or "puros" in sub_cat_lower) or \
+                                           ("cigarrillo" in cat_name_lower or "vapeador" in cat_name_lower or "tabaco" in cat_name_lower or "puros" in cat_name_lower):
+                                            item_tipo_producto = "Tabaco"
+                                        elif ("pasaboca" in sub_cat_lower or "snack" in sub_cat_lower or "papas" in sub_cat_lower) or \
+                                             ("pasaboca" in cat_name_lower or "snack" in cat_name_lower or "papas" in cat_name_lower):
+                                            item_tipo_producto = "Ultraprocesados"
+                                        else:
+                                            item_tipo_producto = "Alcohol"
                                             
                                         new_products_found += 1
                                         
@@ -99,7 +111,7 @@ class CanaveralScraper:
                                             "Descripcion": "N/A",
                                             "Referencia": sku,
                                             "Categoria": sub_category,
-                                            "Tipo de Producto": tipo_producto,
+                                            "Tipo de Producto": item_tipo_producto,
                                             "Grados de alcohol": "N/A", 
                                             "Medida": medida_str,
                                             "Precio_Original": list_price, 
@@ -166,7 +178,17 @@ class CanaveralScraper:
 
 if __name__ == "__main__":
     scraper = CanaveralScraper()
-    # Test Licores
+    
     licores = scraper.fetch_products("https://www.domicilioscanaveral.com/ca/licores/03", "Licores", "Alcohol", max_pages=20)
-    scraper.save_to_csv(licores)
-    scraper.save_to_json(licores)
+    cigarrillos_1 = scraper.fetch_products("https://www.domicilioscanaveral.com/ca/licores/cigarrillos/03/0143", "Cigarrillos", "Tabaco", max_pages=10)
+    cigarrillos_2 = scraper.fetch_products("https://www.domicilioscanaveral.com/ca/licores/03?categories=CIGARRILLOS+Y+VAPEADORES", "Cigarrillos y Vapeadores", "Tabaco", max_pages=10)
+    
+    # Deduplicate by ID
+    all_products = {}
+    for item in licores + cigarrillos_1 + cigarrillos_2:
+        all_products[item["ID"]] = item
+        
+    final_list = list(all_products.values())
+    
+    scraper.save_to_csv(final_list)
+    scraper.save_to_json(final_list)
