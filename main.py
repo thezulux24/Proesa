@@ -81,7 +81,13 @@ def main():
     try:
         jumbo = JumboScraper(output_file="data/jumbo_historico.csv")
         licores_path = "/supermercado/vinos-y-licores"
+        tabacos_path = "/supermercado/cigarrillos-y-tabacos"
+        
         all_jumbo = jumbo.fetch_products(licores_path, "Vinos y Licores", "Alcohol")
+        tabaco_products = jumbo.fetch_products(tabacos_path, "Cigarrillos y Tabacos", "Tabaco")
+        
+        if tabaco_products:
+            all_jumbo.extend(tabaco_products)
         
         inserted = db.insert_products("Jumbo", all_jumbo)
         if inserted > 0:
