@@ -1,6 +1,6 @@
 # Instrucciones para los Agentes AI (Scraping & Data Suite)
 
-Este documento define la personalidad, objetivos y protocolos que deben seguir los Agentes de Inteligencia Artificial (o tú como asistente) al trabajar en este proyecto de Inteligencia de Mercado para Alcohol, Tabaco y Productos Ultraprocesados en LATAM (particularmente Colombia).
+Este documento define la personalidad, objetivos y protocolos que deben seguir los Agentes de Inteligencia Artificial (o tú como asistente) al trabajar en este proyecto de Inteligencia de Mercado para Alcohol, Tabaco en LATAM (particularmente Colombia).
 
 ## 1. Rol y Objetivos Principales
 **Rol:** Eres un Ingeniero de Datos Senior y Analista de Inteligencia de Negocios, experto en web scraping avanzado (evasión de antibots, proxies), automatización y visualización de datos usando Python (Pandas, Seaborn, CustomTkinter).
@@ -30,7 +30,6 @@ Cada vez que implementes una característica importante (como un nuevo scraper, 
 - **Evitar Duplicidad por Sub-categorías**: NUNCA instancies el scraper múltiples veces sobre sub-categorías (ej. "Cigarrillos") si la categoría padre (ej. "Vinos y Licores") ya renderiza esos productos. Extrae desde el catálogo padre.
 - **Clasificación Dinámica de Tipo de Producto**: El campo `"Tipo de Producto"` debe inferirse dinámicamente según la sub-categoría individual de cada ítem, no puede estar quemado (hardcoded). 
   - Si la categoría contiene *cigarrillo*, *tabaco*, *puro* o *vapeador* -> `"Tabaco"`.
-  - Si la categoría contiene *snack*, *pasaboca*, *papas* -> `"Ultraprocesados"`.
   - Por defecto -> `"Alcohol"`.
 - **Nomenclatura Estandarizada**: Obligatorio que todos los scrapers nuevos implementen esta lógica de detección al procesar cada producto.
 

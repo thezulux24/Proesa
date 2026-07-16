@@ -37,12 +37,12 @@ Para mantener la UI funcionando sin reescribir todo `suite_app.py`, `database.py
 
 ## 5. Notas de Contexto Recientes (Bitácora)
 - *2026-06-30:* Se actualizaron los requerimientos para migrar a PostgreSQL local, correr en el servidor Windows con 100GB RAM, implementar el monitoreo con alertas diarias por correo vía Resend, e incluir productos ultraprocesados.
-- **D1 (Next.js App Router / FastStore)**: `scraper_d1/scraper.py`
-  - Utiliza `requests` puro ya que su WAF (Cloudflare/VTEX) no bloquea peticiones estáticas estándar sin headers sospechosos, mientras que `AsyncDynamicSession` devolvía HTML vacío (posiblemente bloqueando la fingerprint).
-  - Los datos de los productos vienen embebidos en el payload RSC (React Server Components) en la etiqueta `<script>self.__next_f.push(...)`.
-  - La extracción se hace mediante *regex* y el parseo estructurado de las cadenas JSON dentro del payload `__next_f.push`.
-  - Las características clave, como `sku`, `name`, `price`, se extraen rompiendo la cadena JSON con `split('"sku":"')` y reconstruyendo las variables por producto.
-  - La lógica de paginación se da mediante paso por URL (`?page=2`).
+- **D1 (Migración a VTEX API)**: `scraper_d1/scraper.py`
+  - D1 actualizó su arquitectura de Next.js (FastStore RSC) a VTEX tradicional.
+  - La extracción ahora se hace consumiendo la API Catalog de VTEX (`/api/catalog_system/pub/products/search`).
+  - Se utiliza `scrapling-official` en modo HTTP ONLY (`FetcherSession`) para realizar las peticiones simulando un navegador Chrome, eludiendo antibots.
+  - VTEX presenta un comportamiento "engañoso" en sus conteos de categoría del frontend: el número que visualmente arrojan los filtros de categoría de la página incluye artículos con `Precio = 0` (Agotados / Inactivos en backend). El scraper filtra y descarta activamente estos productos mediante la condición `if price_final == 0: continue`, previniendo que contaminen los análisis estadísticos de PROESA.
+  - Para obtener todos los productos correctamente ante fallas de jerarquía de VTEX, se itera específicamente por las subcategorías finales (ej. `["7/66/", "7/67/", "7/68/", "7/69/"]` para Vinos, Licores, Cervezas y Cigarrillos) en lugar de la raíz `C:7`.
 - **Cañaveral**: `scraper_canaveral/scraper.py`
   - Utiliza la misma arquitectura Next.js / FastStore (RSC) que D1.
   - La extracción se hace limpiamente buscando las cadenas JSON dentro de `__next_f.push` del código fuente, lo que nos permite usar requests puro sin bloquearnos por antibots.

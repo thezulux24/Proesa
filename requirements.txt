@@ -4,9 +4,8 @@ matplotlib
 seaborn
 beautifulsoup4
 openai
-google-genai
 requests
-scrapling[all]
-psycopg2-binary==2.9.9
+scrapling[all]>=0.4.9
 resend==2.1.0
 python-dotenv==1.0.1
+openpyxl

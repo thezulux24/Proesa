@@ -98,13 +98,7 @@ def main():
     print("\n--- Ejecutando Scraper D1 ---")
     try:
         d1 = D1Scraper(output_file="data/d1_historico.csv")
-        licores_url = "https://domicilios.tiendasd1.com/ca/bebidas/BEBIDAS?categories=Vinos%7E%7ELicores%7E%7ECervezas"
-        tabacos_url = "https://domicilios.tiendasd1.com/ca/otros/cigarrillos/OTROS/CIGARRILLOS"
-        
-        p1 = d1.fetch_products(licores_url, "Vinos y Licores", "Alcohol")
-        p2 = d1.fetch_products(tabacos_url, "Cigarrillos y Tabacos", "Tabaco")
-        
-        all_d1 = p1 + p2
+        all_d1 = d1.fetch_products()
         inserted = db.insert_products("D1", all_d1)
         if inserted > 0:
             stats["D1"] = inserted
