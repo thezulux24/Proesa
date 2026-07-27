@@ -55,3 +55,9 @@ Para mantener la UI funcionando sin reescribir todo `suite_app.py`, `database.py
 - **Robustez del Orquestador y Alertas**:
   - `main.py` fue modificado para detectar "Fallos Silenciosos". Si un scraper termina sin errores de excepción pero devuelve 0 productos extraídos (Ej. Cloudflare bloquea la data pero devuelve un HTTP 200 con el HTML del captcha), el orquestador lo reclasifica como un Error Crítico y lo envía en la alerta.
   - El sistema de correos con **Resend** fue migrado a usar un Dominio Verificado (`bzuluaga.site`) enviando correos formales (sin emojis, con HTML estructurado) a múltiples destinatarios configurados dinámicamente en el `.env`.
+- **Reestructuración MDM e Integración INVIMA (`Anexo-2024.xlsx` y `PP24-7001-INVIMA.xlsx`)**:
+  - Se reestructuró la tabla `maestro_productos` en SQLite agregando las columnas `registro_sanitario_invima`, `codigo_unico_invima` y `nombre_invima`.
+  - Se creó `import_invima.py` y `import_new_invima.py` logrando acumular **10,972 registros sanitarios oficiales del INVIMA** (4,024 del Anexo 2024 PVPLVA + 6,948 nuevos del catálogo nacional unificado `PP24-7001-INVIMA.xlsx`).
+  - Se creó `seed_mdm_exito.py` para reiniciar y sembrar los 1,943 productos únicos de **Éxito** como la base inicial de la tabla maestra (112 clasificados como `N/A - TABACO`).
+  - Se creó `match_invima_deepseek.py` con la API de **DeepSeek AI** (`deepseek-v4-flash`), alcanzando **1,504 productos de licor emparejados con éxito (77.4% del catálogo maestro)** y **11,882 filas históricas normalizadas** vinculadas directamente a su Registro Sanitario.
+

@@ -71,11 +71,24 @@ class DataSuiteDB:
             subcategoria_estandar VARCHAR(100),
             volumen_estandar VARCHAR(100),
             grados_alcohol_estandar VARCHAR(50),
+            registro_sanitario_invima VARCHAR(200),
+            codigo_unico_invima VARCHAR(100),
+            nombre_invima TEXT,
             precio_original NUMERIC(12,2),
             precio_final NUMERIC(12,2),
             descuento_porcentaje VARCHAR(50),
             precio_unidad VARCHAR(50),
             url_producto TEXT
+        );
+        """
+        create_invima_query = """
+        CREATE TABLE IF NOT EXISTS invima_certificados (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nro INTEGER,
+            registro_sanitario VARCHAR(200),
+            codigo_unico VARCHAR(100),
+            nombre_bebida_alcoholica TEXT,
+            precio_referencia_750cc NUMERIC(12,2)
         );
         """
         try:
@@ -85,14 +98,33 @@ class DataSuiteDB:
                 cur.execute(create_maestro_query)
                 cur.execute(create_mapeo_query)
                 cur.execute(create_normalizado_query)
+                cur.execute(create_invima_query)
                 conn.commit()
                 
-                # Migración para la tabla maestra si ya existía sin la columna deleted
-                try:
-                    cur.execute("ALTER TABLE maestro_productos ADD COLUMN deleted INTEGER DEFAULT 0")
-                    conn.commit()
-                except Exception:
-                    pass # La columna ya existe
+                # Migración para la tabla maestra (nuevas columnas INVIMA)
+                for col in [
+                    ("deleted", "INTEGER DEFAULT 0"),
+                    ("registro_sanitario_invima", "VARCHAR(200)"),
+                    ("codigo_unico_invima", "VARCHAR(100)"),
+                    ("nombre_invima", "TEXT"),
+                    ("precio_referencia_invima", "NUMERIC(12,2)")
+                ]:
+                    try:
+                        cur.execute(f"ALTER TABLE maestro_productos ADD COLUMN {col[0]} {col[1]}")
+                        conn.commit()
+                    except Exception:
+                        pass # La columna ya existe
+
+                for col in [
+                    ("registro_sanitario_invima", "VARCHAR(200)"),
+                    ("codigo_unico_invima", "VARCHAR(100)"),
+                    ("nombre_invima", "TEXT")
+                ]:
+                    try:
+                        cur.execute(f"ALTER TABLE productos_normalizados ADD COLUMN {col[0]} {col[1]}")
+                        conn.commit()
+                    except Exception:
+                        pass
                     
                 print("Database tables initialized successfully.")
         except Exception as e:
@@ -296,13 +328,15 @@ def run_normalization_etl():
             INSERT INTO productos_normalizados (
                 fecha_extraccion, codigo_universal, comercio, nombre_estandar, 
                 marca_estandar, tipo_producto_estandar, subcategoria_estandar, 
-                volumen_estandar, grados_alcohol_estandar, precio_original, 
+                volumen_estandar, grados_alcohol_estandar, registro_sanitario_invima,
+                codigo_unico_invima, nombre_invima, precio_original, 
                 precio_final, descuento_porcentaje, precio_unidad, url_producto
             )
             SELECT 
                 h.fecha_extraccion, m.codigo_universal, h.comercio, 
                 mp.nombre_estandar, mp.marca_estandar, mp.tipo_producto_estandar, 
                 mp.subcategoria_estandar, mp.volumen_estandar, mp.grados_alcohol_estandar,
+                mp.registro_sanitario_invima, mp.codigo_unico_invima, mp.nombre_invima,
                 h.precio_original, h.precio_final, h.descuento_porcentaje, h.precio_unidad, h.url_producto
             FROM productos_historico h
             JOIN mapeo_productos m ON h.comercio = m.comercio AND h.producto_id = m.producto_id
