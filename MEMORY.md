@@ -58,6 +58,7 @@ Para mantener la UI funcionando sin reescribir todo `suite_app.py`, `database.py
 - **Reestructuración MDM e Integración INVIMA (`Anexo-2024.xlsx` y `PP24-7001-INVIMA.xlsx`)**:
   - Se reestructuró la tabla `maestro_productos` en SQLite agregando las columnas `registro_sanitario_invima`, `codigo_unico_invima` y `nombre_invima`.
   - Se creó `import_invima.py` y `import_new_invima.py` logrando acumular **10,972 registros sanitarios oficiales del INVIMA** (4,024 del Anexo 2024 PVPLVA + 6,948 nuevos del catálogo nacional unificado `PP24-7001-INVIMA.xlsx`).
-  - Se creó `seed_mdm_exito.py` para reiniciar y sembrar los 1,943 productos únicos de **Éxito** como la base inicial de la tabla maestra (112 clasificados como `N/A - TABACO`).
-  - Se creó `match_invima_deepseek.py` con la API de **DeepSeek AI** (`deepseek-v4-flash`), alcanzando **1,504 productos de licor emparejados con éxito (77.4% del catálogo maestro)** y **11,882 filas históricas normalizadas** vinculadas directamente a su Registro Sanitario.
+  - Se creó `seed_mdm_exito.py` para reiniciar y sembrar los productos únicos de **Éxito** como la base inicial de la tabla maestra (112 clasificados como `N/A - TABACO`).
+  - Se creó `match_invima_deepseek.py` con la API de **DeepSeek AI** (`deepseek-v4-flash`) e `import_manual_invima.py` para importación manual parcial desde Excel (trantando `-1` como Falso Positivo con `deleted = 1`).
+  - Se creó `match_multi_store_deepseek.py` para cruzar los productos sin mapear de **Cañaveral, Carulla, Jumbo, Olímpica, Makro, D1** contra los 1,936 productos maestros existentes con tolerancia CERO a falsos positivos (temperatura `0.0`, matching estricto de variante, empaque y volumen), alcanzando **2,695 productos unificados en MDM** y **23,475 lecturas de precios históricos normalizadas** en `productos_normalizados`.
 
