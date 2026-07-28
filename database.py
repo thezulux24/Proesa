@@ -1,11 +1,12 @@
 import os
 import datetime
 import sqlite3
+import pandas as pd
 from dotenv import load_dotenv
 
 class DataSuiteDB:
     def __init__(self, db_name="suite_data.db"):
-        load_dotenv() # Load from .env file
+        load_dotenv()
         self.db_name = db_name
         
     def get_connection(self):
@@ -88,6 +89,9 @@ class DataSuiteDB:
             registro_sanitario VARCHAR(200),
             codigo_unico VARCHAR(100),
             nombre_bebida_alcoholica TEXT,
+            marca VARCHAR(200),
+            clasificacion VARCHAR(200),
+            grados_alcohol VARCHAR(50),
             precio_referencia_750cc NUMERIC(12,2)
         );
         """
@@ -101,7 +105,6 @@ class DataSuiteDB:
                 cur.execute(create_invima_query)
                 conn.commit()
                 
-                # Migración para la tabla maestra (nuevas columnas INVIMA)
                 for col in [
                     ("deleted", "INTEGER DEFAULT 0"),
                     ("registro_sanitario_invima", "VARCHAR(200)"),
@@ -113,7 +116,7 @@ class DataSuiteDB:
                         cur.execute(f"ALTER TABLE maestro_productos ADD COLUMN {col[0]} {col[1]}")
                         conn.commit()
                     except Exception:
-                        pass # La columna ya existe
+                        pass
 
                 for col in [
                     ("registro_sanitario_invima", "VARCHAR(200)"),
@@ -126,16 +129,28 @@ class DataSuiteDB:
                     except Exception:
                         pass
                     
-                print("Database tables initialized successfully.")
+                for col in [
+                    ("grados_alcohol", "VARCHAR(50)"),
+                    ("marca", "VARCHAR(200)"),
+                    ("clasificacion", "VARCHAR(200)")
+                ]:
+                    try:
+                        cur.execute(f"ALTER TABLE invima_certificados ADD COLUMN {col[0]} {col[1]}")
+                        conn.commit()
+                    except Exception:
+                        pass
+
+                cur.execute("CREATE INDEX IF NOT EXISTS idx_norm_comercio ON productos_normalizados(comercio)")
+                cur.execute("CREATE INDEX IF NOT EXISTS idx_norm_fecha ON productos_normalizados(fecha_extraccion)")
+                cur.execute("CREATE INDEX IF NOT EXISTS idx_norm_codigo ON productos_normalizados(codigo_universal)")
+                cur.execute("CREATE INDEX IF NOT EXISTS idx_invima_reg ON invima_certificados(registro_sanitario)")
+                conn.commit()
+                
         except Exception as e:
             print(f"Error initializing DB: {e}")
             raise e
 
     def insert_products(self, comercio, products):
-        """
-        Inserts a list of product dictionaries into the database.
-        Uses executemany for bulk insertion.
-        """
         if not products:
             return 0
             
@@ -155,10 +170,8 @@ class DataSuiteDB:
             descuento_porcentaje = EXCLUDED.descuento_porcentaje;
         """
         
-        # Prepare the tuple list
         values = []
         for p in products:
-            # Handle possible string NULLs or N/A for numeric fields
             po = p.get('Precio_Original')
             pf = p.get('Precio_Final')
             
@@ -197,15 +210,14 @@ class DataSuiteDB:
             raise e
 
 # ==========================================
-# Funciones helper para suite_app.py
+# Funciones Helper para suite_app.py
 # ==========================================
-import pandas as pd
 
 def get_available_sources():
     db = DataSuiteDB()
     with db.get_connection() as conn:
         cur = conn.cursor()
-        cur.execute("SELECT DISTINCT comercio FROM productos_historico WHERE deleted = 0")
+        cur.execute("SELECT DISTINCT comercio FROM productos_historico WHERE deleted = 0 ORDER BY comercio")
         return [row[0] for row in cur.fetchall()]
 
 def get_available_dates():
@@ -215,44 +227,221 @@ def get_available_dates():
         cur.execute("SELECT DISTINCT fecha_extraccion FROM productos_historico WHERE deleted = 0 ORDER BY fecha_extraccion DESC")
         return [str(row[0]) for row in cur.fetchall()]
 
-def get_data_as_dataframe(fuente="Todas", fecha="Todas", tipo="Todos"):
+def get_available_subcategories():
     db = DataSuiteDB()
-    query = "SELECT * FROM productos_historico WHERE deleted = 0"
+    with db.get_connection() as conn:
+        cur = conn.cursor()
+        cur.execute("SELECT DISTINCT subcategoria_estandar FROM maestro_productos WHERE deleted = 0 AND subcategoria_estandar IS NOT NULL ORDER BY subcategoria_estandar")
+        res = [row[0] for row in cur.fetchall() if row[0]]
+        return ["Todas"] + res
+
+def get_available_categories():
+    db = DataSuiteDB()
+    with db.get_connection() as conn:
+        cur = conn.cursor()
+        cur.execute("SELECT DISTINCT categoria FROM productos_historico WHERE deleted = 0 AND categoria IS NOT NULL ORDER BY categoria")
+        res = [row[0] for row in cur.fetchall() if row[0]]
+        return ["Todas"] + res
+
+def get_data_as_dataframe(
+    fuente="Todas", 
+    fecha="Todas", 
+    tipo="Todos", 
+    categoria="Todas",
+    fecha_inicio=None, 
+    fecha_fin=None, 
+    search_term=None,
+    solo_descuento=False,
+    precio_min=None,
+    precio_max=None
+):
+    db = DataSuiteDB()
+    where_clauses = ["deleted = 0"]
     params = []
     
-    if fuente != "Todas":
-        query += " AND comercio = ?"
+    if fuente != "Todas" and fuente:
+        where_clauses.append("comercio = ?")
         params.append(fuente)
-    if fecha != "Todas":
-        query += " AND fecha_extraccion = ?"
+    if fecha != "Todas" and fecha and not (fecha_inicio or fecha_fin):
+        where_clauses.append("fecha_extraccion = ?")
         params.append(fecha)
-    if tipo != "Todos":
-        query += " AND tipo_producto = ?"
+    if fecha_inicio:
+        where_clauses.append("fecha_extraccion >= ?")
+        params.append(str(fecha_inicio))
+    if fecha_fin:
+        where_clauses.append("fecha_extraccion <= ?")
+        params.append(str(fecha_fin))
+    if tipo != "Todos" and tipo:
+        where_clauses.append("tipo_producto = ?")
         params.append(tipo)
+    if categoria != "Todas" and categoria:
+        where_clauses.append("categoria = ?")
+        params.append(categoria)
+    if search_term and search_term.strip():
+        term = f"%{search_term.strip()}%"
+        where_clauses.append("(nombre LIKE ? OR marca LIKE ? OR producto_id LIKE ?)")
+        params.extend([term, term, term])
+    if solo_descuento:
+        where_clauses.append("(descuento_porcentaje IS NOT NULL AND descuento_porcentaje != '' AND descuento_porcentaje != '0%' AND descuento_porcentaje != '0')")
+    if precio_min is not None:
+        where_clauses.append("precio_final >= ?")
+        params.append(precio_min)
+    if precio_max is not None:
+        where_clauses.append("precio_final <= ?")
+        params.append(precio_max)
         
+    where_sql = " AND ".join(where_clauses)
+    query = f"SELECT * FROM productos_historico WHERE {where_sql} ORDER BY id DESC"
+    
     with db.get_connection() as conn:
         df = pd.read_sql_query(query, conn, params=params)
     if not df.empty:
         df.rename(columns={'comercio': 'fuente', 'descuento_porcentaje': 'descuento'}, inplace=True)
     return df
 
-def get_normalized_data_as_dataframe(fuente="Todas", fecha="Todas"):
+def get_normalized_data_paginated(
+    fuente="Todas", 
+    fecha="Todas", 
+    tipo="Todos",
+    subcategoria="Todas",
+    estado_invima="Todos",
+    fecha_inicio=None, 
+    fecha_fin=None, 
+    search_term=None, 
+    solo_descuento=False,
+    precio_min=None,
+    precio_max=None,
+    limit=200, 
+    offset=0
+):
     db = DataSuiteDB()
-    query = "SELECT * FROM productos_normalizados WHERE 1=1"
+    where_clauses = ["1=1"]
     params = []
     
-    if fuente != "Todas":
-        query += " AND comercio = ?"
+    if fuente != "Todas" and fuente:
+        where_clauses.append("comercio = ?")
         params.append(fuente)
-    if fecha != "Todas":
-        query += " AND fecha_extraccion = ?"
+    if fecha != "Todas" and fecha and not (fecha_inicio or fecha_fin):
+        where_clauses.append("fecha_extraccion = ?")
         params.append(fecha)
+    if fecha_inicio:
+        where_clauses.append("fecha_extraccion >= ?")
+        params.append(str(fecha_inicio))
+    if fecha_fin:
+        where_clauses.append("fecha_extraccion <= ?")
+        params.append(str(fecha_fin))
+    if tipo != "Todos" and tipo:
+        where_clauses.append("tipo_producto_estandar = ?")
+        params.append(tipo)
+    if subcategoria != "Todas" and subcategoria:
+        where_clauses.append("subcategoria_estandar = ?")
+        params.append(subcategoria)
+    if estado_invima == "Ligados":
+        where_clauses.append("(registro_sanitario_invima LIKE 'INVIMA%' OR registro_sanitario_invima LIKE 'L-%' OR registro_sanitario_invima LIKE 'RSA-%')")
+    elif estado_invima == "Sin Registro":
+        where_clauses.append("(registro_sanitario_invima = 'SIN_REGISTRO_ENCONTRADO' OR registro_sanitario_invima IS NULL OR registro_sanitario_invima = '')")
+    elif estado_invima == "Tabaco":
+        where_clauses.append("registro_sanitario_invima = 'N/A - TABACO'")
+    elif estado_invima == "No Aplica":
+        where_clauses.append("(registro_sanitario_invima = 'NO_APLICA' OR registro_sanitario_invima LIKE 'FALSO_POSITIVO%')")
         
+    if search_term and search_term.strip():
+        term = f"%{search_term.strip()}%"
+        where_clauses.append("(codigo_universal LIKE ? OR nombre_estandar LIKE ? OR marca_estandar LIKE ? OR registro_sanitario_invima LIKE ? OR codigo_unico_invima LIKE ?)")
+        params.extend([term, term, term, term, term])
+    if solo_descuento:
+        where_clauses.append("(descuento_porcentaje IS NOT NULL AND descuento_porcentaje != '' AND descuento_porcentaje != '0%' AND descuento_porcentaje != '0')")
+    if precio_min is not None:
+        where_clauses.append("precio_final >= ?")
+        params.append(precio_min)
+    if precio_max is not None:
+        where_clauses.append("precio_final <= ?")
+        params.append(precio_max)
+
+    where_sql = " AND ".join(where_clauses)
+    count_sql = f"SELECT COUNT(*) FROM productos_normalizados WHERE {where_sql}"
+    data_sql = f"SELECT * FROM productos_normalizados WHERE {where_sql} ORDER BY id DESC LIMIT ? OFFSET ?"
+    
+    with db.get_connection() as conn:
+        cur = conn.cursor()
+        cur.execute(count_sql, params)
+        total_count = cur.fetchone()[0]
+        
+        df = pd.read_sql_query(data_sql, conn, params=params + [limit, offset])
+        if not df.empty:
+            df.drop(columns=['id'], inplace=True, errors='ignore')
+            df.rename(columns={'comercio': 'fuente', 'descuento_porcentaje': 'descuento', 'nombre_estandar': 'nombre', 'codigo_universal': 'id'}, inplace=True)
+            
+    return df, total_count
+
+def get_normalized_data_as_dataframe(
+    fuente="Todas", 
+    fecha="Todas", 
+    tipo="Todos",
+    subcategoria="Todas",
+    estado_invima="Todos",
+    fecha_inicio=None, 
+    fecha_fin=None, 
+    search_term=None, 
+    solo_descuento=False,
+    precio_min=None,
+    precio_max=None,
+    ignore_zero_prices=True
+):
+    db = DataSuiteDB()
+    where_clauses = ["1=1"]
+    params = []
+    
+    if fuente != "Todas" and fuente:
+        where_clauses.append("comercio = ?")
+        params.append(fuente)
+    if fecha != "Todas" and fecha and not (fecha_inicio or fecha_fin):
+        where_clauses.append("fecha_extraccion = ?")
+        params.append(fecha)
+    if fecha_inicio:
+        where_clauses.append("fecha_extraccion >= ?")
+        params.append(str(fecha_inicio))
+    if fecha_fin:
+        where_clauses.append("fecha_extraccion <= ?")
+        params.append(str(fecha_fin))
+    if tipo != "Todos" and tipo:
+        where_clauses.append("tipo_producto_estandar = ?")
+        params.append(tipo)
+    if subcategoria != "Todas" and subcategoria:
+        where_clauses.append("subcategoria_estandar = ?")
+        params.append(subcategoria)
+    if estado_invima == "Ligados":
+        where_clauses.append("(registro_sanitario_invima LIKE 'INVIMA%' OR registro_sanitario_invima LIKE 'L-%' OR registro_sanitario_invima LIKE 'RSA-%')")
+    elif estado_invima == "Sin Registro":
+        where_clauses.append("(registro_sanitario_invima = 'SIN_REGISTRO_ENCONTRADO' OR registro_sanitario_invima IS NULL OR registro_sanitario_invima = '')")
+    elif estado_invima == "Tabaco":
+        where_clauses.append("registro_sanitario_invima = 'N/A - TABACO'")
+    elif estado_invima == "No Aplica":
+        where_clauses.append("(registro_sanitario_invima = 'NO_APLICA' OR registro_sanitario_invima LIKE 'FALSO_POSITIVO%')")
+
+    if search_term and search_term.strip():
+        term = f"%{search_term.strip()}%"
+        where_clauses.append("(codigo_universal LIKE ? OR nombre_estandar LIKE ? OR marca_estandar LIKE ? OR registro_sanitario_invima LIKE ?)")
+        params.extend([term, term, term, term])
+    if solo_descuento:
+        where_clauses.append("(descuento_porcentaje IS NOT NULL AND descuento_porcentaje != '' AND descuento_porcentaje != '0%' AND descuento_porcentaje != '0')")
+    if precio_min is not None:
+        where_clauses.append("precio_final >= ?")
+        params.append(precio_min)
+    if precio_max is not None:
+        where_clauses.append("precio_final <= ?")
+        params.append(precio_max)
+    if ignore_zero_prices:
+        where_clauses.append("precio_final > 0 AND precio_final IS NOT NULL")
+        
+    where_sql = " AND ".join(where_clauses)
+    query = f"SELECT * FROM productos_normalizados WHERE {where_sql}"
+    
     with db.get_connection() as conn:
         df = pd.read_sql_query(query, conn, params=params)
         if not df.empty:
             df.drop(columns=['id'], inplace=True, errors='ignore')
-            df.rename(columns={'comercio': 'fuente', 'descuento_porcentaje': 'descuento', 'nombre_estandar': 'nombre', 'precio_final': 'precio_final', 'codigo_universal': 'id'}, inplace=True)
+            df.rename(columns={'comercio': 'fuente', 'descuento_porcentaje': 'descuento', 'nombre_estandar': 'nombre', 'codigo_universal': 'id'}, inplace=True)
         return df
 
 def delete_false_positive(codigo_universal):
@@ -260,38 +449,162 @@ def delete_false_positive(codigo_universal):
     with db.get_connection() as conn:
         cur = conn.cursor()
         cur.execute("UPDATE maestro_productos SET deleted = 1 WHERE codigo_universal = ?", (codigo_universal,))
+        cur.execute("""
+            UPDATE productos_historico
+            SET deleted = 1
+            WHERE (comercio, producto_id) IN (
+                SELECT comercio, producto_id FROM mapeo_productos WHERE codigo_universal = ?
+            )
+        """, (codigo_universal,))
         conn.commit()
+    run_normalization_etl()
 
-if __name__ == '__main__':
-    # Quick test initialization
+def get_unmapped_products(fuente="Todas", tipo="Todos", search_term=None):
     db = DataSuiteDB()
-    # db.init_db() # Uncomment when credentials are set
-
-# ==========================================
-# Funciones helper para MDM (Normalización)
-# ==========================================
-import uuid
-
-def get_unmapped_products():
-    db = DataSuiteDB()
-    query = """
+    where_clauses = ["m.codigo_universal IS NULL AND h.deleted = 0"]
+    params = []
+    
+    if fuente != "Todas" and fuente:
+        where_clauses.append("h.comercio = ?")
+        params.append(fuente)
+    if tipo != "Todos" and tipo:
+        where_clauses.append("h.tipo_producto = ?")
+        params.append(tipo)
+    if search_term and search_term.strip():
+        term = f"%{search_term.strip()}%"
+        where_clauses.append("(h.nombre LIKE ? OR h.marca LIKE ? OR h.producto_id LIKE ?)")
+        params.extend([term, term, term])
+        
+    where_sql = " AND ".join(where_clauses)
+    query = f"""
         SELECT DISTINCT h.comercio, h.producto_id, h.nombre, h.marca, h.tipo_producto, h.grados_alcohol, h.medida
         FROM productos_historico h
         LEFT JOIN mapeo_productos m ON h.comercio = m.comercio AND h.producto_id = m.producto_id
-        WHERE m.codigo_universal IS NULL AND h.deleted = 0
+        WHERE {where_sql}
+        ORDER BY h.nombre
     """
     with db.get_connection() as conn:
-        return pd.read_sql_query(query, conn)
+        return pd.read_sql_query(query, conn, params=params)
 
-def get_maestro_products():
+def get_maestro_products(tipo="Todos", subcategoria="Todas", search_term=None):
     db = DataSuiteDB()
-    query = "SELECT * FROM maestro_productos"
+    where_clauses = ["deleted = 0"]
+    params = []
+    
+    if tipo != "Todos" and tipo:
+        where_clauses.append("tipo_producto_estandar = ?")
+        params.append(tipo)
+    if subcategoria != "Todas" and subcategoria:
+        where_clauses.append("subcategoria_estandar = ?")
+        params.append(subcategoria)
+    if search_term and search_term.strip():
+        term = f"%{search_term.strip()}%"
+        where_clauses.append("(codigo_universal LIKE ? OR nombre_estandar LIKE ? OR marca_estandar LIKE ?)")
+        params.extend([term, term, term])
+        
+    where_sql = " AND ".join(where_clauses)
+    query = f"SELECT * FROM maestro_productos WHERE {where_sql} ORDER BY codigo_universal"
     with db.get_connection() as conn:
-        return pd.read_sql_query(query, conn)
+        return pd.read_sql_query(query, conn, params=params)
+
+def get_maestro_products_invima(filter_type="Todos", tipo="Todos", subcategoria="Todas", search_term=None):
+    db = DataSuiteDB()
+    query = "SELECT * FROM maestro_productos WHERE deleted = 0"
+    params = []
+    
+    if filter_type == "Ligados":
+        query += " AND (registro_sanitario_invima LIKE 'INVIMA%' OR registro_sanitario_invima LIKE 'L-%' OR registro_sanitario_invima LIKE 'RSA-%')"
+    elif filter_type == "Sin Registro":
+        query += " AND (registro_sanitario_invima = 'SIN_REGISTRO_ENCONTRADO' OR registro_sanitario_invima IS NULL OR registro_sanitario_invima = '')"
+    elif filter_type == "Tabaco":
+        query += " AND registro_sanitario_invima = 'N/A - TABACO'"
+    elif filter_type == "No Aplica":
+        query += " AND (registro_sanitario_invima = 'NO_APLICA' OR registro_sanitario_invima LIKE 'FALSO_POSITIVO%')"
+
+    if tipo != "Todos" and tipo:
+        query += " AND tipo_producto_estandar = ?"
+        params.append(tipo)
+    if subcategoria != "Todas" and subcategoria:
+        query += " AND subcategoria_estandar = ?"
+        params.append(subcategoria)
+
+    if search_term and search_term.strip():
+        term = f"%{search_term.strip()}%"
+        query += " AND (codigo_universal LIKE ? OR nombre_estandar LIKE ? OR marca_estandar LIKE ? OR registro_sanitario_invima LIKE ? OR nombre_invima LIKE ?)"
+        params.extend([term, term, term, term, term])
+        
+    query += " ORDER BY marca_estandar, nombre_estandar"
+    with db.get_connection() as conn:
+        return pd.read_sql_query(query, conn, params=params)
+
+def update_master_invima_code(codigo_universal, new_invima_code):
+    new_invima_code = new_invima_code.strip() if new_invima_code else ""
+    db = DataSuiteDB()
+    with db.get_connection() as conn:
+        cur = conn.cursor()
+        
+        cur.execute("""
+            SELECT registro_sanitario, codigo_unico, nombre_bebida_alcoholica 
+            FROM invima_certificados 
+            WHERE UPPER(registro_sanitario) LIKE ? OR UPPER(registro_sanitario) LIKE ?
+        """, (f"%{new_invima_code.upper()}%", f"%{new_invima_code.upper().replace('INVIMA', '').strip()}%"))
+        found = cur.fetchone()
+        
+        if found:
+            cur.execute("""
+                UPDATE maestro_productos
+                SET registro_sanitario_invima = ?,
+                    codigo_unico_invima = ?,
+                    nombre_invima = ?
+                WHERE codigo_universal = ?
+            """, (found[0], found[1], str(found[2]) if found[2] else "", codigo_universal))
+        else:
+            cur.execute("""
+                UPDATE maestro_productos
+                SET registro_sanitario_invima = ?,
+                    codigo_unico_invima = NULL,
+                    nombre_invima = 'ASIGNACION_MANUAL'
+                WHERE codigo_universal = ?
+            """, (new_invima_code, codigo_universal))
+            
+        conn.commit()
+    run_normalization_etl()
+
+def get_invima_certificados(search_term=None, limit=200, offset=0):
+    db = DataSuiteDB()
+    where_sql = "1=1"
+    params = []
+    
+    if search_term and search_term.strip():
+        term = f"%{search_term.strip()}%"
+        where_sql += " AND (registro_sanitario LIKE ? OR nombre_bebida_alcoholica LIKE ? OR marca LIKE ? OR codigo_unico LIKE ?)"
+        params.extend([term, term, term, term])
+
+    count_sql = f"SELECT COUNT(*) FROM invima_certificados WHERE {where_sql}"
+    data_sql = f"SELECT * FROM invima_certificados WHERE {where_sql} ORDER BY id DESC LIMIT ? OFFSET ?"
+    
+    with db.get_connection() as conn:
+        cur = conn.cursor()
+        cur.execute(count_sql, params)
+        total_count = cur.fetchone()[0]
+        
+        df = pd.read_sql_query(data_sql, conn, params=params + [limit, offset])
+        
+    return df, total_count
+
+def add_invima_certificado(registro_sanitario, codigo_unico, nombre, marca, clasificacion, grados_alcohol):
+    db = DataSuiteDB()
+    with db.get_connection() as conn:
+        cur = conn.cursor()
+        cur.execute("""
+            INSERT INTO invima_certificados (registro_sanitario, codigo_unico, nombre_bebida_alcoholica, marca, clasificacion, grados_alcohol)
+            VALUES (?, ?, ?, ?, ?, ?)
+        """, (registro_sanitario.strip(), codigo_unico.strip(), nombre.strip(), marca.strip(), clasificacion.strip(), grados_alcohol.strip()))
+        conn.commit()
 
 def add_to_maestro(nombre, marca, tipo, subcategoria, volumen, grados, codigo_universal=None):
     if not codigo_universal:
-        # Generate a standard ID or UUID
+        import uuid
         codigo_universal = "PRD-" + str(uuid.uuid4()).split('-')[0].upper()
     
     db = DataSuiteDB()
@@ -320,10 +633,8 @@ def run_normalization_etl():
     db = DataSuiteDB()
     with db.get_connection() as conn:
         cur = conn.cursor()
-        # Vaciamos la tabla de normalizados
         cur.execute("DELETE FROM productos_normalizados")
         
-        # Insertamos cruzando crudo con mapeo y maestro
         insert_query = """
             INSERT INTO productos_normalizados (
                 fecha_extraccion, codigo_universal, comercio, nombre_estandar, 
