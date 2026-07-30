@@ -13,14 +13,61 @@ import seaborn as sns
 import matplotlib.ticker as ticker
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import time
+from PIL import Image
 from dotenv import load_dotenv
 
 import database
 
 load_dotenv()
 
-ctk.set_appearance_mode("Dark")
+# Modo inicial claro
+ctk.set_appearance_mode("Light")
 ctk.set_default_color_theme("blue")
+
+def configure_treeview_style(mode="Light"):
+    style = ttk.Style()
+    style.theme_use("clam")
+    
+    if mode == "Light":
+        bg_color = "#ffffff"
+        fg_color = "#0f172a"
+        heading_bg = "#e2e8f0"
+        heading_fg = "#0f172a"
+        select_bg = "#2563eb"
+        select_fg = "#ffffff"
+        border_color = "#cbd5e1"
+    else:
+        bg_color = "#1f2937"
+        fg_color = "#f9fafb"
+        heading_bg = "#374151"
+        heading_fg = "#f9fafb"
+        select_bg = "#2563eb"
+        select_fg = "#ffffff"
+        border_color = "#374151"
+
+    style.configure("Treeview",
+                    background=bg_color,
+                    foreground=fg_color,
+                    fieldbackground=bg_color,
+                    rowheight=26,
+                    font=("Segoe UI", 10),
+                    borderwidth=0)
+    
+    style.configure("Treeview.Heading",
+                    background=heading_bg,
+                    foreground=heading_fg,
+                    font=("Segoe UI", 10, "bold"),
+                    borderwidth=1,
+                    relief="flat")
+    
+    style.map("Treeview",
+              background=[("selected", select_bg)],
+              foreground=[("selected", select_fg)])
+    
+    style.map("Treeview.Heading",
+              background=[("active", select_bg)],
+              foreground=[("active", "#ffffff")])
+
 
 def export_dataframe_dialog(df, default_filename="export_data"):
     if df is None or df.empty:
@@ -125,7 +172,7 @@ class AssignInvimaModal(ctk.CTkToplevel):
         else:
             info_text = f"Se actualizarán {len(self.selected_items)} productos maestros seleccionados simultáneamente."
 
-        card_info = ctk.CTkFrame(self, fg_color="#1f2937", corner_radius=8)
+        card_info = ctk.CTkFrame(self, fg_color=("#e2e8f0", "#1f2937"), corner_radius=8)
         card_info.pack(fill="x", padx=25, pady=10)
         ctk.CTkLabel(card_info, text=info_text, font=ctk.CTkFont(size=12), justify="left", wraplength=500).pack(padx=15, pady=12, anchor="w")
 
@@ -139,10 +186,10 @@ class AssignInvimaModal(ctk.CTkToplevel):
         self.entry_invima.pack(fill="x")
         self.entry_invima.bind("<KeyRelease>", self.on_invima_key_release)
 
-        self.preview_frame = ctk.CTkFrame(self, fg_color="#111827", corner_radius=8)
+        self.preview_frame = ctk.CTkFrame(self, fg_color=("#f1f5f9", "#111827"), corner_radius=8)
         self.preview_frame.pack(fill="both", expand=True, padx=25, pady=10)
 
-        ctk.CTkLabel(self.preview_frame, text="Coincidencia en Catálogo Oficial Certificado:", font=ctk.CTkFont(size=12, weight="bold"), text_color="#9ca3af").pack(anchor="w", padx=12, pady=(10, 4))
+        ctk.CTkLabel(self.preview_frame, text="Coincidencia en Catálogo Oficial Certificado:", font=ctk.CTkFont(size=12, weight="bold"), text_color=("#475569", "#9ca3af")).pack(anchor="w", padx=12, pady=(10, 4))
         self.lbl_preview = ctk.CTkLabel(self.preview_frame, text="Escribe un código arriba para validar en el catálogo oficial...", font=ctk.CTkFont(size=11, slant="italic"), text_color="#6b7280", justify="left", wraplength=500)
         self.lbl_preview.pack(anchor="w", padx=12, pady=(0, 10))
 
@@ -175,7 +222,7 @@ class AssignInvimaModal(ctk.CTkToplevel):
             self.lbl_preview.configure(text=txt, text_color="#10b981")
         else:
             txt = f"⚠ No se encontró coincidencia exacta en el catálogo oficial certificado.\nSe guardará como asignación personalizada o pendiente."
-            self.lbl_preview.configure(text=txt, text_color="#f59e0b")
+            self.lbl_preview.configure(text=txt, text_color="#d97706")
 
     def save(self):
         new_val = self.entry_invima.get().strip()
@@ -202,20 +249,34 @@ class DataSuiteApp(ctk.CTk):
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(1, weight=1)
 
-        self.sidebar_frame = ctk.CTkFrame(self, width=230, corner_radius=0, fg_color="#111827")
+        # Cargar estilos de Treeview iniciales (modo Claro)
+        configure_treeview_style("Light")
+
+        self.sidebar_frame = ctk.CTkFrame(self, width=230, corner_radius=0, fg_color=("#e2e8f0", "#111827"))
         self.sidebar_frame.grid(row=0, column=0, sticky="nsew")
         self.sidebar_frame.grid_rowconfigure(7, weight=1)
 
-        self.logo_label = ctk.CTkLabel(self.sidebar_frame, text="Suite Data PROESA", font=ctk.CTkFont(size=20, weight="bold"), text_color="#f9fafb")
-        self.logo_label.grid(row=0, column=0, padx=20, pady=(25, 20))
+        # Cargar e insertar Logo oficial
+        logo_path = os.path.join(os.path.dirname(__file__), "logo.webp")
+        if os.path.exists(logo_path):
+            try:
+                pil_logo = Image.open(logo_path)
+                self.logo_image = ctk.CTkImage(light_image=pil_logo, dark_image=pil_logo, size=(195, 75))
+                self.logo_label = ctk.CTkLabel(self.sidebar_frame, image=self.logo_image, text="")
+            except Exception:
+                self.logo_label = ctk.CTkLabel(self.sidebar_frame, text="Suite Data PROESA", font=ctk.CTkFont(size=20, weight="bold"))
+        else:
+            self.logo_label = ctk.CTkLabel(self.sidebar_frame, text="Suite Data PROESA", font=ctk.CTkFont(size=20, weight="bold"))
+            
+        self.logo_label.grid(row=0, column=0, padx=15, pady=(20, 15))
 
         btn_kwargs = {
             "font": ctk.CTkFont(size=14),
             "height": 42,
             "anchor": "w",
             "fg_color": "transparent",
-            "text_color": "#d1d5db",
-            "hover_color": "#1f2937"
+            "text_color": ("#1e293b", "#d1d5db"),
+            "hover_color": ("#cbd5e1", "#1f2937")
         }
 
         self.btn_extraccion = ctk.CTkButton(self.sidebar_frame, text=" Módulo Extracción", command=self.show_extraccion, **btn_kwargs)
@@ -233,6 +294,16 @@ class DataSuiteApp(ctk.CTk):
         self.btn_standardization = ctk.CTkButton(self.sidebar_frame, text=" Estandarización Data", command=self.show_standardization, **btn_kwargs)
         self.btn_standardization.grid(row=5, column=0, padx=15, pady=4, sticky="ew")
 
+        # Botón de Conmutación de Modo Claro / Oscuro
+        self.switch_theme = ctk.CTkSwitch(
+            self.sidebar_frame, 
+            text="Modo Oscuro", 
+            command=self.toggle_theme,
+            font=ctk.CTkFont(size=13, weight="bold"),
+            progress_color="#2563eb"
+        )
+        self.switch_theme.grid(row=7, column=0, padx=20, pady=(20, 25), sticky="s")
+
         # Frame instances
         self.frame_extraccion = ExtraccionFrame(self)
         self.frame_viewer = DataViewerFrame(self)
@@ -241,6 +312,17 @@ class DataSuiteApp(ctk.CTk):
         self.frame_standardization = UnifiedStandardizationFrame(self)
 
         self.show_norm_viewer()
+
+    def toggle_theme(self):
+        if self.switch_theme.get() == 1:
+            ctk.set_appearance_mode("Dark")
+            configure_treeview_style("Dark")
+        else:
+            ctk.set_appearance_mode("Light")
+            configure_treeview_style("Light")
+            
+        if hasattr(self, 'frame_analysis'):
+            self.frame_analysis.update_plot()
 
     def hide_all_frames(self):
         self.frame_extraccion.grid_forget()
@@ -251,7 +333,7 @@ class DataSuiteApp(ctk.CTk):
 
         for btn in [self.btn_extraccion, self.btn_viewer, self.btn_norm_viewer, self.btn_analysis,
                     self.btn_standardization]:
-            btn.configure(fg_color="transparent", text_color="#d1d5db")
+            btn.configure(fg_color="transparent", text_color=("#1e293b", "#d1d5db"))
 
     def _activate_button(self, button):
         button.configure(fg_color="#2563eb", text_color="#ffffff")
@@ -355,7 +437,7 @@ class DataViewerFrame(ctk.CTkFrame):
         self.fecha_inicio = None
         self.fecha_fin = None
 
-        self.filters_container = ctk.CTkFrame(self, fg_color="#1f2937", corner_radius=8)
+        self.filters_container = ctk.CTkFrame(self, fg_color=("#e2e8f0", "#1f2937"), corner_radius=8)
         self.filters_container.grid(row=1, column=0, padx=20, pady=5, sticky="ew")
 
         row1 = ctk.CTkFrame(self.filters_container, fg_color="transparent")
@@ -376,10 +458,10 @@ class DataViewerFrame(ctk.CTkFrame):
         self.cat_combo = ctk.CTkComboBox(row1, variable=self.cat_var, command=self.update_data, width=140)
         self.cat_combo.pack(side="left", padx=5)
 
-        self.btn_range = ctk.CTkButton(row1, text="Rango Fechas", fg_color="#374151", hover_color="#4b5563", width=110, command=self.open_date_modal)
+        self.btn_range = ctk.CTkButton(row1, text="Rango Fechas", fg_color=("#cbd5e1", "#374151"), hover_color=("#94a3b8", "#4b5563"), text_color=("#0f172a", "#f9fafb"), width=110, command=self.open_date_modal)
         self.btn_range.pack(side="left", padx=10)
 
-        self.lbl_range_info = ctk.CTkLabel(row1, text="Todas las fechas", text_color="#9ca3af", font=ctk.CTkFont(size=11, slant="italic"))
+        self.lbl_range_info = ctk.CTkLabel(row1, text="Todas las fechas", text_color=("#64748b", "#9ca3af"), font=ctk.CTkFont(size=11, slant="italic"))
         self.lbl_range_info.pack(side="left", padx=2)
 
         row2 = ctk.CTkFrame(self.filters_container, fg_color="transparent")
@@ -550,7 +632,7 @@ class NormalizedViewerFrame(ctk.CTkFrame):
         self.fecha_inicio = None
         self.fecha_fin = None
 
-        self.filters_container = ctk.CTkFrame(self, fg_color="#1f2937", corner_radius=8)
+        self.filters_container = ctk.CTkFrame(self, fg_color=("#e2e8f0", "#1f2937"), corner_radius=8)
         self.filters_container.grid(row=1, column=0, padx=20, pady=5, sticky="ew")
 
         row1 = ctk.CTkFrame(self.filters_container, fg_color="transparent")
@@ -576,10 +658,10 @@ class NormalizedViewerFrame(ctk.CTkFrame):
         self.invima_status_combo = ctk.CTkComboBox(row1, variable=self.invima_status_var, values=["Todos", "Ligados", "Sin Registro", "Tabaco", "No Aplica"], command=self.on_filter_changed, width=120)
         self.invima_status_combo.pack(side="left", padx=4)
 
-        self.btn_range = ctk.CTkButton(row1, text="Rango Fechas", fg_color="#374151", hover_color="#4b5563", width=100, command=self.open_date_modal)
+        self.btn_range = ctk.CTkButton(row1, text="Rango Fechas", fg_color=("#cbd5e1", "#374151"), hover_color=("#94a3b8", "#4b5563"), text_color=("#0f172a", "#f9fafb"), width=100, command=self.open_date_modal)
         self.btn_range.pack(side="left", padx=8)
 
-        self.lbl_range_info = ctk.CTkLabel(row1, text="Todas las fechas", text_color="#9ca3af", font=ctk.CTkFont(size=11, slant="italic"))
+        self.lbl_range_info = ctk.CTkLabel(row1, text="Todas las fechas", text_color=("#64748b", "#9ca3af"), font=ctk.CTkFont(size=11, slant="italic"))
         self.lbl_range_info.pack(side="left", padx=2)
 
         row2 = ctk.CTkFrame(self.filters_container, fg_color="transparent")
@@ -794,7 +876,7 @@ class UnifiedAnalysisFrame(ctk.CTkFrame):
         self.fecha_fin = None
         self.selected_product = None
 
-        self.filters_container = ctk.CTkFrame(self, fg_color="#1f2937", corner_radius=8)
+        self.filters_container = ctk.CTkFrame(self, fg_color=("#e2e8f0", "#1f2937"), corner_radius=8)
         self.filters_container.grid(row=1, column=0, padx=20, pady=10, sticky="ew")
 
         row1 = ctk.CTkFrame(self.filters_container, fg_color="transparent")
@@ -815,10 +897,10 @@ class UnifiedAnalysisFrame(ctk.CTkFrame):
         self.subcat_combo = ctk.CTkComboBox(row1, variable=self.subcat_var, command=self.update_data, width=130)
         self.subcat_combo.pack(side="left", padx=4)
 
-        self.btn_range = ctk.CTkButton(row1, text="Rango Fechas", fg_color="#374151", hover_color="#4b5563", width=100, command=self.open_date_modal)
+        self.btn_range = ctk.CTkButton(row1, text="Rango Fechas", fg_color=("#cbd5e1", "#374151"), hover_color=("#94a3b8", "#4b5563"), text_color=("#0f172a", "#f9fafb"), width=100, command=self.open_date_modal)
         self.btn_range.pack(side="left", padx=6)
 
-        self.lbl_range_info = ctk.CTkLabel(row1, text="Todas las fechas", text_color="#9ca3af", font=ctk.CTkFont(size=11, slant="italic"))
+        self.lbl_range_info = ctk.CTkLabel(row1, text="Todas las fechas", text_color=("#64748b", "#9ca3af"), font=ctk.CTkFont(size=11, slant="italic"))
         self.lbl_range_info.pack(side="left", padx=2)
 
         self.btn_choose_prod = ctk.CTkButton(row1, text="Elegir Producto", fg_color="#2563eb", hover_color="#1d4ed8", width=120, command=self.open_product_modal)
@@ -948,10 +1030,24 @@ class UnifiedAnalysisFrame(ctk.CTkFrame):
             return
 
         plt.close('all')
-        plt.style.use('dark_background')
+        
+        current_mode = ctk.get_appearance_mode()
+        if current_mode == "Light":
+            plt.style.use('default')
+            fig_bg = '#ffffff'
+            ax_bg = '#f8fafc'
+            text_color = '#0f172a'
+            strip_color = '#0284c7'
+        else:
+            plt.style.use('dark_background')
+            fig_bg = '#111827'
+            ax_bg = '#1f2937'
+            text_color = 'white'
+            strip_color = '#38bdf8'
+
         fig, ax = plt.subplots(figsize=(10.5, 5.5))
-        fig.patch.set_facecolor('#111827')
-        ax.set_facecolor('#1f2937')
+        fig.patch.set_facecolor(fig_bg)
+        ax.set_facecolor(ax_bg)
 
         if plot_type == "Buscador Cruzado (Guerra de Precios)":
             if not self.selected_product:
@@ -961,17 +1057,17 @@ class UnifiedAnalysisFrame(ctk.CTkFrame):
             if self.selected_product:
                 df_filtered = self.df[self.df['nombre'] == self.selected_product]
                 if df_filtered.empty:
-                    ax.text(0.5, 0.5, f"No se encontraron lecturas para:\n'{self.selected_product}'", ha='center', va='center', color='white', fontsize=12)
+                    ax.text(0.5, 0.5, f"No se encontraron lecturas para:\n'{self.selected_product}'", ha='center', va='center', color=text_color, fontsize=12)
                 else:
-                    sns.boxplot(data=df_filtered, x='fuente', y='precio_final', ax=ax, palette="Blues", showfliers=False, width=0.4)
-                    sns.stripplot(data=df_filtered, x='fuente', y='precio_final', ax=ax, color='#38bdf8', size=8, jitter=0.2, alpha=0.9)
-                    ax.set_title(f"Guerra de Precios entre Comercios:\n'{self.selected_product}'", fontsize=14, fontweight='bold', color='white', pad=12)
-                    ax.set_xlabel("Comercio", color='white', fontsize=11)
-                    ax.set_ylabel("Precio (COP)", color='white', fontsize=11)
+                    sns.boxplot(data=df_filtered, x='fuente', y='precio_final', hue='fuente', legend=False, ax=ax, palette="Blues", showfliers=False, width=0.4)
+                    sns.stripplot(data=df_filtered, x='fuente', y='precio_final', ax=ax, color=strip_color, size=8, jitter=0.2, alpha=0.9)
+                    ax.set_title(f"Guerra de Precios entre Comercios:\n'{self.selected_product}'", fontsize=14, fontweight='bold', color=text_color, pad=12)
+                    ax.set_xlabel("Comercio", color=text_color, fontsize=11)
+                    ax.set_ylabel("Precio (COP)", color=text_color, fontsize=11)
                     ax.yaxis.set_major_formatter(ticker.FuncFormatter(lambda x, pos: f'${x/1000:,.0f}K'))
-                    ax.tick_params(colors='white')
+                    ax.tick_params(colors=text_color)
             else:
-                ax.text(0.5, 0.5, "Haz clic en 'Elegir Producto' para seleccionar un artículo.", ha='center', va='center', color='white', fontsize=12)
+                ax.text(0.5, 0.5, "Haz clic en 'Elegir Producto' para seleccionar un artículo.", ha='center', va='center', color=text_color, fontsize=12)
 
         elif plot_type == "Evolución Temporal del Mercado":
             if 'fecha_extraccion' in self.df.columns:
@@ -982,45 +1078,45 @@ class UnifiedAnalysisFrame(ctk.CTkFrame):
                 
                 if not df_time.empty:
                     sns.lineplot(data=df_time, x='fecha_dt', y='precio_final', hue='fuente', marker='o', linewidth=2.5, ax=ax, markersize=7)
-                    ax.set_title("Evolución Temporal del Precio Promedio por Comercio", fontsize=14, fontweight='bold', color='white', pad=12)
-                    ax.set_xlabel("Fecha de Extracción", color='white', fontsize=11)
-                    ax.set_ylabel("Precio Promedio (COP)", color='white', fontsize=11)
+                    ax.set_title("Evolución Temporal del Precio Promedio por Comercio", fontsize=14, fontweight='bold', color=text_color, pad=12)
+                    ax.set_xlabel("Fecha de Extracción", color=text_color, fontsize=11)
+                    ax.set_ylabel("Precio Promedio (COP)", color=text_color, fontsize=11)
                     ax.yaxis.set_major_formatter(ticker.FuncFormatter(lambda x, pos: f'${x/1000:,.0f}K'))
                     ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
                     plt.xticks(rotation=35, ha='right')
-                    ax.tick_params(colors='white')
+                    ax.tick_params(colors=text_color)
 
         elif plot_type == "Comparativa de Precio por Unidad ($/L)":
             df_pum = self.df.dropna(subset=['precio_unidad']).copy()
             if not df_pum.empty:
                 counts = df_pum['precio_unidad'].value_counts().head(10)
-                counts.plot(kind='barh', ax=ax, color='#34d399')
-                ax.set_title("Top Rango de Precios por Unidad / Medida (PUM)", fontsize=14, fontweight='bold', color='white', pad=12)
-                ax.set_xlabel("Frecuencia de Lecturas", color='white', fontsize=11)
-                ax.set_ylabel("Precio por Unidad ($ / PUM)", color='white', fontsize=11)
+                counts.plot(kind='barh', ax=ax, color='#10b981')
+                ax.set_title("Top Rango de Precios por Unidad / Medida (PUM)", fontsize=14, fontweight='bold', color=text_color, pad=12)
+                ax.set_xlabel("Frecuencia de Lecturas", color=text_color, fontsize=11)
+                ax.set_ylabel("Precio por Unidad ($ / PUM)", color=text_color, fontsize=11)
                 ax.invert_yaxis()
-                ax.tick_params(colors='white')
+                ax.tick_params(colors=text_color)
             else:
-                ax.text(0.5, 0.5, "No hay datos de Precio por Unidad disponibles para los filtros seleccionados.", ha='center', va='center', color='white', fontsize=12)
+                ax.text(0.5, 0.5, "No hay datos de Precio por Unidad disponibles para los filtros seleccionados.", ha='center', va='center', color=text_color, fontsize=12)
 
         elif plot_type == "Marcas Más Frecuentes":
             counts = self.df['marca_estandar'].value_counts().head(10)
-            counts.plot(kind='bar', ax=ax, color='#60a5fa')
-            ax.set_title("Top 10 Marcas Estándar con Mayor Presencia", fontsize=14, fontweight='bold', color='white', pad=12)
-            ax.set_xlabel("Marca Estándar", color='white', fontsize=11)
-            ax.set_ylabel("Cantidad de Registros", color='white', fontsize=11)
+            counts.plot(kind='bar', ax=ax, color='#2563eb')
+            ax.set_title("Top 10 Marcas Estándar con Mayor Presencia", fontsize=14, fontweight='bold', color=text_color, pad=12)
+            ax.set_xlabel("Marca Estándar", color=text_color, fontsize=11)
+            ax.set_ylabel("Cantidad de Registros", color=text_color, fontsize=11)
             plt.xticks(rotation=35, ha='right')
-            ax.tick_params(colors='white')
+            ax.tick_params(colors=text_color)
 
         elif plot_type == "Histograma de Precios":
             prices = self.df['precio_final'].dropna()
             prices = prices[prices > 0]
-            ax.hist(prices, bins=35, color='#10b981', edgecolor='black', alpha=0.85)
-            ax.set_title("Distribución General de Precios Finales (Precios > $0)", fontsize=14, fontweight='bold', color='white', pad=12)
-            ax.set_xlabel("Precio Final (COP)", color='white', fontsize=11)
-            ax.set_ylabel("Frecuencia (Cantidad de Productos)", color='white', fontsize=11)
+            ax.hist(prices, bins=35, color='#059669', edgecolor='black', alpha=0.85)
+            ax.set_title("Distribución General de Precios Finales (Precios > $0)", fontsize=14, fontweight='bold', color=text_color, pad=12)
+            ax.set_xlabel("Precio Final (COP)", color=text_color, fontsize=11)
+            ax.set_ylabel("Frecuencia (Cantidad de Productos)", color=text_color, fontsize=11)
             ax.xaxis.set_major_formatter(ticker.FuncFormatter(lambda x, pos: f'${x/1000:,.0f}K'))
-            ax.tick_params(colors='white')
+            ax.tick_params(colors=text_color)
 
         elif plot_type == "Precio vs % de Alcohol":
             df_clean = self.df.dropna(subset=['precio_final', 'grados_alcohol_estandar']).copy()
@@ -1029,26 +1125,26 @@ class UnifiedAnalysisFrame(ctk.CTkFrame):
             df_clean = df_clean[df_clean['precio_final'] > 0]
             
             if not df_clean.empty:
-                ax.scatter(df_clean['grados_num'], df_clean['precio_final'], alpha=0.6, c='#f59e0b', edgecolors='black', s=45)
-                ax.set_title("Relación entre Graduación Alcohólica (%) y Precio", fontsize=14, fontweight='bold', color='white', pad=12)
-                ax.set_xlabel("Grados de Alcohol (%)", color='white', fontsize=11)
-                ax.set_ylabel("Precio Final (COP)", color='white', fontsize=11)
+                ax.scatter(df_clean['grados_num'], df_clean['precio_final'], alpha=0.6, c='#d97706', edgecolors='black', s=45)
+                ax.set_title("Relación entre Graduación Alcohólica (%) y Precio", fontsize=14, fontweight='bold', color=text_color, pad=12)
+                ax.set_xlabel("Grados de Alcohol (%)", color=text_color, fontsize=11)
+                ax.set_ylabel("Precio Final (COP)", color=text_color, fontsize=11)
                 ax.yaxis.set_major_formatter(ticker.FuncFormatter(lambda x, pos: f'${x/1000:,.0f}K'))
-                ax.tick_params(colors='white')
+                ax.tick_params(colors=text_color)
             else:
-                ax.text(0.5, 0.5, "Sin datos válidos de Grados de Alcohol.", ha='center', va='center', color='white', fontsize=12)
+                ax.text(0.5, 0.5, "Sin datos válidos de Grados de Alcohol.", ha='center', va='center', color=text_color, fontsize=12)
 
         elif plot_type == "Precios por Marca (Boxplot)":
             top_marcas = self.df['marca_estandar'].value_counts().head(5).index
             df_top = self.df[self.df['marca_estandar'].isin(top_marcas)]
             if not df_top.empty:
-                sns.boxplot(data=df_top, x='marca_estandar', y='precio_final', ax=ax, palette="Blues", showfliers=False, width=0.4)
-                sns.stripplot(data=df_top, x='marca_estandar', y='precio_final', ax=ax, color='#38bdf8', size=6, jitter=0.2, alpha=0.8)
-                ax.set_title("Distribución de Precios por Marca (Top 5 Marcas)", fontsize=14, fontweight='bold', color='white', pad=12)
-                ax.set_xlabel("Marca Estándar", color='white', fontsize=11)
-                ax.set_ylabel("Precio (COP)", color='white', fontsize=11)
+                sns.boxplot(data=df_top, x='marca_estandar', y='precio_final', hue='marca_estandar', legend=False, ax=ax, palette="Blues", showfliers=False, width=0.4)
+                sns.stripplot(data=df_top, x='marca_estandar', y='precio_final', ax=ax, color=strip_color, size=6, jitter=0.2, alpha=0.8)
+                ax.set_title("Distribución de Precios por Marca (Top 5 Marcas)", fontsize=14, fontweight='bold', color=text_color, pad=12)
+                ax.set_xlabel("Marca Estándar", color=text_color, fontsize=11)
+                ax.set_ylabel("Precio (COP)", color=text_color, fontsize=11)
                 ax.yaxis.set_major_formatter(ticker.FuncFormatter(lambda x, pos: f'${x/1000:,.0f}K'))
-                ax.tick_params(colors='white')
+                ax.tick_params(colors=text_color)
 
         elif plot_type == "Distribución y Frecuencia de Descuentos (%)":
             df_desc = self.df.dropna(subset=['descuento']).copy()
@@ -1056,13 +1152,13 @@ class UnifiedAnalysisFrame(ctk.CTkFrame):
             df_desc = df_desc[df_desc['desc_num'] > 0]
             
             if not df_desc.empty:
-                ax.hist(df_desc['desc_num'], bins=20, color='#8b5cf6', edgecolor='black', alpha=0.85)
-                ax.set_title("Distribución de Porcentajes de Oferta / Descuento", fontsize=14, fontweight='bold', color='white', pad=12)
-                ax.set_xlabel("Porcentaje de Descuento (%)", color='white', fontsize=11)
-                ax.set_ylabel("Cantidad de Ofertas", color='white', fontsize=11)
-                ax.tick_params(colors='white')
+                ax.hist(df_desc['desc_num'], bins=20, color='#7c3aed', edgecolor='black', alpha=0.85)
+                ax.set_title("Distribución de Porcentajes de Oferta / Descuento", fontsize=14, fontweight='bold', color=text_color, pad=12)
+                ax.set_xlabel("Porcentaje de Descuento (%)", color=text_color, fontsize=11)
+                ax.set_ylabel("Cantidad de Ofertas", color=text_color, fontsize=11)
+                ax.tick_params(colors=text_color)
             else:
-                ax.text(0.5, 0.5, "No se registraron ofertas activas para los filtros seleccionados.", ha='center', va='center', color='white', fontsize=12)
+                ax.text(0.5, 0.5, "No se registraron ofertas activas para los filtros seleccionados.", ha='center', va='center', color=text_color, fontsize=12)
 
         elif plot_type == "Top 10 Mayores Descuentos":
             df_desc = self.df.copy()
@@ -1071,13 +1167,13 @@ class UnifiedAnalysisFrame(ctk.CTkFrame):
             
             if not df_desc.empty:
                 names = df_desc['nombre'].str[:28] + "..."
-                ax.barh(names, df_desc['desc_num'], color='#ef4444')
-                ax.set_title("Top 10 Productos con Mayor Porcentaje de Descuento", fontsize=14, fontweight='bold', color='white', pad=12)
-                ax.set_xlabel("Descuento (%)", color='white', fontsize=11)
+                ax.barh(names, df_desc['desc_num'], color='#dc2626')
+                ax.set_title("Top 10 Productos con Mayor Porcentaje de Descuento", fontsize=14, fontweight='bold', color=text_color, pad=12)
+                ax.set_xlabel("Descuento (%)", color=text_color, fontsize=11)
                 ax.invert_yaxis()
-                ax.tick_params(colors='white')
+                ax.tick_params(colors=text_color)
             else:
-                ax.text(0.5, 0.5, "Sin datos de ofertas.", ha='center', va='center', color='white', fontsize=12)
+                ax.text(0.5, 0.5, "Sin datos de ofertas.", ha='center', va='center', color=text_color, fontsize=12)
 
         fig.tight_layout()
         canvas = FigureCanvasTkAgg(fig, master=self.content_frame)
@@ -1098,11 +1194,11 @@ class UnifiedAnalysisFrame(ctk.CTkFrame):
         total_ofertas = len(df_desc[df_desc['desc_num'] > 0])
 
         def create_card(parent, title, value, subtitle=""):
-            frame = ctk.CTkFrame(parent, fg_color="#1f2937", corner_radius=10)
-            ctk.CTkLabel(frame, text=title, font=ctk.CTkFont(size=13, weight="bold"), text_color="#9ca3af").pack(pady=(15,5), padx=10)
-            ctk.CTkLabel(frame, text=value, font=ctk.CTkFont(size=22, weight="bold"), text_color="#f9fafb").pack(pady=5, padx=10)
+            frame = ctk.CTkFrame(parent, fg_color=("#e2e8f0", "#1f2937"), corner_radius=10)
+            ctk.CTkLabel(frame, text=title, font=ctk.CTkFont(size=13, weight="bold"), text_color=("#475569", "#9ca3af")).pack(pady=(15,5), padx=10)
+            ctk.CTkLabel(frame, text=value, font=ctk.CTkFont(size=22, weight="bold"), text_color=("#0f172a", "#f9fafb")).pack(pady=5, padx=10)
             if subtitle:
-                ctk.CTkLabel(frame, text=subtitle, font=ctk.CTkFont(size=11), text_color="#6b7280", wraplength=280).pack(pady=(0,15), padx=10)
+                ctk.CTkLabel(frame, text=subtitle, font=ctk.CTkFont(size=11), text_color=("#64748b", "#6b7280"), wraplength=280).pack(pady=(0,15), padx=10)
             return frame
 
         grid = ctk.CTkFrame(self.content_frame, fg_color="transparent")
@@ -1128,7 +1224,7 @@ class UnifiedStandardizationFrame(ctk.CTkFrame):
         self.label.grid(row=0, column=0, padx=20, pady=(20, 10), sticky="w")
 
         # Tabview con los 4 pasos de estandarización e INVIMA
-        self.tabview = ctk.CTkTabview(self, fg_color="#1f2937")
+        self.tabview = ctk.CTkTabview(self, fg_color=("#e2e8f0", "#1f2937"))
         self.tabview.grid(row=1, column=0, padx=20, pady=(0, 20), sticky="nsew")
 
         self.tab_mapeo = self.tabview.add("1. Mapeo y Vinculación MDM")
@@ -1298,7 +1394,7 @@ class UnifiedStandardizationFrame(ctk.CTkFrame):
         self.btn_ia_remove = ctk.CTkButton(controls, text="Eliminar Seleccionados", fg_color="#ef4444", hover_color="#dc2626", font=ctk.CTkFont(weight="bold"), command=self.remove_fp_selected)
         self.btn_ia_remove.pack(side="right")
 
-        self.ia_status_label = ctk.CTkLabel(controls, text="", text_color="#f59e0b", font=ctk.CTkFont(weight="bold"))
+        self.ia_status_label = ctk.CTkLabel(controls, text="", text_color="#d97706", font=ctk.CTkFont(weight="bold"))
         self.ia_status_label.pack(side="right", padx=15)
 
         tree_frame = ctk.CTkFrame(self.tab_ia)
