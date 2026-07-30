@@ -122,7 +122,20 @@ Para mantener la UI funcionando sin reescribir todo `suite_app.py`, `database.py
   - Se creó `match_invima_deepseek.py` con la API de **DeepSeek AI** (`deepseek-v4-flash`) e `import_manual_invima.py` para importación manual parcial desde Excel (trantando `-1` como Falso Positivo con `deleted = 1`).
   - Se creó `match_multi_store_deepseek.py` para cruzar los productos sin mapear de **Cañaveral, Carulla, Jumbo, Olímpica, Makro, D1** contra los 1,936 productos maestros existentes con tolerancia CERO a falsos positivos (temperatura `0.0`, matching estricto de variante, empaque y volumen), alcanzando **2,695 productos unificados en MDM** y **23,475 lecturas de precios históricos normalizadas** en `productos_normalizados`.
 
-- **Unificación de Módulos y Columnas Completas en la Suite (`suite_app.py`)**:
-  - **Columnas de Descuento, Volumen y Precio/Unidad:** Se incluyeron de forma visible en las tablas Treeview y exportaciones multiformato (Excel, CSV, JSON) del *Visor de Datos Crudos* y *Visor Normalizado*.
-  - **Análisis Estadístico & Mercado Unificado (`UnifiedAnalysisFrame`):** Se fusionaron las pestañas de Análisis y Comparativas de Mercado en un solo panel de control con 10 modalidades gráficas y métricas KPI. Se corrigió el trazado de boxplots (capa de puntos con `sns.stripplot`), orden cronológico con `pd.to_datetime()` y filtrado de `$0`.
-  - **Estandarización de Datos Unificada (`UnifiedStandardizationFrame`):** Se integró en un solo módulo con sub-pestañas (*Paso 1: Mapeo MDM*, *Paso 2: Depuración IA*, *Paso 3: Homologación INVIMA*).
+- **Refactorización Arquitectónica Completa (Paquetes `ui/` y `core/`)**:
+  - **Paquete Frontend `ui/`**:
+    - **`ui/styles.py`**: Configuración dinámica de estilos para `ttk.Treeview` y conmutación de temas (Light/Dark).
+    - **`ui/components/modals.py`**: Componentes y diálogos reutilizables (`export_dataframe_dialog`, `DateRangeModal`, `AssignInvimaModal`).
+    - **`ui/views/`**: Módulos individuales para cada vista (`extraction_view.py`, `raw_viewer_view.py`, `normalized_viewer_view.py`, `analysis_view.py`, `standardization_view.py`).
+    - **`ui/app.py`**: Clase principal `DataSuiteApp` con menú lateral y navegación.
+  - **Paquete Backend `core/`**:
+    - **`core/database.py`**: Servicio principal de base de datos SQLite y capa de traducción.
+    - **`core/notifier.py`**: Servicio de alertas y notificaciones HTML vía Resend.
+  - Scripts en raíz (`suite_app.py`, `database.py`, `notifier.py`) reducidos a wrappers limpios de punto de entrada y compatibilidad.
+  - **Paquete Scrapers `scrapers/`**:
+    - Se agruparon las 7 carpetas de los scrapers (*Éxito, Carulla, Jumbo, D1, Cañaveral, Olímpica, Makro*) dentro de una carpeta unificada **`scrapers/`**.
+    - Se creó **`scrapers/__init__.py`** exponiendo las clases `ExitoScraper`, `CarullaScraper`, `JumboScraper`, `D1Scraper`, `CanaveralScraper`, `OlimpicaScraper` y `MakroScraper`.
+    - Se actualizó el orquestador principal `main.py` para consumir todas las clases directamente desde `scrapers`.
+
+
+

@@ -3,17 +3,19 @@ import sys
 import traceback
 
 # Import modules
-from database import DataSuiteDB
-from notifier import Notifier
+from core import DataSuiteDB, Notifier
 
-# Import Scrapers
-from scraper_exito.scraper import ExitoScraper
-from scraper_carulla.scraper import CarullaScraper
-from scraper_jumbo.scraper import JumboScraper
-from scraper_d1.scraper import D1Scraper
-from scraper_canaveral.scraper import CanaveralScraper
-from scraper_olimpica.scraper import OlimpicaScraper
-from scraper_makro.scraper import MakroScraper
+# Import Scrapers desde el paquete scrapers/
+from scrapers import (
+    ExitoScraper,
+    CarullaScraper,
+    JumboScraper,
+    D1Scraper,
+    CanaveralScraper,
+    OlimpicaScraper,
+    MakroScraper
+)
+
 
 def main():
     print("Iniciando Suite Data Universal...")
