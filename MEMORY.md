@@ -121,3 +121,8 @@ Para mantener la UI funcionando sin reescribir todo `suite_app.py`, `database.py
   - Se creó `seed_mdm_exito.py` para reiniciar y sembrar los productos únicos de **Éxito** como la base inicial de la tabla maestra (112 clasificados como `N/A - TABACO`).
   - Se creó `match_invima_deepseek.py` con la API de **DeepSeek AI** (`deepseek-v4-flash`) e `import_manual_invima.py` para importación manual parcial desde Excel (trantando `-1` como Falso Positivo con `deleted = 1`).
   - Se creó `match_multi_store_deepseek.py` para cruzar los productos sin mapear de **Cañaveral, Carulla, Jumbo, Olímpica, Makro, D1** contra los 1,936 productos maestros existentes con tolerancia CERO a falsos positivos (temperatura `0.0`, matching estricto de variante, empaque y volumen), alcanzando **2,695 productos unificados en MDM** y **23,475 lecturas de precios históricos normalizadas** en `productos_normalizados`.
+
+- **Unificación de Módulos y Columnas Completas en la Suite (`suite_app.py`)**:
+  - **Columnas de Descuento, Volumen y Precio/Unidad:** Se incluyeron de forma visible en las tablas Treeview y exportaciones multiformato (Excel, CSV, JSON) del *Visor de Datos Crudos* y *Visor Normalizado*.
+  - **Análisis Estadístico & Mercado Unificado (`UnifiedAnalysisFrame`):** Se fusionaron las pestañas de Análisis y Comparativas de Mercado en un solo panel de control con 10 modalidades gráficas y métricas KPI. Se corrigió el trazado de boxplots (capa de puntos con `sns.stripplot`), orden cronológico con `pd.to_datetime()` y filtrado de `$0`.
+  - **Estandarización de Datos Unificada (`UnifiedStandardizationFrame`):** Se integró en un solo módulo con sub-pestañas (*Paso 1: Mapeo MDM*, *Paso 2: Depuración IA*, *Paso 3: Homologación INVIMA*).
