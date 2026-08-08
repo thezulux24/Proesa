@@ -6,7 +6,7 @@ import customtkinter as ctk
 from tkinter import ttk, messagebox
 import pandas as pd
 import database
-from ui.components.modals import AssignInvimaModal, export_dataframe_dialog
+from ui.components.modals import AssignInvimaModal, export_dataframe_dialog, CandidateMatchingModal
 
 class UnifiedStandardizationFrame(ctk.CTkFrame):
     def __init__(self, master):
@@ -69,11 +69,35 @@ class UnifiedStandardizationFrame(ctk.CTkFrame):
         self.map_tipo_combo.pack(side="left", padx=4)
 
         ctk.CTkLabel(controls, text="Buscar Crudos:").pack(side="left", padx=(8, 2))
-        self.map_search_entry = ctk.CTkEntry(controls, placeholder_text="Nombre o marca...", width=200)
+        self.map_search_entry = ctk.CTkEntry(controls, placeholder_text="Nombre o marca...", width=170)
         self.map_search_entry.pack(side="left", padx=4)
         self.map_search_entry.bind("<Return>", lambda e: self.load_mapeo_data())
 
         ctk.CTkButton(controls, text="Buscar / Refrescar", command=self.load_mapeo_data).pack(side="left", padx=4)
+
+        # Botón 1: Filtro para ocultar productos con precio $0 en la última extracción
+        self.map_hide_zero_var = ctk.BooleanVar(value=True)
+        self.map_hide_zero_chk = ctk.CTkCheckBox(
+            controls, 
+            text="Ocultar Precios $0", 
+            variable=self.map_hide_zero_var, 
+            command=self.load_mapeo_data, 
+            font=ctk.CTkFont(weight="bold")
+        )
+        self.map_hide_zero_chk.pack(side="left", padx=(10, 4))
+
+        # Botón 2: Activar/Desactivar Matching Automático al seleccionar (Top 15)
+        self.map_auto_match_var = ctk.BooleanVar(value=False)
+        self.map_auto_match_btn = ctk.CTkButton(
+            controls, 
+            text="Matching Auto (Top 15): DESACTIVADO", 
+            fg_color="#4b5563", 
+            hover_color="#374151", 
+            font=ctk.CTkFont(weight="bold"),
+            command=self.toggle_auto_match
+        )
+        self.map_auto_match_btn.pack(side="left", padx=6)
+
         ctk.CTkButton(controls, text="Exportar Sin Mapear", fg_color="#10b981", hover_color="#059669", command=self.export_mapeo_data).pack(side="right", padx=4)
         ctk.CTkButton(controls, text="Ejecutar ETL", fg_color="#2563eb", hover_color="#1d4ed8", font=ctk.CTkFont(weight="bold"), command=self.run_etl).pack(side="right", padx=4)
 
@@ -83,20 +107,25 @@ class UnifiedStandardizationFrame(ctk.CTkFrame):
         left_frame.grid_columnconfigure(0, weight=1)
 
         ctk.CTkLabel(left_frame, text="Productos Sin Mapear (Crudos)", font=ctk.CTkFont(weight="bold")).grid(row=0, column=0, pady=5)
-        self.tree_raw = ttk.Treeview(left_frame, columns=("Comercio", "ID", "Nombre", "Marca"), show="headings")
+        self.tree_raw = ttk.Treeview(left_frame, columns=("Comercio", "ID", "Nombre", "Marca", "Último Precio"), show="headings", selectmode="browse")
         self.tree_raw.heading("Comercio", text="Comercio")
         self.tree_raw.heading("ID", text="ID")
         self.tree_raw.heading("Nombre", text="Nombre")
         self.tree_raw.heading("Marca", text="Marca")
+        self.tree_raw.heading("Último Precio", text="Último Precio")
         self.tree_raw.column("Comercio", width=80)
-        self.tree_raw.column("ID", width=80)
+        self.tree_raw.column("ID", width=70)
         self.tree_raw.column("Nombre", width=220)
         self.tree_raw.column("Marca", width=100)
+        self.tree_raw.column("Último Precio", width=100, anchor="e")
         self.tree_raw.grid(row=1, column=0, sticky="nsew")
 
         scrollbar_raw = ttk.Scrollbar(left_frame, orient="vertical", command=self.tree_raw.yview)
         self.tree_raw.configure(yscroll=scrollbar_raw.set)
         scrollbar_raw.grid(row=1, column=1, sticky="ns")
+
+        # Escuchar clic para Matching Automático
+        self.tree_raw.bind("<ButtonRelease-1>", self.on_raw_item_click)
 
         right_frame = ctk.CTkFrame(self.tab_mapeo)
         right_frame.grid(row=1, column=1, padx=(5, 10), pady=5, sticky="nsew")
@@ -104,13 +133,15 @@ class UnifiedStandardizationFrame(ctk.CTkFrame):
         right_frame.grid_columnconfigure(0, weight=1)
 
         ctk.CTkLabel(right_frame, text="Maestro de Productos (Diccionario)", font=ctk.CTkFont(weight="bold")).grid(row=0, column=0, pady=5)
-        self.tree_master = ttk.Treeview(right_frame, columns=("Código", "Nombre", "Marca"), show="headings")
+        self.tree_master = ttk.Treeview(right_frame, columns=("Código", "Nombre", "Marca", "Último Precio"), show="headings")
         self.tree_master.heading("Código", text="Código")
         self.tree_master.heading("Nombre", text="Nombre Estándar")
         self.tree_master.heading("Marca", text="Marca")
-        self.tree_master.column("Código", width=100)
-        self.tree_master.column("Nombre", width=240)
-        self.tree_master.column("Marca", width=120)
+        self.tree_master.heading("Último Precio", text="Último Precio")
+        self.tree_master.column("Código", width=90)
+        self.tree_master.column("Nombre", width=230)
+        self.tree_master.column("Marca", width=110)
+        self.tree_master.column("Último Precio", width=100, anchor="e")
         self.tree_master.grid(row=1, column=0, sticky="nsew")
 
         scrollbar_master = ttk.Scrollbar(right_frame, orient="vertical", command=self.tree_master.yview)
@@ -120,7 +151,63 @@ class UnifiedStandardizationFrame(ctk.CTkFrame):
         bottom_controls = ctk.CTkFrame(self.tab_mapeo, fg_color="transparent")
         bottom_controls.grid(row=2, column=0, columnspan=2, padx=10, pady=10, sticky="ew")
 
-        ctk.CTkButton(bottom_controls, text="Vincular Seleccionados al Maestro", font=ctk.CTkFont(weight="bold"), command=self.link_products).pack(side="left", padx=5)
+        ctk.CTkButton(
+            bottom_controls, 
+            text="Sugerir Top 15 Candidatos", 
+            fg_color="#8b5cf6", 
+            hover_color="#7c3aed", 
+            font=ctk.CTkFont(weight="bold"), 
+            command=self.open_candidate_modal
+        ).pack(side="left", padx=5)
+
+        ctk.CTkButton(
+            bottom_controls, 
+            text="🔗 Abrir Enlace en Tienda", 
+            fg_color="#0284c7", 
+            hover_color="#0369a1", 
+            font=ctk.CTkFont(weight="bold"), 
+            command=self.open_raw_product_url
+        ).pack(side="left", padx=5)
+
+        ctk.CTkButton(
+            bottom_controls, 
+            text="Vincular Seleccionados al Maestro", 
+            font=ctk.CTkFont(weight="bold"), 
+            command=self.link_products
+        ).pack(side="left", padx=5)
+
+        ctk.CTkButton(
+            bottom_controls, 
+            text="🔗 Abrir Enlace Maestro", 
+            fg_color="#0284c7", 
+            hover_color="#0369a1", 
+            font=ctk.CTkFont(weight="bold"), 
+            command=self.open_master_product_url
+        ).pack(side="right", padx=5)
+
+    def toggle_auto_match(self):
+        new_val = not self.map_auto_match_var.get()
+        self.map_auto_match_var.set(new_val)
+        if new_val:
+            self.map_auto_match_btn.configure(
+                text="Matching Auto (Top 15): ACTIVADO", 
+                fg_color="#059669", 
+                hover_color="#047857"
+            )
+        else:
+            self.map_auto_match_btn.configure(
+                text="Matching Auto (Top 15): DESACTIVADO", 
+                fg_color="#4b5563", 
+                hover_color="#374151"
+            )
+
+    def _format_cop(self, val):
+        try:
+            if val is None or pd.isna(val) or float(val) <= 0:
+                return "$ 0"
+            return f"$ {float(val):,.0f}".replace(",", ".")
+        except Exception:
+            return "$ 0"
 
     def load_mapeo_data(self, *args):
         for i in self.tree_raw.get_children(): self.tree_raw.delete(i)
@@ -129,14 +216,106 @@ class UnifiedStandardizationFrame(ctk.CTkFrame):
         fuente = self.map_fuente_var.get()
         tipo = self.map_tipo_var.get()
         search_term = self.map_search_entry.get()
+        hide_zero = self.map_hide_zero_var.get()
 
-        self.df_raw = database.get_unmapped_products(fuente=fuente, tipo=tipo, search_term=search_term)
+        self.df_raw = database.get_unmapped_products(fuente=fuente, tipo=tipo, search_term=search_term, hide_zero_price=hide_zero)
         for _, r in self.df_raw.head(500).iterrows():
-            self.tree_raw.insert("", "end", values=(r['comercio'], r['producto_id'], r['nombre'], r['marca']))
+            price_str = self._format_cop(r.get('ultimo_precio', 0))
+            self.tree_raw.insert("", "end", values=(r['comercio'], r['producto_id'], r['nombre'], r['marca'], price_str))
 
-        self.df_master = database.get_maestro_products(tipo=tipo, search_term=search_term)
+        self.df_master = database.get_maestro_products(tipo=tipo, search_term=search_term, include_prices=True)
         for _, r in self.df_master.head(500).iterrows():
-            self.tree_master.insert("", "end", values=(r['codigo_universal'], r['nombre_estandar'], r['marca_estandar']))
+            price_str = self._format_cop(r.get('ultimo_precio', 0))
+            self.tree_master.insert("", "end", values=(r['codigo_universal'], r['nombre_estandar'], r['marca_estandar'], price_str))
+
+    def on_raw_item_click(self, event):
+        if self.map_auto_match_var.get():
+            self.after(50, self.open_candidate_modal)
+
+    def open_candidate_modal(self):
+        sel_raw = self.tree_raw.selection()
+        if not sel_raw:
+            messagebox.showwarning("Atención", "Por favor selecciona un producto sin mapear de la lista izquierda.")
+            return
+
+        vals = self.tree_raw.item(sel_raw[0])['values']
+        # Locate item in df_raw or construct dict
+        comercio = vals[0]
+        prod_id = str(vals[1])
+        nombre = vals[2]
+        marca = vals[3]
+        
+        # Get raw price float and url from df_raw if available
+        precio_val = 0
+        url_val = ""
+        if hasattr(self, 'df_raw') and not self.df_raw.empty:
+            match = self.df_raw[(self.df_raw['comercio'] == comercio) & (self.df_raw['producto_id'].astype(str) == prod_id)]
+            if not match.empty:
+                precio_val = match.iloc[0].get('ultimo_precio', 0)
+                url_val = match.iloc[0].get('url_producto', '')
+
+        target_raw = {
+            'comercio': comercio,
+            'producto_id': prod_id,
+            'nombre': nombre,
+            'marca': marca,
+            'ultimo_precio': precio_val,
+            'url_producto': url_val
+        }
+
+        # Make sure master products df is loaded
+        if not hasattr(self, 'df_master') or self.df_master.empty:
+            self.df_master = database.get_maestro_products(include_prices=True)
+
+        CandidateMatchingModal(self, target_raw, self.df_master, self._link_single_product_callback)
+
+    def open_raw_product_url(self):
+        import webbrowser
+        sel_raw = self.tree_raw.selection()
+        if not sel_raw:
+            messagebox.showwarning("Atención", "Por favor selecciona un producto sin mapear de la lista izquierda.")
+            return
+
+        vals = self.tree_raw.item(sel_raw[0])['values']
+        comercio = vals[0]
+        prod_id = str(vals[1])
+
+        url_val = ""
+        if hasattr(self, 'df_raw') and not self.df_raw.empty:
+            match = self.df_raw[(self.df_raw['comercio'] == comercio) & (self.df_raw['producto_id'].astype(str) == prod_id)]
+            if not match.empty:
+                url_val = str(match.iloc[0].get('url_producto', '')).strip()
+
+        if url_val and url_val.startswith("http"):
+            webbrowser.open(url_val)
+        else:
+            messagebox.showwarning("Sin URL", f"El producto {comercio} [{prod_id}] no tiene un enlace web válido grabado.")
+
+    def open_master_product_url(self):
+        import webbrowser
+        sel_master = self.tree_master.selection()
+        if not sel_master:
+            messagebox.showwarning("Atención", "Por favor selecciona un producto maestro de la lista derecha.")
+            return
+
+        vals = self.tree_master.item(sel_master[0])['values']
+        code = str(vals[0])
+
+        url_val = ""
+        if hasattr(self, 'df_master') and not self.df_master.empty:
+            match = self.df_master[self.df_master['codigo_universal'].astype(str) == code]
+            if not match.empty:
+                url_val = str(match.iloc[0].get('url_producto', '')).strip()
+
+        if url_val and url_val.startswith("http"):
+            webbrowser.open(url_val)
+        else:
+            messagebox.showwarning("Sin URL", f"El producto maestro {code} no tiene un enlace web registrado.")
+
+    def _link_single_product_callback(self, comercio, producto_id, codigo_universal):
+        database.add_mapping(comercio, str(producto_id), codigo_universal)
+        messagebox.showinfo("Éxito", f"Producto {comercio} [{producto_id}] vinculado correctamente a {codigo_universal}.")
+        self.load_mapeo_data()
 
     def link_products(self):
         sel_raw = self.tree_raw.selection()

@@ -44,6 +44,7 @@ Para mantener la UI funcionando sin reescribir todo `suite_app.py`, `database.py
   - VTEX presenta un comportamiento "engañoso" en sus conteos de categoría del frontend: el número que visualmente arrojan los filtros de categoría de la página incluye artículos con `Precio = 0` (Agotados / Inactivos en backend). El scraper filtra y descarta activamente estos productos mediante la condición `if price_final == 0: continue`, previniendo que contaminen los análisis estadísticos de PROESA.
   - Para obtener todos los productos correctamente ante fallas de jerarquía de VTEX, se itera específicamente por las subcategorías finales (ej. `["7/66/", "7/67/", "7/68/", "7/69/"]` para Vinos, Licores, Cervezas y Cigarrillos) en lugar de la raíz `C:7`.
 - **Cañaveral**: `scraper_canaveral/scraper.py`
+  - Se corrigió la extracción de `URL_Producto`. Anteriormente asignaba `category_url` (`/ca/licores/03`); ahora extrae el `slug` del chunk de Next.js (`"slug": "..."`) para construir la URL exacta del producto (`https://www.domicilioscanaveral.com/p/{slug}-{sku}`). Se actualizó el scraper y se migraron las 6,094 lecturas de Cañaveral en la base de datos a sus enlaces individuales directos.
   - Utiliza la misma arquitectura Next.js / FastStore (RSC) que D1.
   - La extracción se hace limpiamente buscando las cadenas JSON dentro de `__next_f.push` del código fuente, lo que nos permite usar requests puro sin bloquearnos por antibots.
 - **Olímpica**: `scraper_olimpica/scraper.py`
@@ -132,10 +133,18 @@ Para mantener la UI funcionando sin reescribir todo `suite_app.py`, `database.py
     - **`core/database.py`**: Servicio principal de base de datos SQLite y capa de traducción.
     - **`core/notifier.py`**: Servicio de alertas y notificaciones HTML vía Resend.
   - Scripts en raíz (`suite_app.py`, `database.py`, `notifier.py`) reducidos a wrappers limpios de punto de entrada y compatibilidad.
-  - **Paquete Scrapers `scrapers/`**:
-    - Se agruparon las 7 carpetas de los scrapers (*Éxito, Carulla, Jumbo, D1, Cañaveral, Olímpica, Makro*) dentro de una carpeta unificada **`scrapers/`**.
-    - Se creó **`scrapers/__init__.py`** exponiendo las clases `ExitoScraper`, `CarullaScraper`, `JumboScraper`, `D1Scraper`, `CanaveralScraper`, `OlimpicaScraper` y `MakroScraper`.
-    - Se actualizó el orquestador principal `main.py` para consumir todas las clases directamente desde `scrapers`.
+  - **Asistente de Vinculación y Filtros en Mapeo MDM (`UnifiedStandardizationFrame` & `CandidateMatchingModal`)**:
+  - **Filtro Precios $0 (`Ocultar Precios $0`):** Opción agregada en el panel de control del Paso 1 para filtrar productos sin mapear cuyo último precio extraído sea $0 o nulo.
+  - **Modal Interactivo `CandidateMatchingModal` (`ui/components/modals.py`):**
+    - Modal espacioso (`1020x680px`) con tarjetas descriptivas y badge del **último precio extraído del producto crudo**.
+    - **Matching Inteligente por Texto:** Algoritmo combinado (SequenceMatcher + Jaccard token overlap + bonus por marca) que calcula similitud % y muestra el **Top 15 candidatos maestro** ordenados descendentemente.
+  - **Migración y Portabilidad del MDM (`export_mdm.py` & `import_mdm.py`)**:
+  - **`export_mdm.py`:** Genera un respaldo JSON portátil (`data/mdm_export.json`) que empaqueta las tablas `maestro_productos`, `mapeo_productos` y las banderas de depuración (`deleted = 1`).
+  - **`import_mdm.py`:** Lee `data/mdm_export.json`, restaura los registros en `suite_data.db` en cualquier PC mediante `INSERT OR REPLACE` y ejecuta automáticamente `database.run_normalization_etl()` para reconstruir `productos_normalizados`.
+
+    - **Barra de Búsqueda en Vivo:** Permite filtrar y buscar en tiempo real entre todo el universo de `maestro_productos` sin cerrar el modal.
+    - **Modo Interactivo:** Botón toggle `Matching Auto (Top 15)` que abre automáticamente el asistente al hacer clic en cualquier producto crudo de la tabla.
+
 
 
 

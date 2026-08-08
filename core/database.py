@@ -459,7 +459,7 @@ def delete_false_positive(codigo_universal):
         conn.commit()
     run_normalization_etl()
 
-def get_unmapped_products(fuente="Todas", tipo="Todos", search_term=None):
+def get_unmapped_products(fuente="Todas", tipo="Todos", search_term=None, hide_zero_price=False):
     db = DataSuiteDB()
     where_clauses = ["m.codigo_universal IS NULL AND h.deleted = 0"]
     params = []
@@ -470,6 +470,8 @@ def get_unmapped_products(fuente="Todas", tipo="Todos", search_term=None):
     if tipo != "Todos" and tipo:
         where_clauses.append("h.tipo_producto = ?")
         params.append(tipo)
+    if hide_zero_price:
+        where_clauses.append("(h.precio_final IS NOT NULL AND h.precio_final > 0)")
     if search_term and search_term.strip():
         term = f"%{search_term.strip()}%"
         where_clauses.append("(h.nombre LIKE ? OR h.marca LIKE ? OR h.producto_id LIKE ?)")
@@ -477,8 +479,15 @@ def get_unmapped_products(fuente="Todas", tipo="Todos", search_term=None):
         
     where_sql = " AND ".join(where_clauses)
     query = f"""
-        SELECT DISTINCT h.comercio, h.producto_id, h.nombre, h.marca, h.tipo_producto, h.grados_alcohol, h.medida
+        SELECT h.comercio, h.producto_id, h.nombre, h.marca, h.tipo_producto, h.grados_alcohol, h.medida,
+               h.precio_final AS ultimo_precio, h.url_producto, h.fecha_extraccion
         FROM productos_historico h
+        INNER JOIN (
+            SELECT comercio, producto_id, MAX(fecha_extraccion) AS max_fecha, MAX(id) AS max_id
+            FROM productos_historico
+            WHERE deleted = 0
+            GROUP BY comercio, producto_id
+        ) latest ON h.comercio = latest.comercio AND h.producto_id = latest.producto_id AND h.id = latest.max_id
         LEFT JOIN mapeo_productos m ON h.comercio = m.comercio AND h.producto_id = m.producto_id
         WHERE {where_sql}
         ORDER BY h.nombre
@@ -486,24 +495,74 @@ def get_unmapped_products(fuente="Todas", tipo="Todos", search_term=None):
     with db.get_connection() as conn:
         return pd.read_sql_query(query, conn, params=params)
 
-def get_maestro_products(tipo="Todos", subcategoria="Todas", search_term=None):
+def get_maestro_products(tipo="Todos", subcategoria="Todas", search_term=None, include_prices=True):
     db = DataSuiteDB()
-    where_clauses = ["deleted = 0"]
+    where_clauses = ["m.deleted = 0"]
     params = []
     
     if tipo != "Todos" and tipo:
-        where_clauses.append("tipo_producto_estandar = ?")
+        where_clauses.append("m.tipo_producto_estandar = ?")
         params.append(tipo)
     if subcategoria != "Todas" and subcategoria:
-        where_clauses.append("subcategoria_estandar = ?")
+        where_clauses.append("m.subcategoria_estandar = ?")
         params.append(subcategoria)
     if search_term and search_term.strip():
         term = f"%{search_term.strip()}%"
-        where_clauses.append("(codigo_universal LIKE ? OR nombre_estandar LIKE ? OR marca_estandar LIKE ?)")
+        where_clauses.append("(m.codigo_universal LIKE ? OR m.nombre_estandar LIKE ? OR m.marca_estandar LIKE ?)")
         params.extend([term, term, term])
         
     where_sql = " AND ".join(where_clauses)
-    query = f"SELECT * FROM maestro_productos WHERE {where_sql} ORDER BY codigo_universal"
+    
+    if include_prices:
+        query = f"""
+            SELECT m.*, 
+                   COALESCE(pn.ultimo_precio, ph.ultimo_precio, 0) AS ultimo_precio,
+                   COALESCE(ex.url_producto, '') AS url_producto
+            FROM maestro_productos m
+            LEFT JOIN (
+                SELECT codigo_universal, MAX(precio_final) as ultimo_precio
+                FROM productos_normalizados
+                WHERE precio_final > 0
+                GROUP BY codigo_universal
+            ) pn ON m.codigo_universal = pn.codigo_universal
+            LEFT JOIN (
+                SELECT map.codigo_universal, MAX(h.precio_final) as ultimo_precio
+                FROM mapeo_productos map
+                JOIN productos_historico h ON map.comercio = h.comercio AND map.producto_id = h.producto_id
+                WHERE h.deleted = 0 AND h.precio_final > 0
+                GROUP BY map.codigo_universal
+            ) ph ON m.codigo_universal = ph.codigo_universal
+            LEFT JOIN (
+                SELECT codigo_universal, url_producto
+                FROM (
+                    SELECT map.codigo_universal, h.url_producto,
+                           ROW_NUMBER() OVER (
+                               PARTITION BY map.codigo_universal 
+                               ORDER BY 
+                                   CASE h.comercio
+                                       WHEN 'Exito' THEN 1
+                                       WHEN 'Carulla' THEN 2
+                                       WHEN 'Jumbo' THEN 3
+                                       WHEN 'Olimpica' THEN 4
+                                       WHEN 'Canaveral' THEN 5
+                                       WHEN 'D1' THEN 6
+                                       WHEN 'Makro' THEN 7
+                                       ELSE 8
+                                   END,
+                                   h.fecha_extraccion DESC, h.id DESC
+                           ) as rn
+                    FROM mapeo_productos map
+                    JOIN productos_historico h ON map.comercio = h.comercio AND map.producto_id = h.producto_id
+                    WHERE h.deleted = 0 AND h.url_producto IS NOT NULL AND h.url_producto != ''
+                )
+                WHERE rn = 1
+            ) ex ON m.codigo_universal = ex.codigo_universal
+            WHERE {where_sql}
+            ORDER BY m.codigo_universal
+        """
+    else:
+        query = f"SELECT * FROM maestro_productos m WHERE {where_sql} ORDER BY m.codigo_universal"
+        
     with db.get_connection() as conn:
         return pd.read_sql_query(query, conn, params=params)
 

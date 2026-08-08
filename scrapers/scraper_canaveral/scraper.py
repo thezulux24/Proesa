@@ -105,6 +105,30 @@ class CanaveralScraper:
                                             except ValueError:
                                                 pass
                                                 
+                                        # Extract product URL
+                                        slugs = re.findall(r'"slug":"([^"]+)"', chunk_str)
+                                        prod_slug = None
+                                        if slugs:
+                                            matching_slugs = [s for s in slugs if s.endswith(f"-{sku}") or ("/" not in s and s != "canaveral" and not s.startswith("licores"))]
+                                            if matching_slugs:
+                                                prod_slug = matching_slugs[0]
+                                            else:
+                                                for s in slugs:
+                                                    if "/" not in s and s != "canaveral" and not s.startswith("licores"):
+                                                        prod_slug = s
+                                                        break
+
+                                        if prod_slug:
+                                            if prod_slug.startswith("http"):
+                                                item_url = prod_slug
+                                            elif prod_slug.startswith("/"):
+                                                item_url = f"https://www.domicilioscanaveral.com{prod_slug}"
+                                            else:
+                                                item_url = f"https://www.domicilioscanaveral.com/p/{prod_slug}"
+                                        else:
+                                            clean_name_slug = re.sub(r'[^a-zA-Z0-9]+', '-', name.lower()).strip('-')
+                                            item_url = f"https://www.domicilioscanaveral.com/p/{clean_name_slug}-{sku}"
+
                                         result_dict = {
                                             "ID": sku,
                                             "Nombre": name,
@@ -119,7 +143,7 @@ class CanaveralScraper:
                                             "Precio_Final": price_final,
                                             "Descuento_%": "0%",
                                             "Precio_Unidad": precio_unidad,
-                                            "URL_Producto": category_url
+                                            "URL_Producto": item_url
                                         }
                                         
                                         # Descuento
