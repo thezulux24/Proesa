@@ -22,10 +22,6 @@ __pycache__/
 suite_data.db
 
 # Data files
-data/
-*.csv
-*.json
-*.xlsx
 
 # Logs
 *.log
