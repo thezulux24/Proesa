@@ -1,0 +1,39 @@
+{
+  "exact_overrides": {
+    "canaveral|41522": {
+      "action": "CREATE",
+      "nuevo_maestro": {
+        "nombre_estandar": "Aguardiente ORIGEN DEL VALLE Fusión (750 ml)",
+        "marca_estandar": "ORIGEN DEL VALLE",
+        "tipo_producto_estandar": "Alcohol",
+        "subcategoria_estandar": "Aguardiente",
+        "volumen_estandar": "750 ml",
+        "grados_alcohol_estandar": "29%"
+      },
+      "razon": "Validación de usuario: Origen Del Valle Fusión es una línea y variedad distinta a Del Valle sin azúcar tradicional."
+    },
+    "jumbo|14215": {
+      "action": "LINK",
+      "codigo_universal": "EXI_854131",
+      "razon": "Validación de usuario: Aguardiente sin azúcar vidrio de 1000ml marca Antioqueño corresponde a Antioqueño Azul 29° (EXI_854131), no a Verde 24°."
+    }
+  },
+  "keyword_rules": [
+    {
+      "trigger": "fusion",
+      "rule": "Si el nombre crudo contiene 'fusion' o 'fusión', NUNCA vincular a un maestro que no contenga 'fusion'. Crear nuevo maestro si no existe."
+    },
+    {
+      "trigger": "lider",
+      "rule": "Líder es una marca independiente de Aguardiente (Licorera de Cundinamarca). NUNCA vincular productos Líder a la marca Antioqueño."
+    },
+    {
+      "trigger": "caucano",
+      "rule": "Caucano es una marca independiente de Aguardiente (Licorera del Cauca). NUNCA vincular productos Caucano a la marca Antioqueño o Néctar."
+    },
+    {
+      "trigger": "vidrio 1000ml antioqueno sin azucar",
+      "rule": "En Aguardiente Antioqueño de 1000ml sin azúcar en vidrio, vincular a Antioqueño Azul 29° (EXI_854131), no a Verde 24°."
+    }
+  ]
+}

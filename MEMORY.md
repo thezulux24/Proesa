@@ -1,6 +1,6 @@
 # Memoria del Proyecto (Base de Conocimiento)
 
-Este archivo sirve como memoria persistente para el agente de IA. Aquí se documentan las decisiones críticas de diseño, la infraestructura, la base de datos y cómo interactúan las distintas partes de la Suite Data Universal para PROESA / Banco Mundial.
+Este archivo sirve como memoria persistente para el agente de IA. Aquí se documentan las decisiones críticas de diseño, la infraestructura, la base de datos y cómo interactúan las distintas partes de la Alcohol y tabaco scraping para PROESA / Banco Mundial.
 
 ## 1. Infraestructura de Servidor
 - **Hardware/OS:** Windows Server 2016 con Interfaz Gráfica, 100GB RAM, 16 núcleos AMD Epyc.
@@ -52,7 +52,7 @@ Para mantener la UI funcionando sin reescribir todo `suite_app.py`, `database.py
 - **Makro (Next.js FastStore Complejo)**: `scraper_makro/scraper.py`
 # Memoria del Proyecto (Base de Conocimiento)
 
-Este archivo sirve como memoria persistente para el agente de IA. Aquí se documentan las decisiones críticas de diseño, la infraestructura, la base de datos y cómo interactúan las distintas partes de la Suite Data Universal para PROESA / Banco Mundial.
+Este archivo sirve como memoria persistente para el agente de IA. Aquí se documentan las decisiones críticas de diseño, la infraestructura, la base de datos y cómo interactúan las distintas partes de la Alcohol y tabaco scraping para PROESA / Banco Mundial.
 
 ## 1. Infraestructura de Servidor
 - **Hardware/OS:** Windows Server 2016 con Interfaz Gráfica, 100GB RAM, 16 núcleos AMD Epyc.
@@ -98,8 +98,10 @@ Para mantener la UI funcionando sin reescribir todo `suite_app.py`, `database.py
 - **Cañaveral**: `scraper_canaveral/scraper.py`
   - Utiliza la misma arquitectura Next.js / FastStore (RSC) que D1.
   - La extracción se hace limpiamente buscando las cadenas JSON dentro de `__next_f.push` del código fuente, lo que nos permite usar requests puro sin bloquearnos por antibots.
-- **Olímpica**: `scraper_olimpica/scraper.py`
-  - Los cigarrillos/vaporizadores tienen una ruta totalmente independiente (`/supermercado/cigarrillos-y-vaporizadores`). Se debe iterar explícitamente ambas rutas para extraer el catálogo completo (que asciende a más de 2200 productos).
+- **Olímpica**: `scrapers/scraper_olimpica/scraper.py`
+  - Los cigarrillos/vaporizadores tienen una ruta totalmente independiente (`/supermercado/cigarrillos-y-vaporizadores`). Se debe iterar explícitamente ambas rutas para extraer el catálogo completo.
+  - **Filtro de Productos Agotados/Inactivos (VTEX Legacy Search API):** La API de VTEX retorna variaciones regionales antiguas o agotadas (que en la web se ven en **gris**) con precio histórico. Se configuró la verificación estricta `IsAvailable == True` y `AvailableQuantity > 0` en `commertialOffer` para omitir automáticamente productos inactivos y evitar duplicados fantasma por producto.
+
 - **Makro (Next.js FastStore Complejo)**: `scraper_makro/scraper.py`
   - Se utiliza extracción Regex iterando el chunk `__next_f.push`.
   - La categoría viene oculta en referencias de estado JSON (RSC). Se programó un *unpacking* recursivo (`categoriesData` -> `$fd` -> `["$fe", "$ff"]`) para extraer el árbol de jerarquía (ej. `Bebidas > Cervezas, Vinos y Licores > Whisky`).
@@ -142,8 +144,20 @@ Para mantener la UI funcionando sin reescribir todo `suite_app.py`, `database.py
   - **`export_mdm.py`:** Genera un respaldo JSON portátil (`data/mdm_export.json`) que empaqueta las tablas `maestro_productos`, `mapeo_productos` y las banderas de depuración (`deleted = 1`).
   - **`import_mdm.py`:** Lee `data/mdm_export.json`, restaura los registros en `suite_data.db` en cualquier PC mediante `INSERT OR REPLACE` y ejecuta automáticamente `database.run_normalization_etl()` para reconstruir `productos_normalizados`.
 
-    - **Barra de Búsqueda en Vivo:** Permite filtrar y buscar en tiempo real entre todo el universo de `maestro_productos` sin cerrar el modal.
-    - **Modo Interactivo:** Botón toggle `Matching Auto (Top 15)` que abre automáticamente el asistente al hacer clic en cualquier producto crudo de la tabla.
+- **Módulo de Asignación de Registros Sanitarios INVIMA con IA (`core/invima_ai_matcher.py`)**:
+  - Módulo backend ubicado en `core/invima_ai_matcher.py` con wrapper CLI en la raíz (`match_invima_deepseek.py`).
+  - Indexa en memoria de base de datos los $1,882$ productos maestros que ya cuentan con Registro INVIMA y busca sobre el catálogo oficial de $10,972$ certificados sanitarios en `invima_certificados`.
+  - **Regla Estricta "Dejar Quieto" (`LEAVE`)**: Si el nivel de confianza es inferior al $90\%$ o no existe un certificado idéntico en marca y variedad, **NO asigna ningún registro y deja la casilla `NULL` intacta**.
+  - Al completar vinculaciones, re-ejecuta `database.run_normalization_etl()` y exporta `data/mdm_export.json`.
+  - Integrado en `main.py` (Paso 8.3) y notificado en la alerta por correo en una tarjeta verde dedicada (`📜 Asignación de Registros Sanitarios INVIMA (IA)`).
+
+
+
+
+- **Script Automatizado de Matching MDM con IA y RAG Histórico (`match_mdm_deepseek.py`)**:
+  - Script independiente en Python con soporte para los modelos **`deepseek-chat`** (V3 - Rápido) y **`deepseek-reasoner`** (R1 - Razonamiento de Cadena de Pensamiento / Chain of Thought).
+  - Incluye **Indexación Directa en Memoria de 4,436 Nombres Crudos Validados y RAG de 6,631 Mapeos de DB**.
+  - En `deepseek-reasoner` (R1), el modelo razona en `reasoning_content` evaluando volumen, coherencia de precio, coincidencia de sub-línea y antecedentes históricos antes de tomar la decisión final.
 
 
 

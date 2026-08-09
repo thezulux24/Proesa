@@ -6,7 +6,7 @@ import customtkinter as ctk
 from tkinter import ttk, messagebox
 import pandas as pd
 import database
-from ui.components.modals import AssignInvimaModal, export_dataframe_dialog, CandidateMatchingModal
+from ui.components.modals import AssignInvimaModal, export_dataframe_dialog, CandidateMatchingModal, CreateMasterModal
 
 class UnifiedStandardizationFrame(ctk.CTkFrame):
     def __init__(self, master):
@@ -178,6 +178,24 @@ class UnifiedStandardizationFrame(ctk.CTkFrame):
 
         ctk.CTkButton(
             bottom_controls, 
+            text="✨ Crear Nuevo Maestro", 
+            fg_color="#059669", 
+            hover_color="#047857", 
+            font=ctk.CTkFont(weight="bold"), 
+            command=self.open_create_master_modal
+        ).pack(side="left", padx=5)
+
+        ctk.CTkButton(
+            bottom_controls, 
+            text="🚫 Descartar (Falso Positivo)", 
+            fg_color="#dc2626", 
+            hover_color="#b91c1c", 
+            font=ctk.CTkFont(weight="bold"), 
+            command=self.mark_raw_false_positive
+        ).pack(side="left", padx=5)
+
+        ctk.CTkButton(
+            bottom_controls, 
             text="🔗 Abrir Enlace Maestro", 
             fg_color="#0284c7", 
             hover_color="#0369a1", 
@@ -268,6 +286,55 @@ class UnifiedStandardizationFrame(ctk.CTkFrame):
             self.df_master = database.get_maestro_products(include_prices=True)
 
         CandidateMatchingModal(self, target_raw, self.df_master, self._link_single_product_callback)
+
+    def open_create_master_modal(self):
+        sel_raw = self.tree_raw.selection()
+        target_raw = None
+
+        if sel_raw:
+            vals = self.tree_raw.item(sel_raw[0])['values']
+            comercio = vals[0]
+            prod_id = str(vals[1])
+            nombre = vals[2]
+            marca = vals[3]
+
+            precio_val = 0
+            url_val = ""
+            if hasattr(self, 'df_raw') and not self.df_raw.empty:
+                match = self.df_raw[(self.df_raw['comercio'] == comercio) & (self.df_raw['producto_id'].astype(str) == prod_id)]
+                if not match.empty:
+                    precio_val = match.iloc[0].get('ultimo_precio', 0)
+                    url_val = match.iloc[0].get('url_producto', '')
+
+            target_raw = {
+                'comercio': comercio,
+                'producto_id': prod_id,
+                'nombre': nombre,
+                'marca': marca,
+                'ultimo_precio': precio_val,
+                'url_producto': url_val
+            }
+
+        def on_created(created_code, raw_data):
+            self.load_mapeo_data()
+
+        CreateMasterModal(self, target_raw=target_raw, on_create_callback=on_created)
+
+    def mark_raw_false_positive(self):
+        sel_raw = self.tree_raw.selection()
+        if not sel_raw:
+            messagebox.showwarning("Atención", "Por favor selecciona un producto sin mapear de la lista izquierda.")
+            return
+
+        vals = self.tree_raw.item(sel_raw[0])['values']
+        comercio = vals[0]
+        prod_id = str(vals[1])
+        nombre = vals[2]
+
+        if messagebox.askyesno("Confirmar Falso Positivo", f"¿Descartar el producto '{nombre}' [{comercio} - ID {prod_id}] como Falso Positivo?\nSe marcará en la base de datos y no se incluirá en los análisis ni en productos normalizados."):
+            database.mark_raw_false_positive(comercio, prod_id)
+            messagebox.showinfo("Descartado", f"El producto {comercio} [{prod_id}] fue marcado como falso positivo.")
+            self.load_mapeo_data()
 
     def open_raw_product_url(self):
         import webbrowser

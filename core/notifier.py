@@ -31,21 +31,52 @@ class Notifier:
             
         today_str = datetime.date.today().strftime('%Y-%m-%d')
         
-        total_productos = sum(stats.values()) if stats else 0
-        total_tiendas = len(stats) if stats else 0
+        # Sumar únicamente valores numéricos de tiendas para el total recolectado
+        total_productos = sum(v for v in stats.values() if isinstance(v, (int, float))) if stats else 0
         
-        # Generar filas de la tabla de éxito
+        # Tiendas físicas/digitales procesadas (excluyendo estadísticas de IA si están en formato texto)
+        tiendas_procesadas = [k for k, v in stats.items() if isinstance(v, (int, float))]
+        total_tiendas = len(tiendas_procesadas)
+        
+        # Generar filas de la tabla de éxito y sección de IA
         filas_exito = ""
+        seccion_ai_mdm = ""
+
         if stats:
             for comercio, cantidad in stats.items():
-                filas_exito += f'''
-                <tr>
-                    <td style="padding: 12px 15px; border-bottom: 1px solid #e1e1e1;"><strong>{comercio}</strong></td>
-                    <td style="padding: 12px 15px; border-bottom: 1px solid #e1e1e1; color: #28a745; font-weight: bold;">{cantidad}</td>
-                </tr>
-                '''
+                if comercio == "MDM_AI_Matcher":
+
+                    seccion_ai_mdm += f'''
+                    <div style="background: #eef2ff; border-left: 4px solid #4f46e5; padding: 15px; margin-top: 20px; border-radius: 4px;">
+                        <h4 style="margin-top: 0; color: #3730a3; margin-bottom: 5px;">🤖 Automatización e Inteligencia de Mercado MDM</h4>
+                        <p style="margin: 0; font-size: 13px; color: #4338ca;"><strong>Resultado IA:</strong> {cantidad}</p>
+                    </div>
+                    '''
+                elif comercio == "INVIMA_AI_Matcher":
+                    seccion_ai_mdm += f'''
+                    <div style="background: #f0fdf4; border-left: 4px solid #16a34a; padding: 15px; margin-top: 15px; border-radius: 4px;">
+                        <h4 style="margin-top: 0; color: #166534; margin-bottom: 5px;">📜 Asignación de Registros Sanitarios INVIMA (IA)</h4>
+                        <p style="margin: 0; font-size: 13px; color: #15803d;"><strong>Resultado INVIMA:</strong> {cantidad}</p>
+                    </div>
+                    '''
+
+                elif isinstance(cantidad, (int, float)):
+                    filas_exito += f'''
+                    <tr>
+                        <td style="padding: 12px 15px; border-bottom: 1px solid #e1e1e1;"><strong>{comercio}</strong></td>
+                        <td style="padding: 12px 15px; border-bottom: 1px solid #e1e1e1; color: #28a745; font-weight: bold;">{cantidad:,}</td>
+                    </tr>
+                    '''
+                else:
+                    filas_exito += f'''
+                    <tr>
+                        <td style="padding: 12px 15px; border-bottom: 1px solid #e1e1e1;"><strong>{comercio}</strong></td>
+                        <td style="padding: 12px 15px; border-bottom: 1px solid #e1e1e1; color: #28a745; font-weight: bold;">{cantidad}</td>
+                    </tr>
+                    '''
         else:
             filas_exito = '<tr><td colspan="2" style="padding: 12px 15px; text-align: center;">No hubo extracciones exitosas hoy.</td></tr>'
+
 
         # Generar sección de errores
         seccion_errores = ""
@@ -82,7 +113,7 @@ class Notifier:
         <body>
             <div class="container">
                 <div class="header">
-                    <h1>PROESA - Suite Data Universal</h1>
+                    <h1>PROESA - Alcohol y tabaco scraping</h1>
                     <p>Reporte de Extracción Diaria de Precios - {today_str}</p>
                 </div>
                 <div class="content">
@@ -118,7 +149,10 @@ class Notifier:
                         </tbody>
                     </table>
 
+                    {seccion_ai_mdm}
+
                     {seccion_errores}
+
                 </div>
                 <div class="footer">
                     <p>Este es un reporte automático generado por la Suite Data de Inteligencia de Mercado (PROESA / Banco Mundial).</p>

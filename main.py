@@ -18,7 +18,7 @@ from scrapers import (
 
 
 def main():
-    print("Iniciando Suite Data Universal...")
+    print("Iniciando Alcohol y tabaco scraping...")
     
     # Initialize DB & Notifier
     db = DataSuiteDB()
@@ -180,18 +180,46 @@ def main():
         traceback.print_exc()
 
     # ==========================
-    # FINAL REPORT & ETL
+    # 8. CONSOLIDACIÓN MDM E INTELIGENCIA ARTIFICIAL
     # ==========================
-    print("\n--- Finalizando Extracción ---")
-    
-    print("\n--- Ejecutando ETL de Normalización Automático ---")
+    print("\n--- 8.1 Ejecutando ETL Inicial (Normalización de Mapeos Existentes en DB) ---")
     try:
         from database import run_normalization_etl
         run_normalization_etl()
-        print("ETL completado exitosamente. Datos normalizados actualizados.")
+        print("[OK] ETL Inicial completado. Productos conocidos vinculados automáticamente.")
     except Exception as e:
-        errores["ETL_Normalizacion"] = str(e)
+        errores["ETL_Inicial"] = str(e)
         traceback.print_exc()
+
+    print("\n--- 8.2 Procesando Productos Residuales Sin Mapear con IA DeepSeek ---")
+    try:
+        from core.mdm_ai_matcher import run_auto_mdm_matching
+        ai_stats = run_auto_mdm_matching()
+        if ai_stats and sum(ai_stats.values()) > 0:
+            stats["MDM_AI_Matcher"] = f"Vinculados: {ai_stats.get('LINK', 0)} | Creados: {ai_stats.get('CREATE', 0)} | Descartados: {ai_stats.get('DISCARD', 0)}"
+    print("\n--- 8.3 Asignando Registros Sanitarios INVIMA Pendientes con IA ---")
+    try:
+        from core.invima_ai_matcher import run_auto_invima_matching
+        invima_stats = run_auto_invima_matching()
+        if invima_stats and sum(invima_stats.values()) > 0:
+            stats["INVIMA_AI_Matcher"] = f"Registros Asignados: {invima_stats.get('LINK_INVIMA', 0)} | Dejados Quieto: {invima_stats.get('LEAVE', 0)}"
+    except Exception as e:
+        errores["INVIMA_AI_Matcher"] = str(e)
+        traceback.print_exc()
+
+    # ==========================
+    # FINAL REPORT & ETL
+    # ==========================
+    print("\n--- Finalizando Extracción y Consolidación ---")
+    print("\n--- 8.4 Ejecutando ETL de Normalización Final ---")
+
+    try:
+        run_normalization_etl()
+        print("[OK] ETL Final completado exitosamente. Datos normalizados actualizados.")
+    except Exception as e:
+        errores["ETL_Final"] = str(e)
+        traceback.print_exc()
+
 
     print("Estadísticas:", stats)
     print("Errores:", errores)
@@ -199,6 +227,7 @@ def main():
     # Enviar correo de reporte
     notifier.enviar_reporte_ejecucion(stats, errores)
     print("Proceso finalizado.")
+
 
 if __name__ == "__main__":
     # Ensure data dir exists for any fallback CSVs

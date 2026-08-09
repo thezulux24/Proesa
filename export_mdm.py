@@ -43,11 +43,12 @@ def export_mdm():
     print("=" * 60)
     print(" EXPORTACIÓN DE ESTADO MDM COMPLETADA CON ÉXITO ")
     print("=" * 60)
-    print(f"✓ Productos Maestros: {len(maestro_records):,}")
-    print(f"✓ Vinculaciones (Mapeo): {len(mapeo_records):,}")
-    print(f"✓ Registros Depurados (Soft Delete): {len(deleted_records):,}")
-    print(f"✓ Archivo generado: {os.path.abspath(OUTPUT_FILE)}")
+    print(f"[OK] Productos Maestros: {len(maestro_records):,}")
+    print(f"[OK] Vinculaciones (Mapeo): {len(mapeo_records):,}")
+    print(f"[OK] Registros Depurados (Soft Delete): {len(deleted_records):,}")
+    print(f"[OK] Archivo generado: {os.path.abspath(OUTPUT_FILE)}")
     print("=" * 60)
+
 
 if __name__ == "__main__":
     export_mdm()

@@ -329,11 +329,29 @@ class CandidateMatchingModal(ctk.CTkToplevel):
 
         ctk.CTkButton(
             btn_frame, 
+            text="🚫 Descartar (Falso Positivo)", 
+            fg_color="#dc2626", 
+            hover_color="#b91c1c", 
+            font=ctk.CTkFont(weight="bold", size=13), 
+            command=self.mark_as_false_positive
+        ).pack(side="left", padx=(10, 5))
+
+        ctk.CTkButton(
+            btn_frame, 
             text="Vincular Candidato Seleccionado", 
             fg_color="#2563eb", 
             hover_color="#1d4ed8", 
             font=ctk.CTkFont(weight="bold", size=13), 
             command=self.confirm_link
+        ).pack(side="right", padx=5)
+
+        ctk.CTkButton(
+            btn_frame, 
+            text="✨ Crear Nuevo Maestro", 
+            fg_color="#059669", 
+            hover_color="#047857", 
+            font=ctk.CTkFont(weight="bold", size=13), 
+            command=self.open_create_master_dialog
         ).pack(side="right", padx=5)
 
         ctk.CTkButton(
@@ -497,4 +515,228 @@ class CandidateMatchingModal(ctk.CTkToplevel):
         if messagebox.askyesno("Confirmar Vinculación", f"¿Vincular el producto crudo '{self.nombre_crudo}'\nal maestro '{codigo_universal}' - {nombre_master}?"):
             self.on_link(self.comercio, self.prod_id, codigo_universal)
             self.destroy()
+
+    def open_create_master_dialog(self):
+        target_raw = {
+            'comercio': self.comercio,
+            'producto_id': self.prod_id,
+            'nombre': self.nombre_crudo,
+            'marca': self.marca_cruda,
+            'ultimo_precio': self.precio_crudo,
+            'url_producto': self.url_producto
+        }
+        
+        def on_master_created(created_code, raw_data):
+            self.on_link(self.comercio, self.prod_id, created_code)
+            self.destroy()
+
+        CreateMasterModal(self, target_raw=target_raw, on_create_callback=on_master_created)
+
+    def mark_as_false_positive(self):
+        if messagebox.askyesno("Confirmar Falso Positivo", f"¿Marcar el producto '{self.nombre_crudo}' [{self.comercio} - ID {self.prod_id}] como Falso Positivo?\nSe ocultará de la lista y no se incluirá en los análisis."):
+            database.mark_raw_false_positive(self.comercio, self.prod_id)
+            messagebox.showinfo("Descartado", f"El producto {self.comercio} [{self.prod_id}] fue marcado como falso positivo.")
+            self.destroy()
+            if self.on_link:
+                self.on_link(self.comercio, self.prod_id, None)
+
+
+class CreateMasterModal(ctk.CTkToplevel):
+    def __init__(self, master, target_raw=None, on_create_callback=None):
+        """
+        target_raw: dict with keys ('comercio', 'producto_id', 'nombre', 'marca', 'tipo_producto', etc.) or None
+        on_create_callback: callback function(codigo_universal, target_raw)
+        """
+        super().__init__(master)
+        self.title("Crear Nuevo Producto Maestro (MDM)")
+        self.geometry("560x650")
+        self.resizable(False, False)
+        self.transient(master.winfo_toplevel())
+        self.grab_set()
+
+        self.target_raw = target_raw
+        self.on_create = on_create_callback
+
+        self._setup_ui()
+
+    def _setup_ui(self):
+        # Header
+        ctk.CTkLabel(
+            self, 
+            text="✨ Crear Nuevo Producto Maestro MDM", 
+            font=ctk.CTkFont(size=18, weight="bold")
+        ).pack(pady=(18, 5))
+
+        if self.target_raw:
+            nombre_raw = self.target_raw.get('nombre', '')
+            comercio = self.target_raw.get('comercio', '')
+            prod_id = self.target_raw.get('producto_id', '')
+            info_txt = f"Se creará el maestro y se vinculará a: [{comercio} - ID {prod_id}] {nombre_raw}"
+            card_info = ctk.CTkFrame(self, fg_color=("#e2e8f0", "#1f2937"), corner_radius=8)
+            card_info.pack(fill="x", padx=25, pady=(5, 10))
+            ctk.CTkLabel(
+                card_info, 
+                text=info_txt, 
+                font=ctk.CTkFont(size=11, weight="bold"), 
+                text_color="#3b82f6", 
+                wraplength=490, 
+                justify="left"
+            ).pack(padx=12, pady=8, anchor="w")
+
+        # Form Frame
+        form_frame = ctk.CTkFrame(self, fg_color="transparent")
+        form_frame.pack(fill="both", expand=True, padx=25, pady=5)
+        form_frame.grid_columnconfigure(1, weight=1)
+
+        # 1. Código Universal
+        row = 0
+        ctk.CTkLabel(form_frame, text="Código Universal:", font=ctk.CTkFont(weight="bold")).grid(row=row, column=0, sticky="w", pady=6, padx=(0, 10))
+        self.entry_code = ctk.CTkEntry(form_frame, placeholder_text="Ej: MST_102030")
+        auto_code = database.generate_new_master_code()
+        self.entry_code.insert(0, auto_code)
+        self.entry_code.grid(row=row, column=1, sticky="ew", pady=6)
+
+        # 2. Nombre Estándar MDM
+        row += 1
+        ctk.CTkLabel(form_frame, text="Nombre Estándar MDM *:", font=ctk.CTkFont(weight="bold")).grid(row=row, column=0, sticky="w", pady=6, padx=(0, 10))
+        self.entry_nombre = ctk.CTkEntry(form_frame, placeholder_text="Ej: Aguardiente BENDITO sin azúcar (750 ml)")
+        if self.target_raw and self.target_raw.get('nombre'):
+            self.entry_nombre.insert(0, str(self.target_raw.get('nombre')))
+        self.entry_nombre.grid(row=row, column=1, sticky="ew", pady=6)
+
+        # 3. Marca Estándar
+        row += 1
+        ctk.CTkLabel(form_frame, text="Marca Estándar *:", font=ctk.CTkFont(weight="bold")).grid(row=row, column=0, sticky="w", pady=6, padx=(0, 10))
+        self.entry_marca = ctk.CTkEntry(form_frame, placeholder_text="Ej: BENDITO")
+        if self.target_raw and self.target_raw.get('marca'):
+            self.entry_marca.insert(0, str(self.target_raw.get('marca')))
+        self.entry_marca.grid(row=row, column=1, sticky="ew", pady=6)
+
+        # 4. Tipo de Producto
+        row += 1
+        ctk.CTkLabel(form_frame, text="Tipo de Producto *:", font=ctk.CTkFont(weight="bold")).grid(row=row, column=0, sticky="w", pady=6, padx=(0, 10))
+        self.combo_tipo = ctk.CTkComboBox(form_frame, values=["Alcohol", "Tabaco"])
+        default_tipo = "Alcohol"
+        if self.target_raw and self.target_raw.get('tipo_producto'):
+            raw_tipo = str(self.target_raw.get('tipo_producto')).capitalize()
+            if raw_tipo in ["Alcohol", "Tabaco"]:
+                default_tipo = raw_tipo
+        self.combo_tipo.set(default_tipo)
+        self.combo_tipo.grid(row=row, column=1, sticky="ew", pady=6)
+
+        # 5. Subcategoría Estándar
+        row += 1
+        ctk.CTkLabel(form_frame, text="Subcategoría Estándar:", font=ctk.CTkFont(weight="bold")).grid(row=row, column=0, sticky="w", pady=6, padx=(0, 10))
+        subcats = database.get_available_subcategories()
+        if not subcats:
+            subcats = ["Aguardiente", "Cerveza", "Ron", "Whisky", "Vino", "Vodka", "Tequila", "Cigarrillos"]
+        self.combo_subcat = ctk.CTkComboBox(form_frame, values=subcats)
+        self.combo_subcat.set(subcats[0] if subcats else "")
+        self.combo_subcat.grid(row=row, column=1, sticky="ew", pady=6)
+
+        # 6. Volumen Estándar
+        row += 1
+        ctk.CTkLabel(form_frame, text="Volumen Estándar:", font=ctk.CTkFont(weight="bold")).grid(row=row, column=0, sticky="w", pady=6, padx=(0, 10))
+        self.entry_volumen = ctk.CTkEntry(form_frame, placeholder_text="Ej: 750 ml")
+        if self.target_raw and self.target_raw.get('medida'):
+            self.entry_volumen.insert(0, str(self.target_raw.get('medida')))
+        self.entry_volumen.grid(row=row, column=1, sticky="ew", pady=6)
+
+        # 7. Grados de Alcohol
+        row += 1
+        ctk.CTkLabel(form_frame, text="Grados de Alcohol:", font=ctk.CTkFont(weight="bold")).grid(row=row, column=0, sticky="w", pady=6, padx=(0, 10))
+        self.entry_grados = ctk.CTkEntry(form_frame, placeholder_text="Ej: 29%")
+        if self.target_raw and self.target_raw.get('grados_alcohol'):
+            self.entry_grados.insert(0, str(self.target_raw.get('grados_alcohol')))
+        self.entry_grados.grid(row=row, column=1, sticky="ew", pady=6)
+
+        # Action Buttons
+        btn_frame = ctk.CTkFrame(self, fg_color="transparent")
+        btn_frame.pack(fill="x", padx=25, pady=(15, 20))
+
+        if self.target_raw:
+            ctk.CTkButton(
+                btn_frame, 
+                text="🚫 Descartar (Falso Positivo)", 
+                fg_color="#dc2626", 
+                hover_color="#b91c1c", 
+                font=ctk.CTkFont(weight="bold", size=13), 
+                command=self.discard_as_false_positive
+            ).pack(side="left", padx=5)
+
+        btn_save_text = "✨ Guardar y Vincular Maestro" if self.target_raw else "✨ Guardar Nuevo Maestro"
+        ctk.CTkButton(
+            btn_frame, 
+            text=btn_save_text, 
+            fg_color="#059669", 
+            hover_color="#047857", 
+            font=ctk.CTkFont(weight="bold", size=13), 
+            command=self.save
+        ).pack(side="right", padx=5)
+
+        ctk.CTkButton(
+            btn_frame, 
+            text="Cancelar", 
+            fg_color="#4b5563", 
+            hover_color="#374151", 
+            command=self.destroy
+        ).pack(side="right", padx=5)
+
+    def save(self):
+        codigo = self.entry_code.get().strip()
+        nombre = self.entry_nombre.get().strip()
+        marca = self.entry_marca.get().strip()
+        tipo = self.combo_tipo.get().strip()
+        subcat = self.combo_subcat.get().strip()
+        volumen = self.entry_volumen.get().strip()
+        grados = self.entry_grados.get().strip()
+
+        if not nombre:
+            messagebox.showwarning("Campo Requerido", "El campo 'Nombre Estándar MDM' es obligatorio.")
+            return
+
+        if not marca:
+            messagebox.showwarning("Campo Requerido", "El campo 'Marca Estándar' es obligatorio.")
+            return
+
+        try:
+            created_code = database.add_to_maestro(
+                nombre=nombre,
+                marca=marca,
+                tipo=tipo,
+                subcategoria=subcat,
+                volumen=volumen,
+                grados=grados,
+                codigo_universal=codigo
+            )
+
+            if self.target_raw:
+                comercio = self.target_raw.get('comercio')
+                prod_id = str(self.target_raw.get('producto_id'))
+                if comercio and prod_id:
+                    database.add_mapping(comercio, prod_id, created_code)
+
+            if self.on_create:
+                self.on_create(created_code, self.target_raw)
+
+            messagebox.showinfo("Éxito", f"Producto Maestro '{created_code}' creado correctamente.")
+            self.destroy()
+        except ValueError as ve:
+            messagebox.showerror("Código Duplicado", str(ve))
+        except Exception as e:
+            messagebox.showerror("Error al Crear Maestro", f"Ocurrió un error al guardar el producto maestro:\n{e}")
+
+    def discard_as_false_positive(self):
+        if not self.target_raw:
+            return
+        comercio = self.target_raw.get('comercio')
+        prod_id = str(self.target_raw.get('producto_id'))
+        nombre = self.target_raw.get('nombre', '')
+        if messagebox.askyesno("Confirmar Falso Positivo", f"¿Descartar '{nombre}' [{comercio} - ID {prod_id}] como falso positivo?\nSe ocultará permanentemente de las listas no mapeadas."):
+            database.mark_raw_false_positive(comercio, prod_id)
+            messagebox.showinfo("Descartado", "El producto crudo ha sido marcado como Falso Positivo.")
+            self.destroy()
+            if self.on_create:
+                self.on_create(None, self.target_raw)
+
 

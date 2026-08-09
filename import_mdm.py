@@ -82,11 +82,12 @@ def import_mdm():
     print("=" * 60)
     print(" SINCRONIZACIÓN MDM COMPLETADA (CERO DUPLICADOS) ")
     print("=" * 60)
-    print(f"✓ Total Productos Maestros: {maestro_final_count:,} ({new_maestro:,} nuevos agregados)")
-    print(f"✓ Total Mapeos Vinculados: {mapeo_final_count:,} ({new_mapeo:,} nuevos agregados)")
-    print(f"✓ Total Depuraciones (Soft Delete): {len(deleted):,}")
-    print("✓ Tabla `productos_normalizados` actualizada correctamente.")
+    print(f"[OK] Total Productos Maestros: {maestro_final_count:,} ({new_maestro:,} nuevos agregados)")
+    print(f"[OK] Total Mapeos Vinculados: {mapeo_final_count:,} ({new_mapeo:,} nuevos agregados)")
+    print(f"[OK] Total Depuraciones (Soft Delete): {len(deleted):,}")
+    print("[OK] Tabla `productos_normalizados` actualizada correctamente.")
     print("=" * 60)
+
 
 if __name__ == "__main__":
     import_mdm()

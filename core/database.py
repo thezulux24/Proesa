@@ -459,6 +459,15 @@ def delete_false_positive(codigo_universal):
         conn.commit()
     run_normalization_etl()
 
+def mark_raw_false_positive(comercio, producto_id):
+    db = DataSuiteDB()
+    with db.get_connection() as conn:
+        cur = conn.cursor()
+        cur.execute("UPDATE productos_historico SET deleted = 1 WHERE comercio = ? AND producto_id = ?", (comercio, str(producto_id)))
+        conn.commit()
+    run_normalization_etl()
+
+
 def get_unmapped_products(fuente="Todas", tipo="Todos", search_term=None, hide_zero_price=False):
     db = DataSuiteDB()
     where_clauses = ["m.codigo_universal IS NULL AND h.deleted = 0"]
@@ -661,10 +670,22 @@ def add_invima_certificado(registro_sanitario, codigo_unico, nombre, marca, clas
         """, (registro_sanitario.strip(), codigo_unico.strip(), nombre.strip(), marca.strip(), clasificacion.strip(), grados_alcohol.strip()))
         conn.commit()
 
+def generate_new_master_code():
+    import uuid
+    db = DataSuiteDB()
+    with db.get_connection() as conn:
+        cur = conn.cursor()
+        while True:
+            code = "MST_" + str(uuid.uuid4()).split('-')[0].upper()
+            cur.execute("SELECT 1 FROM maestro_productos WHERE codigo_universal = ?", (code,))
+            if not cur.fetchone():
+                return code
+
 def add_to_maestro(nombre, marca, tipo, subcategoria, volumen, grados, codigo_universal=None):
-    if not codigo_universal:
-        import uuid
-        codigo_universal = "PRD-" + str(uuid.uuid4()).split('-')[0].upper()
+    if not codigo_universal or not str(codigo_universal).strip():
+        codigo_universal = generate_new_master_code()
+    else:
+        codigo_universal = str(codigo_universal).strip()
     
     db = DataSuiteDB()
     query = """
@@ -673,9 +694,22 @@ def add_to_maestro(nombre, marca, tipo, subcategoria, volumen, grados, codigo_un
     """
     with db.get_connection() as conn:
         cur = conn.cursor()
-        cur.execute(query, (codigo_universal, nombre, marca, tipo, subcategoria, volumen, grados))
+        cur.execute("SELECT 1 FROM maestro_productos WHERE codigo_universal = ?", (codigo_universal,))
+        if cur.fetchone():
+            raise ValueError(f"El código maestro '{codigo_universal}' ya existe en la base de datos.")
+        
+        cur.execute(query, (
+            codigo_universal, 
+            str(nombre).strip() if nombre else "", 
+            str(marca).strip() if marca else "", 
+            str(tipo).strip() if tipo else "Alcohol", 
+            str(subcategoria).strip() if subcategoria else "", 
+            str(volumen).strip() if volumen else "", 
+            str(grados).strip() if grados else ""
+        ))
         conn.commit()
     return codigo_universal
+
 
 def add_mapping(comercio, producto_id, codigo_universal):
     db = DataSuiteDB()
@@ -715,3 +749,62 @@ def run_normalization_etl():
         """
         cur.execute(insert_query)
         conn.commit()
+
+def get_unmapped_invima_masters(subcategoria="Todas", limit=0):
+    """
+    Retorna los productos maestros activos que no tienen registro sanitario INVIMA asignado.
+    Omite automáticamente los productos de tipo Tabaco.
+    """
+    db = DataSuiteDB()
+    with db.get_connection() as conn:
+        query = """
+            SELECT codigo_universal, nombre_estandar, marca_estandar, tipo_producto_estandar, 
+                   subcategoria_estandar, volumen_estandar, grados_alcohol_estandar
+            FROM maestro_productos
+            WHERE (registro_sanitario_invima IS NULL OR registro_sanitario_invima = '' OR registro_sanitario_invima = 'N/A')
+              AND deleted = 0
+              AND LOWER(tipo_producto_estandar) != 'tabaco'
+        """
+        params = []
+        if subcategoria and subcategoria != "Todas":
+            query += " AND subcategoria_estandar = ?"
+            params.append(subcategoria)
+
+        query += " ORDER BY codigo_universal"
+        if limit > 0:
+            query += " LIMIT ?"
+            params.append(limit)
+
+        import pandas as pd
+        return pd.read_sql_query(query, conn, params=params)
+
+def update_master_invima(codigo_universal, registro_invima, codigo_unico=None, nombre_invima=None, precio_invima=None):
+    """
+    Actualiza la información del Registro Sanitario INVIMA en la tabla maestro_productos.
+    """
+    db = DataSuiteDB()
+    with db.get_connection() as conn:
+        cur = conn.cursor()
+        precio_val = None
+        if precio_invima not in (None, "", "NaN", "null"):
+            try:
+                precio_val = float(precio_invima)
+            except (ValueError, TypeError):
+                precio_val = None
+
+        cur.execute("""
+            UPDATE maestro_productos
+            SET registro_sanitario_invima = ?,
+                codigo_unico_invima = ?,
+                nombre_invima = ?,
+                precio_referencia_invima = ?
+            WHERE codigo_universal = ?
+        """, (
+            str(registro_invima).strip() if registro_invima else None,
+            str(codigo_unico).strip() if codigo_unico else None,
+            str(nombre_invima).strip() if nombre_invima else None,
+            precio_val,
+            str(codigo_universal).strip()
+        ))
+        conn.commit()
+

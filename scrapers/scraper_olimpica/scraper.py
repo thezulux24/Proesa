@@ -94,8 +94,22 @@ class OlimpicaScraper:
                 sellers = items[0].get('sellers', [])
                 if sellers and len(sellers) > 0:
                     commertial = sellers[0].get('commertialOffer', {})
+                    is_available = commertial.get('IsAvailable', True)
+                    available_qty = commertial.get('AvailableQuantity', 0)
+                    
+                    # Descartar productos inactivos o sin stock en Olímpica (imágenes en gris)
+                    if not is_available or (isinstance(available_qty, (int, float)) and available_qty <= 0):
+                        return None
+
                     price_final = commertial.get('Price', "N/A")
                     price_original = commertial.get('ListPrice', "N/A")
+                    
+                    try:
+                        if float(price_final) <= 0:
+                            return None
+                    except (ValueError, TypeError):
+                        pass
+
 
             descuento_porcentaje = "0%"
             if price_final != "N/A" and price_original != "N/A":
