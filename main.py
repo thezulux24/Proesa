@@ -197,6 +197,10 @@ def main():
         ai_stats = run_auto_mdm_matching()
         if ai_stats and sum(ai_stats.values()) > 0:
             stats["MDM_AI_Matcher"] = f"Vinculados: {ai_stats.get('LINK', 0)} | Creados: {ai_stats.get('CREATE', 0)} | Descartados: {ai_stats.get('DISCARD', 0)}"
+    except Exception as e:
+        errores["MDM_AI_Matcher"] = str(e)
+        traceback.print_exc()
+
     print("\n--- 8.3 Asignando Registros Sanitarios INVIMA Pendientes con IA ---")
     try:
         from core.invima_ai_matcher import run_auto_invima_matching
