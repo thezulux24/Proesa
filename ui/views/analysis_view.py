@@ -64,7 +64,7 @@ class UnifiedAnalysisFrame(ctk.CTkFrame):
             "Distribución y Frecuencia de Descuentos (%)",
             "Top 10 Mayores Descuentos",
             "Precios por Marca (Boxplot)",
-            "Precio vs % de Alcohol"
+            "Precio vs Grados de Alcohol"
         ], command=self.update_plot, width=250)
         self.plot_combo.pack(side="right", padx=6)
 
@@ -265,21 +265,21 @@ class UnifiedAnalysisFrame(ctk.CTkFrame):
             ax.xaxis.set_major_formatter(ticker.FuncFormatter(lambda x, pos: f'${x/1000:,.0f}K'))
             ax.tick_params(colors=text_color)
 
-        elif plot_type == "Precio vs % de Alcohol":
+        elif plot_type == "Precio vs Grados de Alcohol":
             df_clean = self.df.dropna(subset=['precio_final', 'grados_alcohol_estandar']).copy()
-            df_clean['grados_num'] = pd.to_numeric(df_clean['grados_alcohol_estandar'].astype(str).str.replace('%', '').str.strip(), errors='coerce')
+            df_clean['grados_num'] = pd.to_numeric(df_clean['grados_alcohol_estandar'].astype(str).str.replace('%', '').str.replace('°', '').str.strip(), errors='coerce')
             df_clean = df_clean.dropna(subset=['grados_num'])
-            df_clean = df_clean[df_clean['precio_final'] > 0]
+            df_clean = df_clean[(df_clean['grados_num'] > 0) & (df_clean['precio_final'] > 0)]
             
             if not df_clean.empty:
                 ax.scatter(df_clean['grados_num'], df_clean['precio_final'], alpha=0.6, c='#d97706', edgecolors='black', s=45)
-                ax.set_title("Relación entre Graduación Alcohólica (%) y Precio", fontsize=14, fontweight='bold', color=text_color, pad=12)
-                ax.set_xlabel("Grados de Alcohol (%)", color=text_color, fontsize=11)
+                ax.set_title("Relación entre Graduación Alcohólica y Precio Final", fontsize=14, fontweight='bold', color=text_color, pad=12)
+                ax.set_xlabel("Grados de Alcohol", color=text_color, fontsize=11)
                 ax.set_ylabel("Precio Final (COP)", color=text_color, fontsize=11)
                 ax.yaxis.set_major_formatter(ticker.FuncFormatter(lambda x, pos: f'${x/1000:,.0f}K'))
                 ax.tick_params(colors=text_color)
             else:
-                ax.text(0.5, 0.5, "Sin datos válidos de Grados de Alcohol.", ha='center', va='center', color=text_color, fontsize=12)
+                ax.text(0.5, 0.5, "Sin datos válidos de Grados de Alcohol para los filtros seleccionados.", ha='center', va='center', color=text_color, fontsize=12)
 
         elif plot_type == "Precios por Marca (Boxplot)":
             top_marcas = self.df['marca_estandar'].value_counts().head(5).index

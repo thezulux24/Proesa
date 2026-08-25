@@ -154,10 +154,21 @@ Para mantener la UI funcionando sin reescribir todo `suite_app.py`, `database.py
 
 
 
-- **Script Automatizado de Matching MDM con IA y RAG Histórico (`match_mdm_deepseek.py`)**:
-  - Script independiente en Python con soporte para los modelos **`deepseek-chat`** (V3 - Rápido) y **`deepseek-reasoner`** (R1 - Razonamiento de Cadena de Pensamiento / Chain of Thought).
-  - Incluye **Indexación Directa en Memoria de 4,436 Nombres Crudos Validados y RAG de 6,631 Mapeos de DB**.
-  - En `deepseek-reasoner` (R1), el modelo razona en `reasoning_content` evaluando volumen, coherencia de precio, coincidencia de sub-línea y antecedentes históricos antes de tomar la decisión final.
+- **Filtro Anti Falsos Positivos y Clasificación Estricta en Rappi**: `scrapers/scraper_rappi/scraper.py` y `config.py`
+  - **Filtro a Nivel de Tienda (`_is_excluded_store`)**: Al ser un marketplace masivo, Rappi devuelve restaurantes, panaderías, cafeterías (Starbucks, KFC, Little Caesars, Frisby, etc.). El scraper omite automáticamente cualquier tienda cuya naturaleza sea de comida preparada, comida rápida o papelería.
+  - **Filtro a Nivel de Producto (`_is_authentic_alcohol_or_tobacco`)**: Verifica que cada ítem pertenezca de forma genuina a Tabaco o Alcohol, descartando platos de restaurante, combos de comida, bebidas no alcohólicas (sodas, jugos, aguas), pasabocas y artículos de aseo o pañales.
+  - **Términos de Búsqueda Precisos**: En `config.py` se sustituyeron términos genéricos ambiguos (como `pod`, `capsula`, `raw`, `sedas`, `filtros`, `disposable`, `picadura`, `artesanal`, `andina`) por frases inequívocas (`vape pod`, `cigarrillos capsula`, `sedas para fumar`, `sedas raw`, `sedas ocb`, `filtros de cigarrillo`, `cerveza artesanal`, `cerveza andina`, etc.).
+  - **Clasificación Estricta de Vapeadores (Tabaco)**: Todos los vaporizadores, vapes, pods y e-liquids (**con nicotina o SIN nicotina**) son clasificados OBLIGATORIAMENTE bajo la categoría **`"Tabaco"`** tanto en el scraper como en el prompt de la IA de matching MDM (`core/mdm_ai_matcher.py`).
+  - **Estrategia de Rondas en `main.py`**:
+    - Todos los supermercados tradicionales (Éxito, Carulla, Jumbo, D1, Cañaveral, Olímpica, Makro) ejecutan hasta **3 rondas** para maximizar cobertura, capturar cambios de stock y reintentar ante micro-cortes.
+    - **Rappi**: Ejecuta **únicamente 1 pasada** por sesión con **3 zonas estratégicas de Bogotá** (Norte/Chicó/Usaquén, Centro/Salitre y Sur-Occidente/Kennedy/Américas) x 100+ términos de búsqueda, logrando un balance óptimo de velocidad y cobertura.
+    - **Asignación INVIMA con IA**: Desactivada por defecto en `main.py` para optimizar velocidad y costos de API. Se activa únicamente pasando el flag `--with-invima`.
+  - **Script de Deduplicación y Fusión MDM (`deduplicate_mdm_deepseek.py`)**:
+    - Desarrollado para detectar y fusionar productos maestros duplicados o casi-idénticos generados durante la creación concurrente.
+    - Realiza una **Fase 1** determinística (fusión exacta de nombres normalizados) y una **Fase 2** con **DeepSeek AI** (evaluación semántica de clusters por marca, respetando diferencias de sabor/volumen y unificando variaciones de redacción).
+    - Re-vincula automáticamente los registros en `mapeo_productos` hacia el código canónico más antiguo/completo y marca los duplicados con `deleted = 1`. Re-ejecuta `database.run_normalization_etl()` y actualiza `data/mdm_export.json`.
+
+
 
 
 

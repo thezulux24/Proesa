@@ -227,7 +227,7 @@ def evaluate_with_deepseek(raw_item, candidates, history=None, model_name="deeps
 
     system_prompt = """
 Eres un Ingeniero de Datos Senior y Experto en Inteligencia de Mercado para Alcohol y Tabaco en Colombia.
-Tu tarea es clasificar y vincular un producto crudo extraído de una tienda (Éxito, Jumbo, Carulla, D1, Olímpica, Makro, Cañaveral) con el Maestro de Productos MDM con TOLERANCIA CERO A FALSO POSITIVO.
+Tu tarea es clasificar y vincular un producto crudo extraído de una tienda o comercio digital (Éxito, Jumbo, Carulla, D1, Olímpica, Makro, Cañaveral, Rappi) con el Maestro de Productos MDM con TOLERANCIA CERO A FALSO POSITIVO.
 
 APRENDIZAJE DE BASE DE DATOS E HISTORIAL DE MAPEOS VALIDADOS (6,631 REGISTROS):
 Se te proporciona un campo "ejemplos_historicos_validados_en_base_de_datos". Son vinculaciones idénticas o muy similares validadas previamente por el equipo humano.
@@ -267,9 +267,9 @@ REGLAS INVIOLABLES DE LÍNEAS DE PRODUCTO Y MARCAS EN COLOMBIA:
 
 REGLAS STRICTAS DE EVALUACIÓN MULTIDIMENSIONAL:
 1. ALCOHOL Y TABACO ÚNICAMENTE:
-   - Si el producto es Agua Tónica, Ginger Ale, Hielo, Vasos, Copas, Destapador, Alimentos, Mezclador Sin Alcohol, Pasabocas o Utensilio -> ACCIÓN: "DISCARD".
-   - Si el producto es Cigarrillo, Tabaco, Puro, Vapeador o Esencia de Vapeo -> TIPO: "Tabaco".
-   - Si es Cerveza, Vino, Aguardiente, Ron, Whisky, Vodka, Tequila, Ginebra, Aperitivo, Licor de Café, Crema -> TIPO: "Alcohol".
+   - Si el producto es Alimento, Comida de restaurante, Combo, Arroz, Carne, Pollo, Pizza, Hamburguesa, Taco, Postre, Café, Gaseosa, Soda, Limonada, Agua, Pañales, Aseo, Pasabocas, Mezclador o Utensilio -> ACCIÓN: "DISCARD".
+   - VAPEO Y TABACO: Cigarrillos, Tabaco, Puros, Habanos, Vapeadores, Vapes, Pods, Desechables, E-liquids y Esencias (CON O SIN NICOTINA) -> OBLIGATORIAMENTE TIPO: "Tabaco" (grados_alcohol_estandar: null).
+   - BEBIDAS ALCOHÓLICAS: Cerveza, Vino, Aguardiente, Ron, Whisky, Vodka, Tequila, Mezcal, Ginebra, Aperitivo, Licor de Café, Crema de Whisky -> TIPO: "Alcohol".
 
 2. REGLAS PARA "LINK" (VINCULAR):
    - Entiende las variaciones semánticas del nombre. Si el producto crudo dice "Aguardiente Garrafa fiesta x 1750 ml" o "Aguardiente Antioqueño s.a. 750ml" y existe un candidato/histórico maestro coincidente semánticamente, RECONOCE QUE SON EL MISMO PRODUCTO y haz "LINK".
@@ -279,7 +279,7 @@ REGLAS STRICTAS DE EVALUACIÓN MULTIDIMENSIONAL:
 3. REGLAS PARA "CREATE" (CREAR NUEVO MAESTRO):
    - Si es un producto de Alcohol o Tabaco válido pero NINGÚN candidato ni histórico coincide semánticamente en volumen, sabor o variedad -> ACCIÓN: "CREATE".
    - Define un nombre estándar limpio, canónico y legible (Ej: "Aguardiente CAUCANO sin azúcar (750 ml)").
-   - Extrae/infiere los grados de alcohol (% de alcohol). Si el texto o la URL lo dicen, úsalo. Si es un producto conocido en Colombia (Ej: Aguardiente Antioqueño = 29%, Ron Medellín = 35%, Cerveza Heineken = 5.0%), usa ese valor. Si es tabaco, usa "N/A - TABACO".
+   - Extrae/infiere los grados de alcohol como número decimal puro (sin símbolos '%' ni '°'). Ej: Aguardiente Antioqueño = 29.0, Ron Medellín = 35.0, Cerveza Heineken = 5.0. Si es tabaco o vape, usa null.
 
 DEBES RESPONDER ÚNICAMENTE EN FORMATO JSON VÁLIDO CON LA SIGUIENTE ESTRUCTURA ESTRICTA:
 {
@@ -291,7 +291,7 @@ DEBES RESPONDER ÚNICAMENTE EN FORMATO JSON VÁLIDO CON LA SIGUIENTE ESTRUCTURA 
     "tipo_producto_estandar": "Alcohol" | "Tabaco",
     "subcategoria_estandar": "Aguardiente" | "Ron" | "Whisky" | "Vino" | "Cerveza" | "Cigarrillos" | etc,
     "volumen_estandar": "750 ml" | "1 Lt" | "355 ml" | etc,
-    "grados_alcohol_estandar": "29%" | "35%" | "N/A - TABACO" | etc
+    "grados_alcohol_estandar": 29.0 | 35.0 | null
   } (solo si action es CREATE, de lo contrario null),
   "razon": "Explicación breve de la decisión semántica"
 }

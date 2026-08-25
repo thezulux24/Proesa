@@ -1,8 +1,85 @@
 import os
+import re
 import datetime
 import sqlite3
 import pandas as pd
 from dotenv import load_dotenv
+
+def calculate_unit_price(precio_final, medida):
+    """Calcula el precio por unidad/medida ($/ml, $/und, $/g) de forma estandarizada."""
+    try:
+        if precio_final is None:
+            return ""
+        price = float(precio_final)
+        if price <= 0 or not medida:
+            return ""
+        
+        m_str = str(medida).lower().strip()
+        # 1. Litros -> ML
+        l_match = re.search(r'(\d+(?:[.,]\d+)?)\s*(?:l|lt|litro|litros)\b', m_str)
+        if l_match:
+            val = float(l_match.group(1).replace(',', '.'))
+            ml = val * 1000.0
+            if ml > 0:
+                pum = price / ml
+                return f"${pum:,.2f}/ml".replace(',', 'X').replace('.', ',').replace('X', '.')
+                
+        # 2. ML / CC
+        ml_match = re.search(r'(\d+(?:[.,]\d+)?)\s*(?:ml|cc|cm3)\b', m_str)
+        if ml_match:
+            val = float(ml_match.group(1).replace(',', '.'))
+            if val > 0:
+                pum = price / val
+                return f"${pum:,.2f}/ml".replace(',', 'X').replace('.', ',').replace('X', '.')
+                
+        # 3. Unidades / Cigarrillos
+        und_match = re.search(r'(\d+(?:[.,]\d+)?)\s*(?:und|un|unidades|piezas|cajetillas|cigarros|cigarrillos)\b', m_str)
+        if und_match:
+            val = float(und_match.group(1).replace(',', '.'))
+            if val > 0:
+                pum = price / val
+                return f"${pum:,.2f}/und".replace(',', 'X').replace('.', ',').replace('X', '.')
+                
+        # 4. Gramos / KG
+        kg_match = re.search(r'(\d+(?:[.,]\d+)?)\s*(?:kg|kilo|kilos)\b', m_str)
+        if kg_match:
+            val = float(kg_match.group(1).replace(',', '.'))
+            g = val * 1000.0
+            if g > 0:
+                pum = price / g
+                return f"${pum:,.2f}/g".replace(',', 'X').replace('.', ',').replace('X', '.')
+                
+        g_match = re.search(r'(\d+(?:[.,]\d+)?)\s*(?:g|gr|gramos)\b', m_str)
+        if g_match:
+            val = float(g_match.group(1).replace(',', '.'))
+            if val > 0:
+                pum = price / val
+                return f"${pum:,.2f}/g".replace(',', 'X').replace('.', ',').replace('X', '.')
+
+        return ""
+    except Exception:
+        return ""
+
+def parse_alcohol_degrees_numeric(val):
+    """Limpia y convierte cualquier graduación alcohólica a valor numérico puro (float o None)."""
+    if val is None:
+        return None
+    s = str(val).strip().lower()
+    if s in ("", "n/a", "none", "null", "n/a - tabaco", "0", "0.0", "0%"):
+        return None
+    s_clean = re.sub(r'[°º%]|grados|g\.l\.', '', s).strip()
+    s_clean = s_clean.replace(',', '.')
+    m = re.search(r'(\d+(?:\.\d+)?)', s_clean)
+    if m:
+        try:
+            num = float(m.group(1))
+            if 0 < num < 1.0:
+                num = round(num * 100, 2)
+            if 0 < num <= 100.0:
+                return round(num, 2)
+        except ValueError:
+            pass
+    return None
 
 class DataSuiteDB:
     def __init__(self, db_name="suite_data.db"):
@@ -10,7 +87,13 @@ class DataSuiteDB:
         self.db_name = db_name
         
     def get_connection(self):
-        return sqlite3.connect(self.db_name)
+        conn = sqlite3.connect(self.db_name, timeout=60.0)
+        try:
+            conn.execute("PRAGMA journal_mode=WAL;")
+            conn.execute("PRAGMA busy_timeout=60000;")
+        except Exception:
+            pass
+        return conn
 
     def init_db(self):
         """Creates the necessary tables for tracking product prices over time."""
@@ -178,6 +261,15 @@ class DataSuiteDB:
             po = None if po in ('NULL', 'N/A', '') else po
             pf = None if pf in ('NULL', 'N/A', '') else pf
             
+            medida = str(p.get('Medida', '')).strip()
+            pum = str(p.get('Precio_Unidad', '')).strip()
+            if not pum or pum in ('NULL', 'N/A', ''):
+                pum = calculate_unit_price(pf, medida)
+                
+            raw_grados = p.get('Grados de alcohol')
+            num_grados = parse_alcohol_degrees_numeric(raw_grados)
+            grados_val = str(num_grados) if num_grados is not None else ""
+            
             val = (
                 today,
                 comercio,
@@ -187,12 +279,12 @@ class DataSuiteDB:
                 str(p.get('Referencia', '')),
                 str(p.get('Categoria', '')),
                 str(p.get('Tipo de Producto', '')),
-                str(p.get('Grados de alcohol', '')),
-                str(p.get('Medida', '')),
+                grados_val,
+                medida,
                 po,
                 pf,
                 str(p.get('Descuento_%', '')),
-                str(p.get('Precio_Unidad', '')),
+                pum,
                 str(p.get('URL_Producto', '')),
                 str(p.get('Descripcion', ''))
             )
@@ -459,13 +551,14 @@ def delete_false_positive(codigo_universal):
         conn.commit()
     run_normalization_etl()
 
-def mark_raw_false_positive(comercio, producto_id):
+def mark_raw_false_positive(comercio, producto_id, run_etl=False):
     db = DataSuiteDB()
     with db.get_connection() as conn:
         cur = conn.cursor()
         cur.execute("UPDATE productos_historico SET deleted = 1 WHERE comercio = ? AND producto_id = ?", (comercio, str(producto_id)))
         conn.commit()
-    run_normalization_etl()
+    if run_etl:
+        run_normalization_etl()
 
 
 def get_unmapped_products(fuente="Todas", tipo="Todos", search_term=None, hide_zero_price=False):
@@ -556,7 +649,8 @@ def get_maestro_products(tipo="Todos", subcategoria="Todas", search_term=None, i
                                        WHEN 'Canaveral' THEN 5
                                        WHEN 'D1' THEN 6
                                        WHEN 'Makro' THEN 7
-                                       ELSE 8
+                                       WHEN 'Rappi' THEN 8
+                                       ELSE 9
                                    END,
                                    h.fecha_extraccion DESC, h.id DESC
                            ) as rn
@@ -698,6 +792,9 @@ def add_to_maestro(nombre, marca, tipo, subcategoria, volumen, grados, codigo_un
         if cur.fetchone():
             raise ValueError(f"El código maestro '{codigo_universal}' ya existe en la base de datos.")
         
+        num_grados = parse_alcohol_degrees_numeric(grados)
+        grados_str = str(num_grados) if num_grados is not None else ""
+
         cur.execute(query, (
             codigo_universal, 
             str(nombre).strip() if nombre else "", 
@@ -705,10 +802,34 @@ def add_to_maestro(nombre, marca, tipo, subcategoria, volumen, grados, codigo_un
             str(tipo).strip() if tipo else "Alcohol", 
             str(subcategoria).strip() if subcategoria else "", 
             str(volumen).strip() if volumen else "", 
-            str(grados).strip() if grados else ""
+            grados_str
         ))
         conn.commit()
     return codigo_universal
+
+def get_recent_discarded_products(limit=50):
+    """Retorna la lista de productos descartados (falsos positivos) recientemente para el reporte por correo."""
+    db = DataSuiteDB()
+    with db.get_connection() as conn:
+        cur = conn.cursor()
+        cur.execute("""
+            SELECT comercio, nombre, categoria, descripcion, fecha_extraccion
+            FROM productos_historico
+            WHERE deleted = 1
+            ORDER BY id DESC
+            LIMIT ?
+        """, (limit,))
+        rows = cur.fetchall()
+        return [
+            {
+                "comercio": r[0],
+                "nombre": r[1],
+                "categoria": r[2],
+                "descripcion": r[3],
+                "fecha_extraccion": r[4]
+            }
+            for r in rows
+        ]
 
 
 def add_mapping(comercio, producto_id, codigo_universal):

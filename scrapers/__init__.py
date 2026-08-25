@@ -8,6 +8,7 @@ from .scraper_d1.scraper import D1Scraper
 from .scraper_canaveral.scraper import CanaveralScraper
 from .scraper_olimpica.scraper import OlimpicaScraper
 from .scraper_makro.scraper import MakroScraper
+from .scraper_rappi.scraper import RappiScraper
 
 __all__ = [
     "ExitoScraper",
@@ -16,5 +17,6 @@ __all__ = [
     "D1Scraper",
     "CanaveralScraper",
     "OlimpicaScraper",
-    "MakroScraper"
+    "MakroScraper",
+    "RappiScraper"
 ]

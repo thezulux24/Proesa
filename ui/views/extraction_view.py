@@ -16,7 +16,7 @@ class ExtraccionFrame(ctk.CTkFrame):
         self.controls.grid(row=1, column=0, padx=20, pady=10, sticky="ew")
 
         ctk.CTkLabel(self.controls, text="Seleccionar Comercio:").pack(side="left", padx=(0, 10))
-        self.comercio_combo = ctk.CTkComboBox(self.controls, values=["Todos", "Éxito", "Carulla", "Jumbo", "Olímpica", "D1", "Makro", "Cañaveral"], width=150)
+        self.comercio_combo = ctk.CTkComboBox(self.controls, values=["Todos", "Éxito", "Carulla", "Jumbo", "Olímpica", "D1", "Makro", "Cañaveral", "Rappi"], width=150)
         self.comercio_combo.pack(side="left", padx=(0, 15))
 
         self.btn_run = ctk.CTkButton(self.controls, text="Iniciar Extracción", fg_color="#2563eb", hover_color="#1d4ed8", command=self.run_scraper)
