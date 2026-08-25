@@ -168,6 +168,25 @@ Para mantener la UI funcionando sin reescribir todo `suite_app.py`, `database.py
     - Realiza una **Fase 1** determinística (fusión exacta de nombres normalizados) y una **Fase 2** con **DeepSeek AI** (evaluación semántica de clusters por marca, respetando diferencias de sabor/volumen y unificando variaciones de redacción).
     - Re-vincula automáticamente los registros en `mapeo_productos` hacia el código canónico más antiguo/completo y marca los duplicados con `deleted = 1`. Re-ejecuta `database.run_normalization_etl()` y actualiza `data/mdm_export.json`.
 
+- **Estandarización Universal de Volumen Estándar (`Mililitro`)**:
+  - **Convención Oficial**: El campo `volumen_estandar` (tanto en `maestro_productos` como en `productos_normalizados`) queda estandarizado canónicamente utilizando **`Mililitro`** (en lugar de variantes como `ml`, `ML`, `Lt`, `mililitro`, `Milimetro`, `cc`).
+  - **Función Central (`core.database.standardize_volume`)**:
+    - Mililitros simples: `750 ml`, `750ml`, `750 cc`, `750 Milimetro` $\rightarrow$ `750 Mililitro`.
+    - Litros simples: `1 Lt`, `1 L` $\rightarrow$ `1000 Mililitro`, `1.5 Lt` $\rightarrow$ `1500 Mililitro`, `1.75 L` $\rightarrow$ `1750 Mililitro`, `5 L` $\rightarrow$ `5000 Mililitro`.
+    - Expresiones compuestas: `4 x 187 ml` $\rightarrow$ `4 x 187 Mililitro`, `700 ml + 1.5 L` $\rightarrow$ `700 Mililitro + 1500 Mililitro`.
+    - Tabaco y Unidades: `1,0 Unidad`, `1 und`, `1 UND`, `1 Unidades` $\rightarrow$ `1 Unidad`; `20 und` $\rightarrow$ `20 Unidad`.
+    - Combos y Gramos: `1 COMBO`, `Combo` $\rightarrow$ `1 Combo`; `703 g` $\rightarrow$ `703 Gramos`.
+  - **Migración Ejecutada**: Se migraron 1,324 productos maestros existentes, se re-ejecutó el ETL de normalización para actualizar las 106,000+ lecturas normalizadas y se regeneró `data/mdm_export.json`.
+- **Estandarización y Unificación de Subcategorías MDM**:
+  - **Problema previo**: Existían 51 subcategorías fragmentadas y duplicadas por mayúsculas/minúsculas, plurales y variaciones (`Vino Espumoso` vs `Vino espumoso` vs `Vino` vs `Vinos`, `Cigarrillos` vs `Cigarros` vs `Cigarrillos y vapeadores` vs `Vapeadores`, `Papel de liar` vs `Papel de fumar` vs `Papel para liar`).
+  - **Taxonomía Canónica Oficial (16 Subcategorías)**:
+    - **Alcohol (13)**: `Vinos` (unifica vinos tintos, blancos, rosados, espumosos, generosos, sangría, sidra), `Cerveza`, `Whisky`, `Ron`, `Aguardiente`, `Tequila`, `Mezcal`, `Vodka`, `Ginebra`, `Brandy` (unifica brandy, cognac, pisco), `Cremas y aperitivos` (unifica aperitivos, cremas, licores dulces, sabajón, macerados), `Coctelería` (unifica coctel y coctelería), `Combo` (unifica combos y anchetas).
+    - **Tabaco (3)**: `Cigarrillos y vapeadores` (unifica cigarrillos, cigarros, puros, habanos, vapeadores, pods, e-líquidos), `Bolsas de nicotina` (ZYN, VELO, etc.), `Accesorios para tabaco` (papel de liar/fumar, filtros, grinders, narguila, envolturas).
+  - **Función Central (`core.database.standardize_subcategory`)**: Normaliza texto sin tildes e infiere subcategorías canónicas automáticamente.
+  - **Sincronización en Base de Datos**: Se migraron los 4,132 productos maestros, se corrigió el tipo de productos alcohólicos mal marcados como tabaco, se actualizó la tabla `productos_normalizados` y se regeneró `data/mdm_export.json`.
+
+
+
 
 
 

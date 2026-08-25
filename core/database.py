@@ -81,6 +81,176 @@ def parse_alcohol_degrees_numeric(val):
             pass
     return None
 
+def standardize_volume(val):
+    """
+    Estandariza cualquier valor o expresión de volumen a nomenclatura canónica unificada.
+    - '750 ml', '750ml', '750 cc', '750 Mililitro' -> '750 Mililitro'
+    - '1 Lt', '1 L', '1 Litro' -> '1000 Mililitro'
+    - '1.5 Lt', '1.5 L' -> '1500 Mililitro'
+    - '1.75 Lt', '1.75 L' -> '1750 Mililitro'
+    - '5 Lt', '5 L' -> '5000 Mililitro'
+    - '1,0 Unidad', '1 und', '1 UND', '1 Unidades' -> '1 Unidad'
+    - '20 Unidad', '20 Unidades', '20 und' -> '20 Unidad'
+    - '1 COMBO', '1 Combo', 'Combo' -> '1 Combo'
+    - '703 g', '703 gr' -> '703 Gramos'
+    """
+    if val is None:
+        return ""
+    s = str(val).strip()
+    if not s or s.lower() in ("n/a", "none", "null", "nan", ""):
+        return "N/A"
+
+    # Normalizar espacios múltiples
+    s = re.sub(r'\s+', ' ', s)
+
+    # 1. Combos
+    if re.fullmatch(r'(?:1\s+)?combo', s, re.IGNORECASE):
+        return '1 Combo'
+
+    # 2. Unidades enteras (ej: 1,0 Unidad, 10 Unidades, 20 und, 1 UND, 200 Unidad)
+    m_und = re.fullmatch(r'(\d+(?:[.,]0+)?)\s*(?:unidad(?:es)?|und(?:s)?|piezas?)\b', s, re.IGNORECASE)
+    if m_und:
+        num = int(float(m_und.group(1).replace(',', '.')))
+        return f'{num} Unidad'
+
+    # 3. Gramos
+    m_g = re.fullmatch(r'(\d+(?:[.,]\d+)?)\s*(?:g|gr|gramos)\b', s, re.IGNORECASE)
+    if m_g:
+        num_str = m_g.group(1).replace(',', '.')
+        num = float(num_str)
+        num_disp = int(num) if num.is_integer() else num
+        return f'{num_disp} Gramos'
+
+    # 4. Litros simples (ej: 1 Lt, 1.5 Lt, 1.75 L, 5 L, 1 Litro)
+    m_lt = re.fullmatch(r'(\d+(?:[.,]\d+)?)\s*(?:l|lt|lts|litro(?:s)?)\b', s, re.IGNORECASE)
+    if m_lt:
+        l_val = float(m_lt.group(1).replace(',', '.'))
+        ml_val = int(round(l_val * 1000))
+        return f'{ml_val} Mililitro'
+
+    # 5. Mililitros simples (ej: 750 ml, 750ml, 750 Mililitro, 750 mililitro, 750 Mililitros, 750 Milimetro, 750 cc, 750 cm3)
+    m_ml = re.fullmatch(r'(\d+(?:[.,]\d+)?)\s*(?:ml|mililitro(?:s)?|milimetro(?:s)?|cc|cm3)\.?', s, re.IGNORECASE)
+    if m_ml:
+        num_str = m_ml.group(1).replace(',', '.')
+        num = float(num_str)
+        num_disp = int(num) if num.is_integer() else num
+        return f'{num_disp} Mililitro'
+
+    # 6. Expresiones compuestas (ej: 4 x 187 ml, 750 ml + 375 ml, 700 ml + 1.5 L, 1 L + 1 L)
+    # Convertir litros en compuestos: '1.5 L' -> '1500 Mililitro', '1 L' -> '1000 Mililitro'
+    def repl_lt(m):
+        l_val = float(m.group(1).replace(',', '.'))
+        return f'{int(round(l_val * 1000))} Mililitro'
+    s_sub = re.sub(r'(\d+(?:[.,]\d+)?)\s*(?:l|lt|lts|litro(?:s)?)\b', repl_lt, s, flags=re.IGNORECASE)
+    
+    # Reemplazar ml/cc/mililitros/milimetro por Mililitro
+    s_sub = re.sub(r'(?:ml|mililitro(?:s)?|milimetro(?:s)?|cc|cm3)\.?', 'Mililitro', s_sub, flags=re.IGNORECASE)
+    
+    # Normalizar und en compuestos
+    s_sub = re.sub(r'\bund(?:s)?\b', 'Unidad', s_sub, flags=re.IGNORECASE)
+    s_sub = re.sub(r'\bunidades\b', 'Unidad', s_sub, flags=re.IGNORECASE)
+
+    # Limpiar espacios finales
+    s_sub = re.sub(r'\s+', ' ', s_sub).strip()
+    return s_sub
+
+def strip_accents_text(text):
+    if not text:
+        return ""
+    import unicodedata
+    nfkd = unicodedata.normalize('NFKD', str(text))
+    return "".join([c for c in nfkd if not unicodedata.combining(c)]).lower().strip()
+
+def standardize_subcategory(subcat, tipo="Alcohol", name=""):
+    """
+    Estandariza cualquier subcategoría cruda o variante a la taxonomía canónica unificada.
+    
+    Subcategorías Oficiales Alcohol:
+    - Vinos (unifica Vino, Vinos, Vino Espumoso, Vino Generoso, Sidra, Sangría)
+    - Cerveza
+    - Whisky
+    - Aguardiente
+    - Ron
+    - Tequila
+    - Mezcal
+    - Vodka
+    - Ginebra
+    - Brandy (unifica Brandy, Cognac, Pisco)
+    - Cremas y aperitivos (unifica Aperitivo, Aperitivos, Licor, Sabajón, Macerado)
+    - Coctelería (unifica Coctel, Coctelería)
+    - Combo (unifica Combo, Ancheta)
+    
+    Subcategorías Oficiales Tabaco:
+    - Cigarrillos y vapeadores (unifica Cigarrillos, Cigarros, Puros, Habanos, Vapeadores, Pods, E-líquidos)
+    - Bolsas de nicotina (ZYN, VELO, etc.)
+    - Accesorios para tabaco (Papel de liar/fumar, filtros, grinders, narguila, cueros)
+    """
+    s = (subcat or "").strip()
+    n = strip_accents_text(name)
+    t = (tipo or "Alcohol").strip().capitalize()
+    
+    # Corrección de tipo ante productos evidentemente alcohólicos mal clasificados como tabaco
+    if any(k in n for k in ["tequila", "mezcal", "whisky", "ron ", "cerveza", "vino", "aguardiente", "vodka", "ginebra", "brandy"]):
+        if t == "Tabaco" and any(k in n for k in ["tequila", "whisky", "ron", "vino", "cerveza"]):
+            t = "Alcohol"
+
+    s_clean = strip_accents_text(s)
+
+    # Si la subcategoría es 'Todas' o vacía, inferir del nombre
+    if s_clean in ("todas", "", "n/a", "none", "null"):
+        if "aguardiente" in n: return "Aguardiente", t
+        if any(k in n for k in ["crema", "aperitivo", "baileys", "licor"]): return "Cremas y aperitivos", t
+        if "vodka" in n: return "Vodka", t
+        if "ron" in n: return "Ron", t
+        if "whisky" in n: return "Whisky", t
+        if "vino" in n: return "Vinos", t
+        if "cerveza" in n: return "Cerveza", t
+        if "tequila" in n: return "Tequila", t
+        if any(k in n for k in ["ginebra", "gin "]): return "Ginebra", t
+        if any(k in n for k in ["cigar", "vape", "tabaco"]): return "Cigarrillos y vapeadores", "Tabaco"
+        return "Cremas y aperitivos", t
+
+    # --- TABACO ---
+    if t == "Tabaco" or any(k in s_clean for k in ["cigar", "tabaco", "vape", "puro", "nicotina", "liar", "fumar", "narguila"]):
+        t = "Tabaco"
+        if any(k in s_clean for k in ["papel", "envolver", "liar", "fumar", "accesorio", "filtro", "grinder", "narguila", "cuero"]):
+            return "Accesorios para tabaco", t
+        if "nicotina" in s_clean or "pouches" in n or "velo" in n or "zyn" in n:
+            return "Bolsas de nicotina", t
+        if any(k in s_clean for k in ["cigar", "vape", "puro", "habano", "e-liquido", "e-liquid", "pod"]):
+            return "Cigarrillos y vapeadores", t
+        return "Cigarrillos y vapeadores", t
+
+    # --- ALCOHOL ---
+    if s_clean in ["vino", "vinos", "vino espumoso", "vino generoso", "sidra", "sangria"]:
+        return "Vinos", t
+    if s_clean in ["coctel", "cocteleria"]:
+        return "Coctelería", t
+    if s_clean in ["aperitivo", "aperitivos", "cremas y aperitivos", "licor", "licor de cafe", "sabajon", "macerado"]:
+        return "Cremas y aperitivos", t
+    if s_clean in ["brandy", "cognac", "pisco"]:
+        return "Brandy", t
+    if s_clean in ["combo", "ancheta"]:
+        return "Combo", t
+    if s_clean == "cerveza":
+        return "Cerveza", t
+    if s_clean == "whisky":
+        return "Whisky", t
+    if s_clean == "aguardiente":
+        return "Aguardiente", t
+    if s_clean == "ron":
+        return "Ron", t
+    if s_clean == "tequila":
+        return "Tequila", t
+    if s_clean == "mezcal":
+        return "Mezcal", t
+    if s_clean == "ginebra":
+        return "Ginebra", t
+    if s_clean == "vodka":
+        return "Vodka", t
+
+    return s.capitalize(), t
+
 class DataSuiteDB:
     def __init__(self, db_name="suite_data.db"):
         load_dotenv()
@@ -323,7 +493,15 @@ def get_available_subcategories():
     db = DataSuiteDB()
     with db.get_connection() as conn:
         cur = conn.cursor()
-        cur.execute("SELECT DISTINCT subcategoria_estandar FROM maestro_productos WHERE deleted = 0 AND subcategoria_estandar IS NOT NULL ORDER BY subcategoria_estandar")
+        cur.execute("""
+            SELECT DISTINCT subcategoria_estandar 
+            FROM maestro_productos 
+            WHERE deleted = 0 
+              AND subcategoria_estandar IS NOT NULL 
+              AND subcategoria_estandar != '' 
+              AND subcategoria_estandar != 'Todas' 
+            ORDER BY subcategoria_estandar
+        """)
         res = [row[0] for row in cur.fetchall() if row[0]]
         return ["Todas"] + res
 
@@ -794,14 +972,16 @@ def add_to_maestro(nombre, marca, tipo, subcategoria, volumen, grados, codigo_un
         
         num_grados = parse_alcohol_degrees_numeric(grados)
         grados_str = str(num_grados) if num_grados is not None else ""
+        vol_est = standardize_volume(volumen)
+        subcat_est, tipo_est = standardize_subcategory(subcategoria, tipo, nombre)
 
         cur.execute(query, (
             codigo_universal, 
             str(nombre).strip() if nombre else "", 
             str(marca).strip() if marca else "", 
-            str(tipo).strip() if tipo else "Alcohol", 
-            str(subcategoria).strip() if subcategoria else "", 
-            str(volumen).strip() if volumen else "", 
+            tipo_est, 
+            subcat_est, 
+            vol_est, 
             grados_str
         ))
         conn.commit()
@@ -928,4 +1108,54 @@ def update_master_invima(codigo_universal, registro_invima, codigo_unico=None, n
             str(codigo_universal).strip()
         ))
         conn.commit()
+
+def standardize_all_master_volumes():
+    """
+    Recorre todos los registros de maestro_productos, estandariza su columna volumen_estandar
+    y re-ejecuta el proceso ETL de normalización para asegurar 100% de coherencia en la base de datos.
+    """
+    db = DataSuiteDB()
+    updated_count = 0
+    with db.get_connection() as conn:
+        cur = conn.cursor()
+        cur.execute("SELECT codigo_universal, volumen_estandar FROM maestro_productos")
+        rows = cur.fetchall()
+        
+        for code, old_vol in rows:
+            new_vol = standardize_volume(old_vol)
+            if new_vol != old_vol:
+                cur.execute("UPDATE maestro_productos SET volumen_estandar = ? WHERE codigo_universal = ?", (new_vol, code))
+                updated_count += 1
+                
+        conn.commit()
+        
+    print(f"[OK] {updated_count:,} productos maestros actualizados a volumen estándar canónico.")
+    run_normalization_etl()
+    print("[OK] Tabla `productos_normalizados` actualizada con volúmenes estandarizados.")
+    return updated_count
+
+def standardize_all_master_subcategories():
+    """
+    Recorre todos los registros de maestro_productos, estandariza su columna subcategoria_estandar
+    y tipo_producto_estandar a la taxonomía canónica unificada, y re-ejecuta el ETL de normalización.
+    """
+    db = DataSuiteDB()
+    updated_count = 0
+    with db.get_connection() as conn:
+        cur = conn.cursor()
+        cur.execute("SELECT codigo_universal, nombre_estandar, tipo_producto_estandar, subcategoria_estandar FROM maestro_productos")
+        rows = cur.fetchall()
+        
+        for code, name, old_tipo, old_subcat in rows:
+            new_subcat, new_tipo = standardize_subcategory(old_subcat, old_tipo, name)
+            if new_subcat != old_subcat or new_tipo != old_tipo:
+                cur.execute("UPDATE maestro_productos SET subcategoria_estandar = ?, tipo_producto_estandar = ? WHERE codigo_universal = ?", (new_subcat, new_tipo, code))
+                updated_count += 1
+                
+        conn.commit()
+        
+    print(f"[OK] {updated_count:,} productos maestros actualizados a subcategoría y tipo canónico.")
+    run_normalization_etl()
+    print("[OK] Tabla `productos_normalizados` actualizada con subcategorías unificadas.")
+    return updated_count
 

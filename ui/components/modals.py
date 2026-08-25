@@ -627,19 +627,35 @@ class CreateMasterModal(ctk.CTkToplevel):
         # 5. Subcategoría Estándar
         row += 1
         ctk.CTkLabel(form_frame, text="Subcategoría Estándar:", font=ctk.CTkFont(weight="bold")).grid(row=row, column=0, sticky="w", pady=6, padx=(0, 10))
-        subcats = database.get_available_subcategories()
+        subcats = [s for s in database.get_available_subcategories() if s != "Todas"]
         if not subcats:
-            subcats = ["Aguardiente", "Cerveza", "Ron", "Whisky", "Vino", "Vodka", "Tequila", "Cigarrillos"]
+            subcats = [
+                "Aguardiente", "Brandy", "Cerveza", "Coctelería", "Combo", 
+                "Cremas y aperitivos", "Ginebra", "Mezcal", "Ron", "Tequila", 
+                "Vinos", "Vodka", "Whisky", "Cigarrillos y vapeadores", 
+                "Bolsas de nicotina", "Accesorios para tabaco"
+            ]
+        
+        default_subcat = subcats[0]
+        if self.target_raw:
+            raw_sub = self.target_raw.get('subcategoria') or self.target_raw.get('categoria') or ""
+            raw_nom = self.target_raw.get('nombre') or ""
+            std_sub, _ = database.standardize_subcategory(raw_sub, default_tipo, raw_nom)
+            if std_sub in subcats:
+                default_subcat = std_sub
+
         self.combo_subcat = ctk.CTkComboBox(form_frame, values=subcats)
-        self.combo_subcat.set(subcats[0] if subcats else "")
+        self.combo_subcat.set(default_subcat)
         self.combo_subcat.grid(row=row, column=1, sticky="ew", pady=6)
 
         # 6. Volumen Estándar
         row += 1
         ctk.CTkLabel(form_frame, text="Volumen Estándar:", font=ctk.CTkFont(weight="bold")).grid(row=row, column=0, sticky="w", pady=6, padx=(0, 10))
-        self.entry_volumen = ctk.CTkEntry(form_frame, placeholder_text="Ej: 750 ml")
+        self.entry_volumen = ctk.CTkEntry(form_frame, placeholder_text="Ej: 750 Mililitro")
         if self.target_raw and self.target_raw.get('medida'):
-            self.entry_volumen.insert(0, str(self.target_raw.get('medida')))
+            raw_med = self.target_raw.get('medida')
+            std_med = database.standardize_volume(raw_med)
+            self.entry_volumen.insert(0, std_med if std_med != "N/A" else str(raw_med))
         self.entry_volumen.grid(row=row, column=1, sticky="ew", pady=6)
 
         # 7. Grados de Alcohol
