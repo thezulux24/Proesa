@@ -27,6 +27,18 @@
 \pgfplotsset{compat=1.18}
 
 % ==========================================
+% COMPATIBILIDAD UNIVERSAL DE ICONOS
+% ==========================================
+\providecommand{\faShieldAlt}{\faLock}
+\providecommand{\faFileMedical}{\faFile}
+\providecommand{\faLayerGroup}{\faDatabase}
+\providecommand{\faBoxes}{\faCubes}
+\providecommand{\faRulerCombined}{\faRuler}
+\providecommand{\faCheckDouble}{\faCheckCircle}
+\providecommand{\faSyncAlt}{\faSync}
+\providecommand{\faTrashAlt}{\faTrash}
+
+% ==========================================
 % COLORES CORPORATIVOS PROESA
 % ==========================================
 \definecolor{proesadark}{RGB}{5,28,44}      % Azul oscuro casi negro
@@ -34,6 +46,7 @@
 \definecolor{proesalight}{RGB}{0,164,228}   % Celeste
 \definecolor{proesagray}{RGB}{243,244,246}  % Gris claro para fondos
 \definecolor{proesagreen}{RGB}{22,163,74}   % Verde estado/éxito
+\definecolor{proesaorange}{RGB}{234,88,12}  % Naranja alerta/Rappi
 
 % Asignación de colores a elementos de Beamer
 \setbeamercolor{structure}{fg=proesablue}
@@ -73,8 +86,8 @@
     \vspace{0.3cm}
     {\color{proesablue}\Large Webscraping para Alcohol y Tabaco en Colombia}
     
-    \vspace{1.2cm}
-    {\small \textbf{Producto Final} \\ Presentación Ejecutiva}
+    \vspace{1.0cm}
+    {\small \textbf{Producto Final Consolidado} \\ Presentación Ejecutiva y Balance Técnico}
     
     \vfill
     {\small \textbf{PROESA – Universidad Icesi} \\ \href{http://www.icesi.edu.co/proesa}{www.icesi.edu.co/proesa} \\ Agosto de 2026}
@@ -83,11 +96,12 @@
 % --- DIAPOSITIVA 2: RESUMEN EJECUTIVO DE ENTREGABLES ---
 \begin{frame}{Resumen Ejecutivo de Entregables}
     \begin{itemize}
-        \setlength{\itemsep}{10pt}
-        \item \textbf{Arquitectura Automatizada End-to-End:} Extracción diaria, limpia y resiliente sobre 7 grandes cadenas de supermercados y comercios digitales en Colombia (Éxito, Carulla, Jumbo, D1, Cañaveral, Olímpica, Makro).
-        \item \textbf{Maestro Único MDM con IA (V4 Flash con Pensamiento):} Estandarización inteligente de productos mediante modelos de lenguaje con razonamiento CoT y RAG sobre 6,631 históricos locales.
-        \item \textbf{Auditoría y Vinculación INVIMA:} Asignación automatizada de Registros Sanitarios oficiales desde el catálogo INVIMA con política estricta de cero falsos positivos.
-        \item \textbf{Suite Gráfica \& Alertas Automáticas:} Interfaz gráfica integral en Python/CustomTkinter (\texttt{suite\_app.py}) y sistema de notificaciones ejecutivas por correo con Resend.
+        \setlength{\itemsep}{8pt}
+        \item \textbf{Cobertura Multicanal Expandida (8 Comercios):} Extracción diaria automatizada sobre supermercados líderes (Éxito, Carulla, Jumbo, Olímpica, Makro, Cañaveral), tiendas de descuento (D1) y el marketplace digital líder (\textbf{Rappi}).
+        \item \textbf{Consolidación MDM con IA (99.9\% Mapeado):} De 10,792 productos crudos extraídos, se han vinculado \textbf{10,781 referencias a 3,635 productos maestros únicos} (solo 11 pendientes), con resolución semántica mediante DeepSeek AI y RAG histórico.
+        \item \textbf{Estandarización Canónica de Atributos:} Unificación universal del campo Volumen Estándar a \textbf{\texttt{Mililitro}} y reducción taxonómica a \textbf{16 subcategorías oficiales} (13 en alcohol y 3 en tabaco).
+        \item \textbf{Auditoría INVIMA y Trabajo en Paralelo:} \textbf{1,749 productos de alcohol} auditados con registro sanitario oficial (60.6\%). Los 1,136 faltantes corresponden a casos de alta especificidad que continúan homologándose en paralelo sin detener la operación diaria.
+        \item \textbf{Suite Gráfica \& Pipeline Autónomo:} Interfaz en Python/CustomTkinter (\texttt{suite\_app.py}), base SQLite local (\texttt{suite\_data.db}), alertas automáticas por correo con Resend y respaldo portable \texttt{mdm\_export.json}.
     \end{itemize}
 \end{frame}
 
@@ -97,23 +111,23 @@
         \begin{tikzpicture}[scale=0.88, every node/.style={transform shape}]
             % Fila Superior
             \node (step1) [draw=proesablue, fill=proesagray, rounded corners, thick, text width=3.6cm, align=center, inner sep=6pt] at (0, 2)
-                {\textbf{\faDatabase\ 1. Scrapers (7 Comercios)}\\[2pt]\scriptsize Extracción masiva diaria Éxito, Carulla, Jumbo, D1, Cañaveral, Olímpica, Makro};
+                {\textbf{\faDatabase\ 1. Scrapers (8 Comercios)}\\[2pt]\scriptsize Extracción masiva diaria Éxito, Carulla, Jumbo, Olímpica, Makro, Cañaveral, D1 y Rappi};
             
             \node (step2) [draw=proesadark, fill=white, rounded corners, thick, text width=3.6cm, align=center, inner sep=6pt] at (4.8, 2)
-                {\textbf{\faDatabase\ 2. ETL Inicial SQLite}\\[2pt]\scriptsize Mapeo automático de conocidos en $<0.5$s (90-95\% catálogo)};
+                {\textbf{\faBolt\ 2. ETL Inicial SQLite}\\[2pt]\scriptsize Mapeo automático de conocidos en $<0.5$s ($>95\%$ catálogo)};
             
             \node (step3) [draw=proesablue, fill=proesablue!10, rounded corners, thick, text width=3.6cm, align=center, inner sep=6pt] at (9.6, 2)
-                {\textbf{\faRobot\ 3. IA MDM Matcher}\\[2pt]\scriptsize Modelo V4 Flash con Pensamiento (Razonamiento CoT + RAG)};
+                {\textbf{\faRobot\ 3. IA MDM Matcher}\\[2pt]\scriptsize DeepSeek AI con Razonamiento CoT + RAG sobre memoria histórica};
 
             % Fila Inferior
             \node (step6) [draw=proesalight, fill=white, rounded corners, thick, text width=3.6cm, align=center, inner sep=6pt] at (0, -0.6)
                 {\textbf{\faEnvelope\ 6. Alertas Resend}\\[2pt]\scriptsize Reporte HTML diario consolidado en bandeja de entrada};
 
             \node (step5) [draw=proesadark, fill=proesagray, rounded corners, thick, text width=3.6cm, align=center, inner sep=6pt] at (4.8, -0.6)
-                {\textbf{\faSync\ 5. ETL Final \& Export}\\[2pt]\scriptsize Vista normalizada \& respaldo \texttt{mdm\_export.json}};
+                {\textbf{\faSync\ 5. ETL Normalizado}\\[2pt]\scriptsize Tabla \texttt{productos\_normalizados} \& respaldo \texttt{mdm\_export.json}};
 
             \node (step4) [draw=proesagreen, fill=proesagreen!10, rounded corners, thick, text width=3.6cm, align=center, inner sep=6pt] at (9.6, -0.6)
-                {\textbf{\faFile\ 4. Asignación INVIMA}\\[2pt]\scriptsize Auditoría de certificados oficiales sanitarios};
+                {\textbf{\faFileMedical\ 4. Homologación INVIMA}\\[2pt]\scriptsize Cruce automático contra 10,972 registros oficiales};
 
             % Conexiones
             \draw[->, >=stealth, ultra thick, proesablue] (step1) -- (step2);
@@ -126,112 +140,125 @@
 \end{frame}
 
 % --- DIAPOSITIVA 4: INDICADORES CLAVE DE ESTANDARIZACIÓN ---
-\begin{frame}{Resultados de Estandarización MDM e INVIMA}
+\begin{frame}{Resultados y Métricas Clave del Catálogo Final}
     \vspace{0.2cm}
     \begin{columns}[t]
         \begin{column}{0.25\textwidth}
             \centering
-            {\color{proesablue}\Huge \faBoxes} \\ \vspace{0.2cm}
-            {\color{proesadark}\Huge \textbf{2,810}} \\ \vspace{0.2cm}
-            \small Productos Únicos Maestros (MDM)
+            {\color{proesablue}\Huge \faCubes} \\ \vspace{0.2cm}
+            {\color{proesadark}\Huge \textbf{3,635}} \\ \vspace{0.2cm}
+            \small \textbf{Productos Maestros (MDM)}\\
+            \scriptsize 2,885 Alcohol | 750 Tabaco
         \end{column}
         \begin{column}{0.25\textwidth}
             \centering
-            {\color{proesalight}\Huge \faLink} \\ \vspace{0.2cm}
-            {\color{proesadark}\Huge \textbf{7,712}} \\ \vspace{0.2cm}
-            \small Mapeos Tienda $\rightarrow$ Maestro Estandarizados
+            {\color{proesagreen}\Huge \faLink} \\ \vspace{0.2cm}
+            {\color{proesadark}\Huge \textbf{10,781}} \\ \vspace{0.2cm}
+            \small \textbf{Mapeos Vinculados (99.9\%)}\\
+            \scriptsize Solo 11 pendientes de 10,792 crudos
         \end{column}
         \begin{column}{0.25\textwidth}
             \centering
-            {\color{proesagreen}\Huge \faCheck} \\ \vspace{0.2cm}
-            {\color{proesadark}\Huge \textbf{2,128}} \\ \vspace{0.2cm}
-            \small Registros Sanitarios INVIMA Asignados (75.7\%)
+            {\color{proesalight}\Huge \faCheckCircle} \\ \vspace{0.2cm}
+            {\color{proesadark}\Huge \textbf{1,749}} \\ \vspace{0.2cm}
+            \small \textbf{Registros INVIMA (60.6\%)}\\
+            \scriptsize Asignados con alta confianza ($\ge 90\%$)
         \end{column}
         \begin{column}{0.25\textwidth}
             \centering
-            {\color{proesablue}\Huge \faFile} \\ \vspace{0.2cm}
-            {\color{proesadark}\Huge \textbf{10,972}} \\ \vspace{0.2cm}
-            \small Certificados INVIMA Ingestados en BD
+            {\color{proesablue}\Huge \faDatabase} \\ \vspace{0.2cm}
+            {\color{proesadark}\Huge \textbf{107,692}} \\ \vspace{0.2cm}
+            \small \textbf{Precios Normalizados}\\
+            \scriptsize Observaciones históricas en la Suite
         \end{column}
     \end{columns}
-    \vspace{0.6cm}
+    \vspace{0.5cm}
     \begin{block}{Garantía de Consistencia Estandarizada}
-        Cada producto extraído diariamente se homologa contra el catálogo \textbf{Maestro MDM}, permitiendo comparar el mismo ítem (ej. \textit{Aguardiente Antioqueño Sin Azúcar 750 ml}) a través de múltiples comercios y variaciones de precio sin duplicidad de referencias.
+        Cada producto extraído diariamente se homologa contra el catálogo \textbf{Maestro MDM}, permitiendo comparar el mismo ítem (ej. \textit{Aguardiente Antioqueño Sin Azúcar 750 Mililitro}) a través de los 8 comercios sin duplicidad de referencias ni sesgos de nomenclatura.
     \end{block}
 \end{frame}
 
-% --- DIAPOSITIVA 5: COBERTURA COMERCIAL ---
-\begin{frame}{Cobertura de Cadenas Comerciales Evaluadas}
+% --- DIAPOSITIVA 5: COBERTURA COMERCIAL Y RAPPI ---
+\begin{frame}{Cobertura de Cadenas Comerciales y Expansión Rappi}
     \begin{columns}[c]
         \begin{column}{0.48\textwidth}
-            \begin{block}{\faStore\ Cadenas Monitoreadas Diariamente}
+            \begin{block}{\faStore\ 8 Cadenas Monitoreadas Diariamente}
                 \begin{itemize}
-                    \setlength{\itemsep}{6pt}
-                    \item \textbf{Éxito}
-                    \item \textbf{Carulla}
-                    \item \textbf{Jumbo}
-                    \item \textbf{D1}
-                    \item \textbf{Cañaveral}
-                    \item \textbf{Olímpica}
-                    \item \textbf{Makro}
+                    \setlength{\itemsep}{4pt}
+                    \item \textbf{Supermercados Tradicionales:} Éxito, Carulla, Jumbo, Olímpica, Cañaveral, Makro.
+                    \item \textbf{Hard Discount:} D1 (API VTEX catalog).
+                    \item \textbf{Marketplace Digital (Nuevo):} \textbf{Rappi} (2,170 lecturas de precios activas).
                 \end{itemize}
+            \end{block}
+            \vspace{0.15cm}
+            \begin{block}{\faFilter\ Filtros Anti-Falsos Positivos en Rappi}
+                \scriptsize Filtros especializados por tipo de tienda y producto para omitir restaurantes, cafeterías y comida preparada, aislando estrictamente alcohol y tabaco.
             \end{block}
         \end{column}
         
         \begin{column}{0.48\textwidth}
-            \begin{alertblock}{\faLock\ Resiliencia Antibot (Scrapling)}
-                Todos los scrapers operan bajo el framework \textbf{Scrapling} en modo \textbf{HTTP ONLY}, simulando firmas TLS/Headers para evadir antibots (Cloudflare) con consumo mínimo de memoria RAM en el servidor Windows Server 2016.
+            \begin{alertblock}{\faLock\ Resiliencia Antibot (Scrapling HTTP ONLY)}
+                \small Todos los scrapers operan bajo el framework \textbf{Scrapling} en modo \textbf{HTTP ONLY}, simulando firmas TLS/Headers de navegadores reales para evadir protecciones (Cloudflare, DataDome) con consumo mínimo de recursos en Windows Server.
             \end{alertblock}
+            \vspace{0.15cm}
+            \begin{block}{\faTrash\ Calidad de Datos (Soft Deletes)}
+                \small \textbf{3,113 registros de falsos positivos depurados} con marcado lógico (\texttt{deleted = 1}), manteniendo intacta la serie temporal de precios válidos.
+            \end{block}
         \end{column}
     \end{columns}
 \end{frame}
 
-% --- DIAPOSITIVA: DISTRIBUCIÓN POR COMERCIO (ALCOHOL vs TABACO) ---
-\begin{frame}{Distribución de Productos por Comercio (Alcohol vs. Tabaco)}
+% --- DIAPOSITIVA 6: DISTRIBUCIÓN POR COMERCIO (ALCOHOL vs TABACO) ---
+\begin{frame}{Distribución de Productos Crudos por Comercio (Alcohol vs. Tabaco)}
     \begin{columns}[T]
         % Columna Izquierda: Solo Alcohol
         \begin{column}{0.48\textwidth}
-            \begin{block}{\centering \faWineGlass\ Solo Alcohol por Comercio}
+            \begin{block}{\centering \faWineGlass\ Productos Únicos de Alcohol (Total: 9,490)}
                 \vspace{0.1cm}
                 \begin{center}
-                    \begin{tikzpicture}[scale=0.85]
-                        % Éxito (1,800)
-                        \fill[proesablue, rounded corners=2pt] (0, 3.6) rectangle (4.2, 3.95);
+                    \begin{tikzpicture}[scale=0.80]
+                        % Olímpica (2,166)
+                        \fill[proesablue, rounded corners=2pt] (0, 4.2) rectangle (4.20, 4.55);
+                        \node[left, font=\tiny\bfseries] at (-0.1, 4.375) {Olímpica};
+                        \node[right, font=\tiny\bfseries, text=proesablue] at (4.25, 4.375) {2,166};
+
+                        % Éxito (1,864)
+                        \fill[proesablue!90, rounded corners=2pt] (0, 3.6) rectangle (3.61, 3.95);
                         \node[left, font=\tiny\bfseries] at (-0.1, 3.775) {Éxito};
-                        \node[right, font=\tiny\bfseries, text=proesablue] at (4.25, 3.775) {1,800};
+                        \node[right, font=\tiny\bfseries, text=proesablue] at (3.66, 3.775) {1,864};
 
-                        % Carulla (1,706)
-                        \fill[proesablue!90, rounded corners=2pt] (0, 3.0) rectangle (3.98, 3.35);
+                        % Carulla (1,767)
+                        \fill[proesablue!85, rounded corners=2pt] (0, 3.0) rectangle (3.42, 3.35);
                         \node[left, font=\tiny\bfseries] at (-0.1, 3.175) {Carulla};
-                        \node[right, font=\tiny\bfseries, text=proesablue] at (4.03, 3.175) {1,706};
+                        \node[right, font=\tiny\bfseries, text=proesablue] at (3.47, 3.175) {1,767};
 
-                        % Olímpica (1,384)
-                        \fill[proesablue!80, rounded corners=2pt] (0, 2.4) rectangle (3.23, 2.75);
-                        \node[left, font=\tiny\bfseries] at (-0.1, 2.575) {Olímpica};
-                        \node[right, font=\tiny\bfseries, text=proesablue] at (3.28, 2.575) {1,384};
+                        % Jumbo (1,370)
+                        \fill[proesablue!75, rounded corners=2pt] (0, 2.4) rectangle (2.65, 2.75);
+                        \node[left, font=\tiny\bfseries] at (-0.1, 2.575) {Jumbo};
+                        \node[right, font=\tiny\bfseries, text=proesablue] at (2.70, 2.575) {1,370};
 
-                        % Jumbo (1,331)
-                        \fill[proesablue!70, rounded corners=2pt] (0, 1.8) rectangle (3.10, 2.15);
-                        \node[left, font=\tiny\bfseries] at (-0.1, 1.975) {Jumbo};
-                        \node[right, font=\tiny\bfseries, text=proesablue] at (3.15, 1.975) {1,331};
+                        % Rappi (1,262)
+                        \fill[proesaorange!90, rounded corners=2pt] (0, 1.8) rectangle (2.44, 2.15);
+                        \node[left, font=\tiny\bfseries] at (-0.1, 1.975) {Rappi};
+                        \node[right, font=\tiny\bfseries, text=proesaorange!90!black] at (2.49, 1.975) {1,262};
 
-                        % Cañaveral (501)
-                        \fill[proesalight, rounded corners=2pt] (0, 1.2) rectangle (1.17, 1.55);
+                        % Cañaveral (591)
+                        \fill[proesalight, rounded corners=2pt] (0, 1.2) rectangle (1.14, 1.55);
                         \node[left, font=\tiny\bfseries] at (-0.1, 1.375) {Cañaveral};
-                        \node[right, font=\tiny\bfseries, text=proesalight!80!black] at (1.22, 1.375) {501};
+                        \node[right, font=\tiny\bfseries, text=proesalight!80!black] at (1.19, 1.375) {591};
 
-                        % Makro (392)
-                        \fill[proesalight!80, rounded corners=2pt] (0, 0.6) rectangle (0.91, 0.95);
+                        % Makro (416)
+                        \fill[proesalight!80, rounded corners=2pt] (0, 0.6) rectangle (0.80, 0.95);
                         \node[left, font=\tiny\bfseries] at (-0.1, 0.775) {Makro};
-                        \node[right, font=\tiny\bfseries, text=proesalight!80!black] at (0.96, 0.775) {392};
+                        \node[right, font=\tiny\bfseries, text=proesalight!80!black] at (0.85, 0.775) {416};
 
-                        % D1 (53)
-                        \fill[proesadark!60, rounded corners=2pt] (0, 0.0) rectangle (0.2, 0.35);
+                        % D1 (54)
+                        \fill[proesadark!60, rounded corners=2pt] (0, 0.0) rectangle (0.20, 0.35);
                         \node[left, font=\tiny\bfseries] at (-0.1, 0.175) {D1};
-                        \node[right, font=\tiny\bfseries, text=proesadark] at (0.25, 0.175) {53};
+                        \node[right, font=\tiny\bfseries, text=proesadark] at (0.25, 0.175) {54};
 
                         % Eje vertical
-                        \draw[gray!50, thick] (0,-0.1) -- (0,4.1);
+                        \draw[gray!50, thick] (0,-0.1) -- (0,4.7);
                     \end{tikzpicture}
                 \end{center}
             \end{block}
@@ -239,46 +266,51 @@
 
         % Columna Derecha: Solo Tabaco
         \begin{column}{0.48\textwidth}
-            \begin{block}{\centering \faSmoking\ Solo Tabaco por Comercio}
+            \begin{block}{\centering \faSmoking\ Productos Únicos de Tabaco (Total: 1,345)}
                 \vspace{0.1cm}
                 \begin{center}
-                    \begin{tikzpicture}[scale=0.85]
+                    \begin{tikzpicture}[scale=0.80]
+                        % Rappi (908)
+                        \fill[proesaorange!90, rounded corners=2pt] (0, 4.2) rectangle (4.20, 4.55);
+                        \node[left, font=\tiny\bfseries] at (-0.1, 4.375) {Rappi};
+                        \node[right, font=\tiny\bfseries, text=proesaorange!90!black] at (4.25, 4.375) {908};
+
+                        % Olímpica (135)
+                        \fill[proesadark!85, rounded corners=2pt] (0, 3.6) rectangle (0.62, 3.95);
+                        \node[left, font=\tiny\bfseries] at (-0.1, 3.775) {Olímpica};
+                        \node[right, font=\tiny\bfseries, text=proesadark] at (0.67, 3.775) {135};
+
                         % Éxito (111)
-                        \fill[proesadark, rounded corners=2pt] (0, 3.6) rectangle (4.2, 3.95);
-                        \node[left, font=\tiny\bfseries] at (-0.1, 3.775) {Éxito};
-                        \node[right, font=\tiny\bfseries, text=proesadark] at (4.25, 3.775) {111};
+                        \fill[proesadark!80, rounded corners=2pt] (0, 3.0) rectangle (0.51, 3.35);
+                        \node[left, font=\tiny\bfseries] at (-0.1, 3.175) {Éxito};
+                        \node[right, font=\tiny\bfseries, text=proesadark] at (0.56, 3.175) {111};
 
-                        % Carulla (81)
-                        \fill[proesadark!85, rounded corners=2pt] (0, 3.0) rectangle (3.06, 3.35);
-                        \node[left, font=\tiny\bfseries] at (-0.1, 3.175) {Carulla};
-                        \node[right, font=\tiny\bfseries, text=proesadark] at (3.11, 3.175) {81};
+                        % Carulla (87)
+                        \fill[proesadark!70, rounded corners=2pt] (0, 2.4) rectangle (0.40, 2.75);
+                        \node[left, font=\tiny\bfseries] at (-0.1, 2.575) {Carulla};
+                        \node[right, font=\tiny\bfseries, text=proesadark] at (0.45, 2.575) {87};
 
-                        % Olímpica (44)
-                        \fill[proesadark!70, rounded corners=2pt] (0, 2.4) rectangle (1.66, 2.75);
-                        \node[left, font=\tiny\bfseries] at (-0.1, 2.575) {Olímpica};
-                        \node[right, font=\tiny\bfseries, text=proesadark] at (1.71, 2.575) {44};
-
-                        % Jumbo (44)
-                        \fill[proesadark!70, rounded corners=2pt] (0, 1.8) rectangle (1.66, 2.15);
+                        % Jumbo (49)
+                        \fill[proesadark!60, rounded corners=2pt] (0, 1.8) rectangle (0.23, 2.15);
                         \node[left, font=\tiny\bfseries] at (-0.1, 1.975) {Jumbo};
-                        \node[right, font=\tiny\bfseries, text=proesadark] at (1.71, 1.975) {44};
+                        \node[right, font=\tiny\bfseries, text=proesadark] at (0.28, 1.975) {49};
 
-                        % Cañaveral (15)
-                        \fill[proesadark!55, rounded corners=2pt] (0, 1.2) rectangle (0.57, 1.55);
+                        % Cañaveral (45)
+                        \fill[proesadark!50, rounded corners=2pt] (0, 1.2) rectangle (0.21, 1.55);
                         \node[left, font=\tiny\bfseries] at (-0.1, 1.375) {Cañaveral};
-                        \node[right, font=\tiny\bfseries, text=proesadark] at (0.62, 1.375) {15};
+                        \node[right, font=\tiny\bfseries, text=proesadark] at (0.26, 1.375) {45};
 
-                        % D1 (3)
-                        \fill[proesadark!40, rounded corners=2pt] (0, 0.6) rectangle (0.2, 0.95);
+                        % D1 (10)
+                        \fill[proesadark!40, rounded corners=2pt] (0, 0.6) rectangle (0.15, 0.95);
                         \node[left, font=\tiny\bfseries] at (-0.1, 0.775) {D1};
-                        \node[right, font=\tiny\bfseries, text=proesadark] at (0.25, 0.775) {3};
+                        \node[right, font=\tiny\bfseries, text=proesadark] at (0.20, 0.775) {10};
 
                         % Makro (0)
                         \node[left, font=\tiny\bfseries] at (-0.1, 0.175) {Makro};
                         \node[right, font=\tiny\bfseries, text=gray] at (0.05, 0.175) {0};
 
                         % Eje vertical
-                        \draw[gray!50, thick] (0,-0.1) -- (0,4.1);
+                        \draw[gray!50, thick] (0,-0.1) -- (0,4.7);
                     \end{tikzpicture}
                 \end{center}
             \end{block}
@@ -286,123 +318,132 @@
     \end{columns}
 \end{frame}
 
-
-
-% --- DIAPOSITIVA 6: SEGMENTACIÓN DEL CATÁLOGO MAESTRO ---
-\begin{frame}{Segmentación del Catálogo Maestro Único}
+% --- DIAPOSITIVA 7: SEGMENTACIÓN DEL CATÁLOGO MAESTRO ---
+\begin{frame}{Segmentación del Catálogo Maestro y Subcategorías Canónicas}
     \begin{columns}[c]
-        \begin{column}{0.45\textwidth}
+        \begin{column}{0.42\textwidth}
             \begin{center}
                 \begin{tikzpicture}
-                    % Gráfica tipo Dona TikZ
-                    \fill[proesalight] (0,0) circle (2.3cm);
-                    \fill[proesablue] (0,0) -- (90:2.3cm) arc (90:430.56:2.3cm) -- cycle; % 94.6%
-                    \fill[white] (0,0) circle (1.4cm);
+                    % Gráfica tipo Dona TikZ (Alcohol 79.4% vs Tabaco 20.6%)
+                    \fill[proesalight] (0,0) circle (2.2cm);
+                    \fill[proesablue] (0,0) -- (90:2.2cm) arc (90:375.84:2.2cm) -- cycle; % 79.4%
+                    \fill[white] (0,0) circle (1.35cm);
                     
-                    \node[proesadark] at (0,0) {\small \textbf{2,810 Maestros}};
-                    \node[white] at (260:1.8cm) {\small \textbf{94.6\%}};
-                    \draw[proesadark, thick] (70:2.0cm) -- (70:2.8cm) node[right, text=proesadark] {\small \textbf{5.4\%}};
+                    \node[proesadark, align=center] at (0,0) {\scriptsize \textbf{3,635}\\[-2pt]\tiny \textbf{Maestros}};
+                    \node[white] at (230:1.75cm) {\scriptsize \textbf{79.4\%}};
+                    \draw[proesadark, thick] (50:1.9cm) -- (50:2.6cm) node[right, text=proesadark] {\scriptsize \textbf{20.6\% (Tabaco)}};
                 \end{tikzpicture}
             \end{center}
         \end{column}
 
-        \begin{column}{0.53\textwidth}
-            \begin{block}{\faWineGlass\ Alcohol (2,659 Productos Maestros - 94.6\%)}
-                \small Vinos (1,378), Cervezas (363), Whisky (159), Coctelería/Aperitivos (155), Ron (121), Cremas (109), Aguardiente (108), Tequila (89), Ginebra (45).
+        \begin{column}{0.56\textwidth}
+            \begin{block}{\faWineGlass\ Alcohol (2,885 Maestros - 13 Subcategorías)}
+                \scriptsize \textbf{Vinos} (1,445), \textbf{Cerveza} (381), \textbf{Whisky} (213), \textbf{Coctelería} (170), \textbf{Ron} (136), \textbf{Cremas y aperitivos} (136), \textbf{Tequila} (112), \textbf{Aguardiente} (111), \textbf{Ginebra} (70), \textbf{Vodka} (59), \textbf{Brandy} (20), \textbf{Mezcal} (16), \textbf{Combo} (16).
             \end{block}
-            \vspace{0.2cm}
-            \begin{block}{\faSmoking\ Tabaco (151 Productos Maestros - 5.4\%)}
-                \small Cigarrillos tradicionales, vapeadores, esencias, puros y bolsas de nicotina.
+            \vspace{0.15cm}
+            \begin{block}{\faSmoking\ Tabaco (750 Maestros - 3 Subcategorías)}
+                \scriptsize \textbf{Cigarrillos y vapeadores} (671) | \textbf{Accesorios para tabaco} (45) | \textbf{Bolsas de nicotina} (34 - ZYN/VELO).
             \end{block}
+            \vspace{0.15cm}
+            \begin{alertblock}{\faRulerCombined\ Estandarización de Volumen Canónico}
+                \scriptsize Se unificó el volumen en toda la suite a \textbf{\texttt{Mililitro}} (ej. \textit{750 Mililitro}, \textit{1000 Mililitro}, \textit{1 Unidad}), eliminando discrepancias entre \textit{ml}, \textit{Lt} y \textit{cc}.
+            \end{alertblock}
         \end{column}
     \end{columns}
 \end{frame}
 
-% --- DIAPOSITIVA 7: MOTOR DE IA Y RAG HISTÓRICO ---
-\begin{frame}{Inteligencia Artificial y Aprendizaje RAG}
-    \begin{columns}[T]
-        \begin{column}{0.48\textwidth}
-            \begin{block}{\faBrain\ Modelo V4 Flash con Pensamiento}
-                \begin{itemize}
-                    \item \textbf{Razonamiento CoT:} Cadena de pensamiento explícita (\texttt{reasoning\_content}) que analiza volumen, coherencia de precio y variaciones semánticas antes de clasificar.
-                    \item \textbf{Alta Precisión:} Evalúa candidatos en tiempo récord resolviendo nombres complejos o ambiguos.
-                \end{itemize}
+% --- DIAPOSITIVA 8: AUDITORÍA SANITARIA INVIMA (ESTADO Y FALTANTES) ---
+\begin{frame}{Auditoría de Registros Sanitarios INVIMA}
+    \begin{columns}[c]
+        \begin{column}{0.50\textwidth}
+            \begin{block}{\faCheckCircle\ Cobertura del 60.6\% Alcanzada}
+                Se vincularon exitosamente \textbf{1,749 productos maestros de alcohol} con su Registro Sanitario oficial en \texttt{invima\_certificados}.
             \end{block}
             \vspace{0.2cm}
-            \begin{block}{\faMicrochip\ Memoria de DB Instantánea}
-                Índice en memoria de \textbf{4,436 nombres validados} que mapea en 0 ms sin costo de API productos previamente aprobados.
+            \begin{block}{\faExclamationCircle\ Pendientes INVIMA: 1,136 Productos (39.4\%)}
+                \small Corresponden a referencias de vinos importados de etiquetas exclusivas, licores artesanales o marcas donde no existe coincidencia $\ge 90\%$.
+            \end{block}
+            \vspace{0.2cm}
+            \begin{alertblock}{\faLock\ Tolerancia Cero a Falsos Positivos}
+                \scriptsize Si un producto no tiene certeza absoluta, el sistema lo deja en \texttt{NULL} protegiendo la veracidad de los análisis fiscales y de salud pública.
+            \end{alertblock}
+        \end{column}
+
+        \begin{column}{0.48\textwidth}
+            \begin{center}
+                \begin{tikzpicture}[scale=0.88]
+                    % Ejes
+                    \draw[->, >=stealth, gray!70] (0,0) -- (5.2,0);
+                    \draw[->, >=stealth, gray!70] (0,0) -- (0,4.2) node[above, text=proesadark, font=\tiny\bfseries] {Cantidad de Maestros};
+                    
+                    % Rejilla de guía
+                    \draw[dashed, gray!30] (0, 3.5) -- (4.8, 3.5) node[right, gray, font=\tiny] {2,000};
+                    \draw[dashed, gray!30] (0, 1.75) -- (4.8, 1.75) node[right, gray, font=\tiny] {1,000};
+
+                    % Barra 1: Con INVIMA (1,749)
+                    \fill[proesagreen, rounded corners=2pt] (0.5,0) rectangle (1.5, 3.06);
+                    \node[above, font=\bfseries\footnotesize, text=proesagreen] at (1.0, 3.06) {1,749};
+                    \node[below, font=\scriptsize, align=center] at (1.0, -0.1) {\textbf{Con INVIMA}\\[-2pt]\tiny (60.6\%)};
+
+                    % Barra 2: Pendientes Alcohol (1,136)
+                    \fill[proesablue, rounded corners=2pt] (2.1,0) rectangle (3.1, 1.99);
+                    \node[above, font=\bfseries\footnotesize, text=proesablue] at (2.6, 1.99) {1,136};
+                    \node[below, font=\scriptsize, align=center] at (2.6, -0.1) {\textbf{Pendientes}\\[-2pt]\tiny (39.4\%)};
+
+                    % Barra 3: Tabaco No Aplica (750)
+                    \fill[gray!70, rounded corners=2pt] (3.7,0) rectangle (4.7, 1.31);
+                    \node[above, font=\bfseries\footnotesize, text=gray!80!black] at (4.2, 1.31) {750};
+                    \node[below, font=\scriptsize, align=center] at (4.2, -0.1) {\textbf{Tabaco}\\[-2pt]\tiny (N/A INVIMA)};
+                \end{tikzpicture}
+            \end{center}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+% --- DIAPOSITIVA 9: ESTADO FINAL Y ACTIVIDADES EN PARALELO ---
+\begin{frame}{Estado Final de Entrega y Flujo de Trabajo en Paralelo}
+    \begin{columns}[T]
+        \begin{column}{0.48\textwidth}
+            \begin{block}{\faCheckCircle\ Sistema 100\% Operativo y Entregado}
+                \begin{itemize}
+                    \setlength{\itemsep}{5pt}
+                    \item \textbf{Extracción Diaria Estable:} 8 tiendas corriendo automáticamente cada mañana.
+                    \item \textbf{Mapeo MDM Consolidado:} 99.9\% de productos crudos asociados; solo 11 ítems nuevos sin mapear.
+                    \item \textbf{Serie Temporal Completa:} 107,692 precios normalizados listos para consulta y análisis.
+                    \item \textbf{Suite Gráfica \& Notificaciones:} Tableros interactivos y alertas diarias vía Resend.
+                \end{itemize}
             \end{block}
         \end{column}
 
         \begin{column}{0.48\textwidth}
-            \begin{alertblock}{\faCheck\ Control y Calidad de Datos}
+            \begin{alertblock}{\faSync\ Actividades de Continuidad en Paralelo}
                 \begin{itemize}
-                    \item \textbf{Falsos Positivos:} Detección y filtrado asistido de accesorios (hieleras, vasos, pasabocas) sin alterar la serie histórica.
-                    \item \textbf{Atributos Canónicos:} Estandarización unificada de volumen, marca y graduación alcohólica.
+                    \setlength{\itemsep}{5pt}
+                    \item \textbf{Asignación Progresiva INVIMA:} La homologación de los 1,136 maestros pendientes se ejecuta en segundo plano (\texttt{match\_invima\_deepseek.py}) y mediante la pestaña de homologación en la Suite sin frenar el flujo diario.
+                    \item \textbf{Mapeo Continuo de Novedades:} Nuevos productos crudos que ingresen al mercado se procesan automáticamente con IA.
+                    \item \textbf{Respaldo Portable:} Generación continua de \texttt{mdm\_export.json} para portabilidad institucional.
                 \end{itemize}
             \end{alertblock}
         \end{column}
     \end{columns}
 \end{frame}
 
-% --- DIAPOSITIVA 8: AUDITORÍA SANITARIA INVIMA ---
-\begin{frame}{Auditoría de Registros Sanitarios INVIMA}
-    \begin{columns}[c]
-        \begin{column}{0.5\textwidth}
-            \begin{block}{\faFile\ Cobertura del 75.7\% Alcanzada}
-                Se logró vincular exitosamente \textbf{2,128 productos maestros de alcohol} con su Registro Sanitario oficial en la tabla \texttt{invima\_certificados}.
-            \end{block}
-            \vspace{0.3cm}
-            \begin{block}{\faCheck\ Criterio Estricto de Coincidencia Sanitaria}
-                Si un producto no encuentra una coincidencia exacta de marca y variedad con confianza $\ge 90\%$, la casilla se mantiene en \texttt{NULL}, \textbf{evitando cualquier falso positivo}.
-            \end{block}
-        \end{column}
-
-        \begin{column}{0.48\textwidth}
-            \begin{center}
-                \begin{tikzpicture}[scale=0.92]
-                    % Ejes
-                    \draw[->, >=stealth, gray!70] (0,0) -- (5.2,0);
-                    \draw[->, >=stealth, gray!70] (0,0) -- (0,4.0) node[above, text=proesadark, font=\tiny\bfseries] {Cantidad de Maestros};
-                    
-                    % Rejilla de guía
-                    \draw[dashed, gray!30] (0, 3.2) -- (4.8, 3.2) node[right, gray, font=\tiny] {2,000};
-                    \draw[dashed, gray!30] (0, 1.6) -- (4.8, 1.6) node[right, gray, font=\tiny] {1,000};
-
-                    % Barra 1: Con INVIMA (2,128)
-                    \fill[proesagreen, rounded corners=2pt] (0.5,0) rectangle (1.5, 3.4);
-                    \node[above, font=\bfseries\footnotesize, text=proesagreen] at (1.0, 3.4) {2,128};
-                    \node[below, font=\scriptsize, align=center] at (1.0, -0.1) {\textbf{Con INVIMA}\\[-2pt]\tiny (75.7\%)};
-
-                    % Barra 2: Pendientes (531)
-                    \fill[proesablue, rounded corners=2pt] (2.1,0) rectangle (3.1, 0.85);
-                    \node[above, font=\bfseries\footnotesize, text=proesablue] at (2.6, 0.85) {531};
-                    \node[below, font=\scriptsize, align=center] at (2.6, -0.1) {\textbf{Pendientes}\\[-2pt]\tiny (18.9\%)};
-
-                    % Barra 3: Tabaco (151)
-                    \fill[gray!70, rounded corners=2pt] (3.7,0) rectangle (4.7, 0.24);
-                    \node[above, font=\bfseries\footnotesize, text=gray!80!black] at (4.2, 0.24) {151};
-                    \node[below, font=\scriptsize, align=center] at (4.2, -0.1) {\textbf{Tabaco}\\[-2pt]\tiny (5.4\%)};
-                \end{tikzpicture}
-            \end{center}
-
-        \end{column}
-    \end{columns}
-\end{frame}
-
-% --- DIAPOSITIVA 9: PRÓXIMOS PASOS Y RECOMENDACIONES ---
-\begin{frame}{Próximos Pasos y Recomendaciones para Continuidad}
+% --- DIAPOSITIVA 10: RECOMENDACIONES DE EXPLOTACIÓN ANALÍTICA ---
+\begin{frame}{Recomendaciones para Explotación Analítica}
     \begin{enumerate}
-        \setlength{\itemsep}{16pt}
-        \item \textbf{\color{proesablue}Actualización Periódica de la Base de Datos INVIMA:} 
-        El trámite de Registros Sanitarios ante el INVIMA es dinámico (nuevas expediciones, renovaciones y cancelaciones). Para elevar la cobertura del \textbf{75.7\% actual hacia el 100\%}, se recomienda establecer un flujo de actualización periódica consumiendo la base de datos oficial actualizada expedida por la autoridad sanitaria.
+        \setlength{\itemsep}{12pt}
+        \item \textbf{\color{proesablue}Análisis Longitudinal y Elasticidad de Precios:} 
+        Aprovechar las más de \textbf{107,000 observaciones históricas} en \texttt{productos\_normalizados} para medir elasticidad-precio de la demanda, dispersión geográfica y patrones de promociones estacionales en alcohol y tabaco.
         
-        \item \textbf{\color{proesadark}Análisis Longitudinal y Elasticidad de Precios:} 
-        Aprovechar la serie temporal acumulada en \texttt{productos\_historico} para estudiar elasticidad-precio, dinámicas promocionales y el impacto del marco tributario de impuestos saludables en Colombia.
+        \item \textbf{\color{proesadark}Evaluación de Impacto Tributario:} 
+        Cruzar los precios estandarizados por mililitro y por unidad frente a cambios normativos en impuestos específicos o al valor en Colombia (reforma tributaria e impuestos saludables).
+        
+        \item \textbf{\color{proesagreen}Monitoreo de Nuevas Tecnologías de Tabaco (Vapeo y Nicotina):} 
+        Hacer seguimiento a la penetración de vapeadores y bolsas de nicotina capturados principalmente a través de canales de entrega rápida (\textbf{Rappi}).
     \end{enumerate}
 \end{frame}
 
-% --- DIAPOSITIVA 10: CIERRE Y ENTREGA ---
+% --- DIAPOSITIVA 11: CIERRE Y ENTREGA ---
 \begin{frame}[plain]
     \begin{tikzpicture}[remember picture,overlay]
         \fill[proesadark] (current page.south west) rectangle (current page.north east);
@@ -413,7 +454,8 @@
         {\color{white}\Huge \textbf{Gracias}}
         
         \vspace{0.6cm}
-
+        {\color{proesalight}\large \textbf{PROESA – Centro de Estudios en Protección Social y Economía de la Salud}} \\
+        {\color{white}\small Universidad Icesi | Banco Mundial}
         
         \vspace{1cm}
         {\color{white}\large \faEnvelope\ \ \ \href{mailto:contacto@proesa.org}{contacto@proesa.org}}

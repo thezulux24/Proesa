@@ -31,10 +31,21 @@ def export_mdm():
     df_deleted = pd.read_sql_query("SELECT comercio, producto_id FROM productos_historico WHERE deleted = 1", conn)
     deleted_records = df_deleted.to_dict(orient="records")
     
+    # 4. Memoria de Correcciones Humanas (si existe)
+    human_memory = []
+    human_mem_file = "data/human_corrections_memory.json"
+    if os.path.exists(human_mem_file):
+        try:
+            with open(human_mem_file, "r", encoding="utf-8") as f:
+                human_memory = json.load(f)
+        except Exception:
+            human_memory = []
+
     data = {
         "maestro_productos": maestro_records,
         "mapeo_productos": mapeo_records,
-        "deleted_historico": deleted_records
+        "deleted_historico": deleted_records,
+        "human_corrections_memory": human_memory
     }
     
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
@@ -46,6 +57,8 @@ def export_mdm():
     print(f"[OK] Productos Maestros: {len(maestro_records):,}")
     print(f"[OK] Vinculaciones (Mapeo): {len(mapeo_records):,}")
     print(f"[OK] Registros Depurados (Soft Delete): {len(deleted_records):,}")
+    if human_memory:
+        print(f"[OK] Memoria de Correcciones Humanas: {len(human_memory):,} reglas")
     print(f"[OK] Archivo generado: {os.path.abspath(OUTPUT_FILE)}")
     print("=" * 60)
 

@@ -149635,7 +149635,35 @@
     },
     {
       "comercio": "Exito",
+      "producto_id": "1685221"
+    },
+    {
+      "comercio": "Exito",
+      "producto_id": "1686004"
+    },
+    {
+      "comercio": "Exito",
+      "producto_id": "762600"
+    },
+    {
+      "comercio": "Exito",
       "producto_id": "124216604"
+    },
+    {
+      "comercio": "Exito",
+      "producto_id": "104928831"
+    },
+    {
+      "comercio": "Exito",
+      "producto_id": "3788824"
+    },
+    {
+      "comercio": "Exito",
+      "producto_id": "3788823"
+    },
+    {
+      "comercio": "Exito",
+      "producto_id": "945485"
     },
     {
       "comercio": "Carulla",
@@ -149644,6 +149672,10 @@
     {
       "comercio": "Carulla",
       "producto_id": "1686004"
+    },
+    {
+      "comercio": "Carulla",
+      "producto_id": "762600"
     },
     {
       "comercio": "Carulla",
@@ -149739,6 +149771,10 @@
     },
     {
       "comercio": "Canaveral",
+      "producto_id": "49250"
+    },
+    {
+      "comercio": "Canaveral",
       "producto_id": "49248"
     },
     {
@@ -149775,7 +149811,15 @@
     },
     {
       "comercio": "Makro",
+      "producto_id": "156747"
+    },
+    {
+      "comercio": "Makro",
       "producto_id": "145947"
+    },
+    {
+      "comercio": "Makro",
+      "producto_id": "143557"
     },
     {
       "comercio": "Makro",
@@ -149819,7 +149863,35 @@
     },
     {
       "comercio": "Exito",
+      "producto_id": "1685221"
+    },
+    {
+      "comercio": "Exito",
+      "producto_id": "1686004"
+    },
+    {
+      "comercio": "Exito",
+      "producto_id": "762600"
+    },
+    {
+      "comercio": "Exito",
       "producto_id": "124216604"
+    },
+    {
+      "comercio": "Exito",
+      "producto_id": "104928831"
+    },
+    {
+      "comercio": "Exito",
+      "producto_id": "3788824"
+    },
+    {
+      "comercio": "Exito",
+      "producto_id": "3788823"
+    },
+    {
+      "comercio": "Exito",
+      "producto_id": "945485"
     },
     {
       "comercio": "Exito",
@@ -149832,6 +149904,10 @@
     {
       "comercio": "Carulla",
       "producto_id": "1686004"
+    },
+    {
+      "comercio": "Carulla",
+      "producto_id": "762600"
     },
     {
       "comercio": "Carulla",
@@ -149927,11 +150003,755 @@
     },
     {
       "comercio": "Canaveral",
+      "producto_id": "49250"
+    },
+    {
+      "comercio": "Canaveral",
       "producto_id": "49248"
     },
     {
       "comercio": "Olimpica",
+      "producto_id": "2335631"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2333916"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2320605"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2327505"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2270614"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2239854"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2203942"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1480736"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2329833"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2318865"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1643399"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2345446"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2341215"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2338746"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2328708"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2328707"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2328527"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2328526"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2328525"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2328524"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2230336"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2176101"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2157682"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2146331"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1567459"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002234086"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2329453"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2270615"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2262478"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2230340"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1651638"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1616768"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1532625"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2338748"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2336389"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2333919"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2327748"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2326031"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2108203"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1650703"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1650635"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1544273"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1423770"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1349627"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1285523"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1049486"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "687474"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "563535"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "418333"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002237606"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002237258"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002236584"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002236483"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002236463"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002236273"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002236271"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002236109"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002236035"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002235766"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002235765"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002235480"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002235395"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002235184"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002235135"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002234963"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002234951"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002234228"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002234194"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002234170"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002233970"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002233621"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002233359"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002233245"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002233160"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002233104"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002232948"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002232654"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002232191"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002231733"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002231488"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002230837"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2337274"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2337174"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2337133"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2337132"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2336484"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2336388"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2336376"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2336228"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2336221"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2336219"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2336195"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2336192"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2336189"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2336184"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2336172"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2335947"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2332498"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2332496"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2332495"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2332480"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2332412"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2332411"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2332389"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2331626"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2331613"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2331589"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2330743"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2329760"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2329758"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2329756"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2329755"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2329308"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2328835"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325989"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325988"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325960"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325959"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325958"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325948"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325947"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325848"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325843"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325559"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325558"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325557"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325551"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325548"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325547"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325546"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325536"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325494"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325480"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325477"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2323642"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2323268"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2320751"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2319677"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2319675"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2318313"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2316930"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2316846"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2316501"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2316489"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2316488"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2315955"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2315954"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2315953"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2315952"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2315057"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2315055"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2314965"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2314964"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2314962"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2314958"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2314956"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2314955"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2314903"
+    },
+    {
+      "comercio": "Olimpica",
       "producto_id": "2311748"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2311618"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2311216"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2311215"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2311211"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2308548"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2306090"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2306082"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2306078"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2302850"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2292286"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2292285"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2291696"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2291695"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2290272"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2283234"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2278535"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2277768"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2277767"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2277766"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2277547"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2277546"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2277545"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2277544"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2277543"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2277541"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2277539"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2276891"
     },
     {
       "comercio": "Olimpica",
@@ -149943,6 +150763,1962 @@
     },
     {
       "comercio": "Olimpica",
+      "producto_id": "2274087"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2272616"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2266466"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2266449"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2264204"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2264203"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2264202"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2264201"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2264200"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2264199"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2263529"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2262192"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2259382"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2257340"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2252881"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2247408"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2246630"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2241990"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2241989"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2241988"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2241987"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2241986"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2241413"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2240820"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2240731"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2239833"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2233662"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2233103"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2232655"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2232304"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2232140"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2230339"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2230334"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2227918"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2227190"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2226732"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2226352"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2226268"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2224075"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2223704"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2220910"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2220909"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2217624"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2217544"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2211515"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2204199"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2203382"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2174753"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2173090"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2168655"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2168654"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2168653"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2168574"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2168569"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2167686"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2167103"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2166824"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2163890"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2161677"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2161673"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2161611"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2160781"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2160310"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2160300"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2160287"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2160284"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2160188"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2160187"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2160186"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2160181"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2160180"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2160179"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2160178"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2160147"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2158380"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2157684"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2153630"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2153629"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2152486"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2152485"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2152483"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2152482"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2152481"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2150890"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2147927"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2147250"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2147249"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2146876"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2146523"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2146338"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2146336"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2146328"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2127032"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2123574"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2122352"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2122349"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2122345"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2122344"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2120964"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2116464"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2114861"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2107080"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2106212"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2106209"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2106180"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2106179"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2106178"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2106177"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2106176"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2106169"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2106168"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2105852"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2097970"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2097968"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2078154"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2073998"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2073296"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2073292"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2073291"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2073262"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2073261"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2072766"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2072214"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2059999"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2057036"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2054595"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2053909"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2053887"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2053882"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2044807"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2038589"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2038588"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2037620"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2037617"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2037616"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2034332"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2030648"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2017142"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2017141"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2013943"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2013941"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2013757"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2013743"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1851148"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1653651"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1651647"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1651644"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1650637"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1592173"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1581216"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1575970"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1571043"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1571042"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1571040"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1549532"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1549455"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1549307"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1548863"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1546811"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1523367"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1522013"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1504387"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1504385"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1504379"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1493012"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1493011"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1492987"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1492978"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1492945"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1492899"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1492889"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1492738"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1490916"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1489953"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1486957"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1479528"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1477401"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1477398"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1459435"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1457737"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1432814"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1428427"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1428206"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1425889"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1425884"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1425883"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1425518"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1424881"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1423774"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1423033"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1417636"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1416888"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1403122"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1403114"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1403096"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1396027"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1394934"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1394892"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1382418"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1382395"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1380479"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1380478"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1363112"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1363108"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1361511"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1361496"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1361416"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1361373"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1361362"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1361229"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1354571"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1349649"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1348461"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1348451"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1345128"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1345123"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1345113"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1344117"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1344115"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1343492"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1343490"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1333885"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1332225"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1331979"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1331977"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1331683"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1331682"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1331264"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1331263"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1331260"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1331256"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1331219"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1331170"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1331162"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1331158"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1330757"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1328547"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1328535"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1325582"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1323787"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1319686"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1319521"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1318904"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1318878"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1318876"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1318869"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1318825"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1315449"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1315418"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1315395"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1315390"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1315388"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1315387"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1315380"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1315379"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1315257"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1315220"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1315185"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1315176"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1315144"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1315108"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1315062"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1314985"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1312756"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1312755"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1285536"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1285513"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1257270"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1257111"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1257095"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1256957"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1256935"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1256858"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1256850"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1256845"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1256844"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1256832"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1256737"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1256731"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1256706"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1256703"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1256697"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1256611"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1256604"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1256339"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1252828"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1252827"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1252826"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1252824"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1251412"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1251408"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1251380"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1251378"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1251376"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1251367"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1251362"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1251241"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1247047"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1247040"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1238148"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1230562"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1220973"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1220970"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1218823"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1205824"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1192054"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1184874"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1183747"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1182373"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1182362"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1180170"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1180169"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1180166"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1180164"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1180000"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1179914"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1179186"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1179181"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1177331"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1177319"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1172535"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1172523"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1168039"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1089924"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1089901"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1088004"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1086120"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1085329"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1049128"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1049126"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1049124"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1049120"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1049117"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1049115"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1049113"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1048987"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1048980"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1048843"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1048842"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1045691"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1045690"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1045678"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1045676"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1045641"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1045634"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1045625"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1045593"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1045592"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1045590"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1045583"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1045005"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1045004"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1045002"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1033188"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1033187"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1031156"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1031155"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1017678"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1015288"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1015287"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1015284"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1015282"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1015277"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1015256"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1015254"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1015250"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1011381"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1011380"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "977565"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "965868"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "960917"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "946423"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "946421"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "946399"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "946248"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "946223"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "946180"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "946170"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "944932"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "944919"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "944915"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "944913"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "944444"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "944443"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "944111"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "944108"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "944092"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "938490"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "938475"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "930719"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "930703"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "927117"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "926791"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "915877"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "915839"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "906773"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "886540"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "883326"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "868380"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "868378"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "867336"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "860565"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "860549"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "850304"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "850271"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "825777"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "818638"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "818636"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "818635"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "816831"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "816105"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "816098"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "816095"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "816094"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "812114"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "810330"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "810297"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "806521"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "806080"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "806079"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "796654"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "779584"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "779549"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "779547"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "779477"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "779425"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "778495"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "778130"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "778128"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "778079"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "776582"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "773463"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "766111"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "765269"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "743677"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "743676"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "731996"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "731289"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "729664"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "713448"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "713418"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "713414"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "711557"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "708063"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "702147"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "692469"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "691400"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "691396"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "691390"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "691386"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "691384"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "691378"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "687390"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "687049"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "687031"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "686925"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "685215"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "638761"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "634559"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "634551"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "572250"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "563534"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "554677"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "546674"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "544472"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "544470"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "544469"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "544467"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "544411"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "544401"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "536839"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "524159"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "475382"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "371925"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "223743"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "216623"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "189081"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "186511"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "184888"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "184616"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "175754"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "154097"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "152018"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "141867"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "141863"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "125886"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "92557"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "89279"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "83747"
+    },
+    {
+      "comercio": "Olimpica",
       "producto_id": "74704"
     },
     {
@@ -149951,11 +152727,379 @@
     },
     {
       "comercio": "Olimpica",
+      "producto_id": "51830"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "32934"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "19916"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "14821"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "11723"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2282020"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2303865"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2282019"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2321732"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2322934"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2321735"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2313147"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2276230"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2329967"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2329964"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2329963"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2329962"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2329960"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2329959"
+    },
+    {
+      "comercio": "Olimpica",
       "producto_id": "2329958"
     },
     {
       "comercio": "Olimpica",
+      "producto_id": "2329957"
+    },
+    {
+      "comercio": "Olimpica",
       "producto_id": "2329956"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2329955"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2329952"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2328178"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2327808"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2327807"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2327667"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2327666"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2327665"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2327664"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2327663"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2327662"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2327661"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2327660"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2327659"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2327173"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325737"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325588"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325587"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325586"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325585"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325584"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325581"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325579"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325577"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325575"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2323933"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2322956"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2322943"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2322942"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2322941"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2322940"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2322939"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2322938"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2321757"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2321755"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2321751"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2321726"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2320224"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2320222"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2320221"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2319539"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2319538"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2319537"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2312302"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2312299"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2299186"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2299181"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2299131"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2299130"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2299129"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2299128"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2299127"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2299125"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2275679"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2241873"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2241820"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2241817"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2241814"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2241809"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2223701"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2138934"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2094561"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2094560"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2094559"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1573054"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1292517"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1215752"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1153439"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1153438"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "188402"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "168357"
+    },
+    {
+      "comercio": "Makro",
+      "producto_id": "156747"
     },
     {
       "comercio": "Makro",
@@ -150034,6 +153178,26 @@
       "producto_id": "145947"
     },
     {
+      "comercio": "Makro",
+      "producto_id": "143560"
+    },
+    {
+      "comercio": "Makro",
+      "producto_id": "143557"
+    },
+    {
+      "comercio": "Exito",
+      "producto_id": "1685221"
+    },
+    {
+      "comercio": "Exito",
+      "producto_id": "1686004"
+    },
+    {
+      "comercio": "Exito",
+      "producto_id": "762600"
+    },
+    {
       "comercio": "Exito",
       "producto_id": "3003498"
     },
@@ -150043,11 +153207,27 @@
     },
     {
       "comercio": "Exito",
+      "producto_id": "104928831"
+    },
+    {
+      "comercio": "Exito",
+      "producto_id": "3788824"
+    },
+    {
+      "comercio": "Exito",
+      "producto_id": "3788823"
+    },
+    {
+      "comercio": "Exito",
       "producto_id": "3201107"
     },
     {
       "comercio": "Exito",
       "producto_id": "3003500"
+    },
+    {
+      "comercio": "Exito",
+      "producto_id": "945485"
     },
     {
       "comercio": "Exito",
@@ -150060,6 +153240,10 @@
     {
       "comercio": "Carulla",
       "producto_id": "1686004"
+    },
+    {
+      "comercio": "Carulla",
+      "producto_id": "762600"
     },
     {
       "comercio": "Carulla",
@@ -150167,7 +153351,431 @@
     },
     {
       "comercio": "Canaveral",
+      "producto_id": "49250"
+    },
+    {
+      "comercio": "Canaveral",
       "producto_id": "49248"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2335631"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2333916"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2320605"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2327505"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2270614"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2239854"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2203942"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1480736"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2329833"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2318865"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1643399"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2345446"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2341215"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2338746"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2328527"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2328526"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2328525"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2328524"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2262478"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2230336"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2176101"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2157682"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2146331"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1567459"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002234086"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2335630"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2329453"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2328708"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2328707"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2270615"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2230340"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2108203"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1651638"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1650703"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1616768"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1544273"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1532625"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1354571"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1349627"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1252827"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "687474"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2338748"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2336389"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2333919"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2326031"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325948"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2323268"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2160186"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2038588"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1650635"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1423770"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1285523"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1179186"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1049486"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1049115"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "563535"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "418333"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002237606"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002237258"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002236584"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002236483"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002236463"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002236273"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002236271"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002236109"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002236035"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002235766"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002235765"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002235480"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002235395"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002235184"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002235135"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002234963"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002234951"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002234228"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002234194"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002234170"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002233970"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002233621"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002233359"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002233245"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002233160"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002233104"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002232948"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002232654"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002232191"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002231733"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002231488"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002230837"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2337274"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2337174"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2337133"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2337132"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2336484"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2336388"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2336376"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2336228"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2336221"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2336219"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2336195"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2336192"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2336189"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2336184"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2336172"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2335947"
     },
     {
       "comercio": "Olimpica",
@@ -150175,7 +153783,359 @@
     },
     {
       "comercio": "Olimpica",
+      "producto_id": "2332498"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2332496"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2332495"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2332480"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2332412"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2332411"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2332389"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2331626"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2331613"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2331589"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2330743"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2329760"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2329758"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2329756"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2329755"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2329308"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2328835"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2327748"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325989"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325988"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325960"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325959"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325958"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325947"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325848"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325843"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325559"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325558"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325557"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325551"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325548"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325547"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325546"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325536"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325494"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325480"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325477"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2323713"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2323642"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2320751"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2319677"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2319675"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2318313"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2316930"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2316846"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2316501"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2316489"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2316488"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2315955"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2315954"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2315953"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2315952"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2315057"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2315055"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2314965"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2314964"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2314962"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2314958"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2314956"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2314955"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2314903"
+    },
+    {
+      "comercio": "Olimpica",
       "producto_id": "2311748"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2311618"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2311216"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2311215"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2311211"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2308548"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2306090"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2306082"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2306078"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2302850"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2292286"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2292285"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2291696"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2291695"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2290272"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2283234"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2278535"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2277768"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2277767"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2277766"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2277547"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2277546"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2277545"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2277544"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2277543"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2277541"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2277539"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2276891"
     },
     {
       "comercio": "Olimpica",
@@ -150187,7 +154147,1983 @@
     },
     {
       "comercio": "Olimpica",
+      "producto_id": "2274087"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2272616"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2266466"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2266449"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2264204"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2264203"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2264202"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2264201"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2264200"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2264199"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2263529"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2262192"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2259382"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2257340"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2252881"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2247408"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2246630"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2241990"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2241989"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2241988"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2241987"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2241986"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2241413"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2240820"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2240731"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2239833"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2238514"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2233662"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2233103"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2232655"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2232304"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2232140"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2230339"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2230334"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2227918"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2227190"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2226732"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2226352"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2226268"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2224075"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2223704"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2220910"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2220909"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2217624"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2217544"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2211515"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2204199"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2203382"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2174753"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2173090"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2168655"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2168654"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2168653"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2168574"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2168569"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2167686"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2167103"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2166824"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2163890"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2161677"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2161673"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2161611"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2160781"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2160310"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2160300"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2160287"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2160284"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2160188"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2160187"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2160181"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2160180"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2160179"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2160178"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2160147"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2158380"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2157684"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2153630"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2153629"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2152486"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2152485"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2152483"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2152482"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2152481"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2150890"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2147927"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2147250"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2147249"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2146876"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2146523"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2146338"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2146336"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2146328"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2127032"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2123574"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2122352"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2122349"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2122345"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2122344"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2120964"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2116464"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2114861"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2107080"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2106212"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2106209"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2106180"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2106179"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2106178"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2106177"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2106176"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2106169"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2106168"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2105852"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2097970"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2097968"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2078154"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2073998"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2073296"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2073292"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2073291"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2073262"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2073261"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2072766"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2072214"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2059999"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2057036"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2054595"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2053909"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2053887"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2053882"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2044807"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2038589"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2037620"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2037617"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2037616"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2034332"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2030648"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2017142"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2017141"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2013943"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2013941"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2013757"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2013743"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1851148"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1653651"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1651647"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1651645"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1651644"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1650637"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1592173"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1578359"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1575970"
+    },
+    {
+      "comercio": "Olimpica",
       "producto_id": "1573565"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1571043"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1571042"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1571040"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1549532"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1549455"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1549307"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1548863"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1546811"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1523367"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1522013"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1504387"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1504385"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1504379"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1493012"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1493011"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1492987"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1492978"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1492945"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1492899"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1492889"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1492738"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1490916"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1489953"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1486957"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1479528"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1477401"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1477398"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1459435"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1457737"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1432814"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1428427"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1428206"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1425889"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1425884"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1425883"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1425518"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1424881"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1423774"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1423033"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1417636"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1416888"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1403122"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1403114"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1403096"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1396027"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1394934"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1394892"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1382418"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1382395"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1380479"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1380478"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1363112"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1363108"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1361511"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1361496"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1361416"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1361373"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1361362"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1361229"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1349649"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1348461"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1348451"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1345128"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1345123"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1345113"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1344117"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1344115"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1343492"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1343490"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1333885"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1332225"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1331979"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1331977"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1331683"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1331682"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1331264"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1331263"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1331260"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1331256"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1331219"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1331170"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1331162"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1331158"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1330757"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1328547"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1328535"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1328531"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1327688"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1325582"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1323787"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1319686"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1319521"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1318904"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1318878"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1318876"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1318869"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1318825"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1315449"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1315418"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1315395"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1315390"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1315388"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1315387"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1315380"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1315379"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1315257"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1315220"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1315185"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1315176"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1315144"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1315108"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1315062"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1314985"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1312756"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1312755"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1312061"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1285536"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1285513"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1257270"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1257111"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1257095"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1256957"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1256935"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1256858"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1256850"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1256845"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1256844"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1256832"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1256737"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1256731"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1256706"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1256703"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1256697"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1256611"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1256604"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1256339"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1252828"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1252826"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1252824"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1251412"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1251408"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1251380"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1251378"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1251376"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1251367"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1251362"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1251241"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1247047"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1247040"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1238148"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1230562"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1220973"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1220970"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1218823"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1205824"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1192054"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1184874"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1183747"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1182373"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1182362"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1180170"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1180169"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1180166"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1180164"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1180160"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1180000"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1179914"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1179181"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1177331"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1177319"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1172535"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1172523"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1168039"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1089924"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1089901"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1088004"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1086120"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1085329"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1049128"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1049126"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1049124"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1049120"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1049117"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1049113"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1048987"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1048980"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1048843"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1048842"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1045691"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1045690"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1045678"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1045676"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1045641"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1045634"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1045625"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1045593"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1045592"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1045590"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1045583"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1045005"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1045004"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1045002"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1033188"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1033187"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1031156"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1031155"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1017678"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1015288"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1015287"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1015284"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1015282"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1015277"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1015256"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1015254"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1015250"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1011381"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1011380"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "977565"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "965868"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "960917"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "946423"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "946421"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "946399"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "946396"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "946248"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "946223"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "946180"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "946170"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "944932"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "944919"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "944915"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "944913"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "944444"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "944443"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "944111"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "944108"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "944092"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "938490"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "938475"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "930719"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "930703"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "927117"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "926791"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "915877"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "915839"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "906773"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "886540"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "883326"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "868380"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "868378"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "867336"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "860565"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "860549"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "850304"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "850271"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "825777"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "818638"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "818636"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "818635"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "816831"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "816105"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "816098"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "816095"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "816094"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "812114"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "810330"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "810297"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "806521"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "806080"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "806079"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "796654"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "779584"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "779549"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "779547"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "779477"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "779425"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "778495"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "778130"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "778128"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "778079"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "777750"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "776582"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "773463"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "766111"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "765269"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "743677"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "743676"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "731996"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "731289"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "729664"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "713448"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "713418"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "713414"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "711557"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "708063"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "702296"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "702147"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "692469"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "691400"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "691396"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "691390"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "691386"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "691384"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "691378"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "687390"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "687049"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "687031"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "686925"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "685215"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "638761"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "634559"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "634551"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "572250"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "563534"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "554677"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "546674"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "544472"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "544470"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "544469"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "544467"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "544411"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "544401"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "536839"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "524159"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "475382"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "371925"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "229375"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "223743"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "216623"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "189081"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "186511"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "184888"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "184616"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "175754"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "154097"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "152018"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "141867"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "141863"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "125886"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "92557"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "89279"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "87553"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "83747"
     },
     {
       "comercio": "Olimpica",
@@ -150196,6 +156132,382 @@
     {
       "comercio": "Olimpica",
       "producto_id": "74703"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "51830"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "32934"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "19916"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "14821"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "11723"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "11718"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2282020"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2303865"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2282019"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2321732"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2322934"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2321735"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2313147"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2321726"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2276230"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2329967"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2329964"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2329963"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2329962"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2329960"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2329959"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2329958"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2329957"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2329956"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2329955"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2329952"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2328178"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2327808"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2327807"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2327667"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2327666"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2327665"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2327664"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2327663"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2327662"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2327661"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2327660"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2327659"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2327173"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325737"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325588"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325587"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325586"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325585"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325584"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325581"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325579"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325577"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325575"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2323933"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2322956"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2322943"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2322942"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2322941"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2322940"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2322939"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2322938"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2321757"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2321755"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2321751"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2320224"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2320222"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2320221"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2319539"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2319538"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2319537"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2312302"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2312299"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2299186"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2299181"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2299131"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2299130"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2299129"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2299128"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2299127"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2299125"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2275679"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2241873"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2241820"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2241817"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2241814"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2241809"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2223701"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2138934"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2094561"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2094560"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2094559"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1573054"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1292517"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1215752"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1153439"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1153438"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "188402"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "168357"
     },
     {
       "comercio": "Makro",
@@ -150235,7 +156547,19 @@
     },
     {
       "comercio": "Makro",
+      "producto_id": "156747"
+    },
+    {
+      "comercio": "Makro",
       "producto_id": "145947"
+    },
+    {
+      "comercio": "Makro",
+      "producto_id": "143557"
+    },
+    {
+      "comercio": "Makro",
+      "producto_id": "143560"
     },
     {
       "comercio": "Makro",
@@ -159067,11 +165391,35 @@
     },
     {
       "comercio": "Exito",
+      "producto_id": "1685221"
+    },
+    {
+      "comercio": "Exito",
+      "producto_id": "1686004"
+    },
+    {
+      "comercio": "Exito",
+      "producto_id": "762600"
+    },
+    {
+      "comercio": "Exito",
       "producto_id": "3003498"
     },
     {
       "comercio": "Exito",
       "producto_id": "124216604"
+    },
+    {
+      "comercio": "Exito",
+      "producto_id": "104928831"
+    },
+    {
+      "comercio": "Exito",
+      "producto_id": "3788824"
+    },
+    {
+      "comercio": "Exito",
+      "producto_id": "3788823"
     },
     {
       "comercio": "Exito",
@@ -159087,6 +165435,10 @@
     },
     {
       "comercio": "Exito",
+      "producto_id": "945485"
+    },
+    {
+      "comercio": "Exito",
       "producto_id": "105170473"
     },
     {
@@ -159096,6 +165448,10 @@
     {
       "comercio": "Carulla",
       "producto_id": "1686004"
+    },
+    {
+      "comercio": "Carulla",
+      "producto_id": "762600"
     },
     {
       "comercio": "Carulla",
@@ -159183,6 +165539,10 @@
     },
     {
       "comercio": "Jumbo",
+      "producto_id": "39488"
+    },
+    {
+      "comercio": "Jumbo",
       "producto_id": "39484"
     },
     {
@@ -159203,6 +165563,422 @@
     },
     {
       "comercio": "Olimpica",
+      "producto_id": "2335631"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2333916"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2320605"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2239854"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2327505"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2270614"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2203942"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1480736"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2329833"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2146331"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1643399"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2345446"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2341215"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2338746"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2328527"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2328526"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2328525"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2328524"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2318865"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2270615"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2262478"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2230336"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1567459"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002234086"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2335630"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2329453"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2329308"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2328708"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2328707"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2323268"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2230340"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2176101"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2157682"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2108203"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1651638"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1650703"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1616768"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1544273"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1532625"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1354571"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1252827"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1179186"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325948"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2160186"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2038588"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1650635"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1423770"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1349627"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1285523"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1251412"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1049486"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1049115"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "687474"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "563535"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "418333"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002237606"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002237258"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002236584"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002236483"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002236463"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002236273"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002236271"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002236109"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002236035"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002235766"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002235765"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002235480"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002235395"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002235184"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002235135"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002234963"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002234951"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002234228"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002234194"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002234170"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002233970"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002233621"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002233359"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002233245"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002233160"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002233104"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002232948"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002232654"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002232191"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002231733"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002231488"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1002230837"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2338748"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2337274"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2337174"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2337133"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2337132"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2336484"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2336389"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2336388"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2336376"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2336228"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2336221"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2336219"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2336195"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2336192"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2336189"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2336172"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2335947"
+    },
+    {
+      "comercio": "Olimpica",
       "producto_id": "2334582"
     },
     {
@@ -159211,7 +165987,359 @@
     },
     {
       "comercio": "Olimpica",
+      "producto_id": "2333919"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2332498"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2332496"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2332495"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2332480"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2332412"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2332411"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2332389"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2331626"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2331613"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2331589"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2330743"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2329760"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2329758"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2329756"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2329755"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2328835"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2326031"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325989"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325988"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325960"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325959"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325958"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325947"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325848"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325843"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325559"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325558"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325557"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325551"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325548"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325547"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325546"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325536"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325494"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325480"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325477"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2323713"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2323642"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2320751"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2319677"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2319675"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2318313"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2316930"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2316846"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2316501"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2316489"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2316488"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2315955"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2315954"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2315953"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2315952"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2315057"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2315055"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2314965"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2314964"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2314962"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2314958"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2314956"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2314955"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2314903"
+    },
+    {
+      "comercio": "Olimpica",
       "producto_id": "2311748"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2311618"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2311216"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2311215"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2311211"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2308548"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2306090"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2306082"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2306078"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2302850"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2292286"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2292285"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2291696"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2291695"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2290272"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2283234"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2278535"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2277768"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2277767"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2277766"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2277547"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2277546"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2277545"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2277544"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2277543"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2277541"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2277539"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2276891"
     },
     {
       "comercio": "Olimpica",
@@ -159223,7 +166351,1987 @@
     },
     {
       "comercio": "Olimpica",
+      "producto_id": "2274087"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2272616"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2266466"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2266449"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2264204"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2264203"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2264202"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2264201"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2264200"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2264199"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2263529"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2262192"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2259382"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2257340"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2252881"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2247408"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2246630"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2241990"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2241989"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2241988"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2241987"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2241986"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2241413"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2240820"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2240731"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2239833"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2238514"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2233662"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2233103"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2232655"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2232304"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2232140"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2230339"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2230334"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2227918"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2227190"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2226352"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2226268"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2224075"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2223704"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2220910"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2220909"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2217624"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2217544"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2211515"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2204199"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2203382"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2174753"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2173090"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2168655"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2168654"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2168653"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2168574"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2168569"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2167686"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2167103"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2166824"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2163890"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2161677"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2161673"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2161611"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2160781"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2160310"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2160300"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2160287"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2160284"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2160188"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2160187"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2160181"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2160180"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2160179"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2160178"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2160147"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2158380"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2157684"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2153630"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2153629"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2152486"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2152485"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2152483"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2152482"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2152481"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2150890"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2147927"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2147250"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2147249"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2146876"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2146523"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2146338"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2146336"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2146328"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2127032"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2123574"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2122352"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2122349"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2122345"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2122344"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2120964"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2116464"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2114861"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2107080"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2106212"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2106209"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2106180"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2106179"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2106178"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2106177"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2106176"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2106169"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2106168"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2105852"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2097970"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2097968"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2078154"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2073998"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2073296"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2073292"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2073291"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2073262"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2073261"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2072766"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2072214"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2062545"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2059999"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2057036"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2054595"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2053909"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2053887"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2053882"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2044807"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2038589"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2037620"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2037617"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2037616"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2034332"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2030648"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2017142"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2017141"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2013943"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2013941"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2013757"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2013743"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1851148"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1653651"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1652855"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1651647"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1651645"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1651644"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1650637"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1592173"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1578359"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1578224"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1575970"
+    },
+    {
+      "comercio": "Olimpica",
       "producto_id": "1573565"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1571043"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1571042"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1571040"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1549532"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1549455"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1549307"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1548863"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1546811"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1523367"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1522013"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1504387"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1504385"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1504379"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1493012"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1493011"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1492987"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1492978"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1492945"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1492899"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1492889"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1492738"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1490916"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1489953"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1486957"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1479528"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1477401"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1477398"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1459435"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1457737"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1432814"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1428427"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1428206"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1425889"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1425884"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1425883"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1425518"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1424881"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1423774"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1423033"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1417636"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1416888"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1403122"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1403114"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1403096"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1396027"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1394934"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1394892"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1382418"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1382395"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1380479"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1380478"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1363112"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1363108"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1361511"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1361496"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1361416"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1361373"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1361362"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1361229"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1349649"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1348461"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1348451"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1345128"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1345123"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1345113"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1344117"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1344115"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1343492"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1343490"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1333885"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1332225"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1331979"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1331977"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1331683"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1331682"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1331264"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1331263"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1331260"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1331256"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1331219"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1331170"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1331162"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1331158"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1330757"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1328547"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1328535"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1328531"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1327688"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1325582"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1323787"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1319686"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1319521"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1318904"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1318878"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1318876"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1318869"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1318825"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1315449"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1315418"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1315395"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1315390"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1315388"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1315387"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1315380"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1315379"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1315257"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1315220"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1315185"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1315176"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1315144"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1315108"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1315062"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1314985"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1312756"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1312755"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1312061"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1285536"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1285513"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1257270"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1257111"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1257095"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1256957"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1256935"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1256858"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1256850"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1256845"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1256844"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1256832"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1256737"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1256731"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1256706"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1256703"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1256697"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1256611"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1256604"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1256339"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1252828"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1252826"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1252824"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1251408"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1251380"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1251378"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1251376"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1251367"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1251362"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1251241"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1247047"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1247040"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1238148"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1230562"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1220973"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1220970"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1218823"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1205824"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1192054"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1184874"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1183747"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1182373"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1182362"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1180170"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1180169"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1180166"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1180164"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1180160"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1180000"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1179914"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1179181"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1177331"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1177319"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1172564"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1172535"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1172527"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1172523"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1168039"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1089924"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1089901"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1088004"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1086120"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1085329"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1049128"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1049126"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1049124"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1049120"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1049117"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1049113"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1048987"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1048980"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1048843"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1048842"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1045691"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1045690"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1045678"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1045676"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1045641"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1045634"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1045625"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1045593"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1045592"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1045590"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1045583"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1045005"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1045004"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1045002"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1033188"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1033187"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1031156"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1031155"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1017678"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1015288"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1015287"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1015284"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1015282"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1015277"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1015256"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1015254"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1015250"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1011381"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1011380"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "977565"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "965868"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "960917"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "946423"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "946421"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "946399"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "946396"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "946248"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "946223"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "946180"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "946170"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "944932"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "944919"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "944915"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "944913"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "944444"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "944443"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "944111"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "944108"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "944092"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "938490"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "938475"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "930719"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "930703"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "927117"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "926791"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "915877"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "915839"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "906773"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "886540"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "883326"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "868380"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "868378"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "867336"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "860565"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "860549"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "850304"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "850271"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "825777"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "818638"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "818636"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "818635"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "816831"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "816105"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "816098"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "816095"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "816094"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "812114"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "810330"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "810297"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "806521"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "806080"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "806079"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "796654"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "779584"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "779549"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "779547"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "778495"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "778130"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "778128"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "778079"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "777750"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "776582"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "773463"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "766111"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "765269"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "743677"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "743676"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "731996"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "731289"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "729664"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "713448"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "713418"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "713414"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "711557"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "708063"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "702296"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "702147"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "692469"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "691400"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "691396"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "691390"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "691386"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "691384"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "691378"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "687390"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "687049"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "687031"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "686925"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "685215"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "638761"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "634559"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "634551"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "572250"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "563534"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "554677"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "546674"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "544472"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "544470"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "544469"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "544467"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "544411"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "544401"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "536839"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "524159"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "475382"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "371925"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "229375"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "223743"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "216623"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "189081"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "186511"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "184888"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "184616"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "175754"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "154097"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "152018"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "141867"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "141863"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "125886"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "92557"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "89279"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "87553"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "83747"
     },
     {
       "comercio": "Olimpica",
@@ -159232,6 +168340,382 @@
     {
       "comercio": "Olimpica",
       "producto_id": "74703"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "51830"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "32934"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "19916"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "14821"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "11723"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "11718"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2282020"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2303865"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2282019"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2322934"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2321735"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2321732"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2313147"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2329967"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2321726"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2329964"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2329963"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2329962"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2329960"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2329959"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2329958"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2329957"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2329956"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2329955"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2329952"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2328178"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2327808"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2327807"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2327667"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2327666"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2327665"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2327664"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2327663"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2327662"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2327661"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2327660"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2327659"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2327173"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325737"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325588"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325587"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325586"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325585"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325584"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325581"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325579"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325577"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2325575"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2323933"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2322956"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2322943"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2322942"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2322941"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2322940"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2322939"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2322938"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2321757"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2321755"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2321751"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2320224"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2320222"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2320221"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2319539"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2319538"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2319537"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2312302"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2312299"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2299186"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2299181"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2299131"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2299130"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2299129"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2299128"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2299127"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2299125"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2276230"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2275679"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2241873"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2241820"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2241817"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2241814"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2241809"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2223701"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2138934"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2094561"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2094560"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "2094559"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1573054"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1292517"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1215752"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1153439"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "1153438"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "188402"
+    },
+    {
+      "comercio": "Olimpica",
+      "producto_id": "168357"
     },
     {
       "comercio": "Makro",
@@ -159271,7 +168755,19 @@
     },
     {
       "comercio": "Makro",
+      "producto_id": "156747"
+    },
+    {
+      "comercio": "Makro",
       "producto_id": "145947"
+    },
+    {
+      "comercio": "Makro",
+      "producto_id": "143557"
+    },
+    {
+      "comercio": "Makro",
+      "producto_id": "143560"
     },
     {
       "comercio": "Makro",
@@ -159308,6 +168804,10 @@
     {
       "comercio": "Makro",
       "producto_id": "105505"
+    },
+    {
+      "comercio": "Canaveral",
+      "producto_id": "49250"
     },
     {
       "comercio": "Rappi",
@@ -159361,5 +168861,44 @@
       "comercio": "Rappi",
       "producto_id": "900407299_1700781"
     }
-  ]
+  ],
+  "human_corrections_memory": {
+    "exact_overrides": {
+      "canaveral|41522": {
+        "action": "CREATE",
+        "nuevo_maestro": {
+          "nombre_estandar": "Aguardiente ORIGEN DEL VALLE Fusión (750 ml)",
+          "marca_estandar": "ORIGEN DEL VALLE",
+          "tipo_producto_estandar": "Alcohol",
+          "subcategoria_estandar": "Aguardiente",
+          "volumen_estandar": "750 Mililitro",
+          "grados_alcohol_estandar": "29%"
+        },
+        "razon": "Validación de usuario: Origen Del Valle Fusión es una línea y variedad distinta a Del Valle sin azúcar tradicional."
+      },
+      "jumbo|14215": {
+        "action": "LINK",
+        "codigo_universal": "EXI_854131",
+        "razon": "Validación de usuario: Aguardiente sin azúcar vidrio de 1000ml marca Antioqueño corresponde a Antioqueño Azul 29° (EXI_854131), no a Verde 24°."
+      }
+    },
+    "keyword_rules": [
+      {
+        "trigger": "fusion",
+        "rule": "Si el nombre crudo contiene 'fusion' o 'fusión', NUNCA vincular a un maestro que no contenga 'fusion'. Crear nuevo maestro si no existe."
+      },
+      {
+        "trigger": "lider",
+        "rule": "Líder es una marca independiente de Aguardiente (Licorera de Cundinamarca). NUNCA vincular productos Líder a la marca Antioqueño."
+      },
+      {
+        "trigger": "caucano",
+        "rule": "Caucano es una marca independiente de Aguardiente (Licorera del Cauca). NUNCA vincular productos Caucano a la marca Antioqueño o Néctar."
+      },
+      {
+        "trigger": "vidrio 1000ml antioqueno sin azucar",
+        "rule": "En Aguardiente Antioqueño de 1000ml sin azúcar en vidrio, vincular a Antioqueño Azul 29° (EXI_854131), no a Verde 24°."
+      }
+    ]
+  }
 }

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Script para Importar y Restaurar el Estado del MDM
-Importa maestro_productos, mapeo_productos y soft deletes desde el JSON a suite_data.db
+Importa maestro_productos, mapeo_productos, soft deletes y memoria humana desde el JSON a suite_data.db
 y ejecuta automáticamente el ETL de normalización.
 CERO DUPLICADOS: Utiliza llaves primarias unificadas (INSERT OR REPLACE / UPSERT).
 """
@@ -11,7 +11,11 @@ import json
 import sqlite3
 import database
 
-INPUT_FILE = sys.argv[1] if len(sys.argv) > 1 else "data/mdm_export.json"
+INPUT_FILE = "data/mdm_export.json"
+if len(sys.argv) > 1 and not sys.argv[1].startswith("--"):
+    INPUT_FILE = sys.argv[1]
+
+SKIP_ETL = "--skip-etl" in sys.argv
 
 def import_mdm():
     if not os.path.exists(INPUT_FILE):
@@ -25,9 +29,10 @@ def import_mdm():
     maestro = data.get("maestro_productos", [])
     mapeo = data.get("mapeo_productos", [])
     deleted = data.get("deleted_historico", [])
+    human_mem = data.get("human_corrections_memory", [])
 
     db = database.DataSuiteDB()
-    db.init_db()  # Asegurar que las tablas existan
+    db.init_db()  # Asegurar que todas las tablas y columnas existan
 
     with db.get_connection() as conn:
         cur = conn.cursor()
@@ -38,32 +43,46 @@ def import_mdm():
         cur.execute("SELECT COUNT(*) FROM mapeo_productos")
         mapeo_prev_count = cur.fetchone()[0]
         
-        # 1. Importar maestro_productos sin duplicados
-        print(f"Procesando {len(maestro):,} productos maestros...")
-        for r in maestro:
-            cols = list(r.keys())
-            placeholders = ", ".join(["?"] * len(cols))
-            col_names = ", ".join(cols)
-            vals = [r[k] for k in cols]
-            sql = f"INSERT OR REPLACE INTO maestro_productos ({col_names}) VALUES ({placeholders})"
-            cur.execute(sql, vals)
+        # 1. Importar maestro_productos en batch (INSERT OR REPLACE)
+        if maestro:
+            print(f"Procesando {len(maestro):,} productos maestros...")
+            # Detectar todas las columnas posibles
+            all_cols = list(maestro[0].keys())
+            placeholders = ", ".join(["?"] * len(all_cols))
+            col_names = ", ".join(all_cols)
+            sql_maestro = f"INSERT OR REPLACE INTO maestro_productos ({col_names}) VALUES ({placeholders})"
+            
+            records_maestro = [
+                tuple(r.get(col, None) for col in all_cols)
+                for r in maestro
+            ]
+            cur.executemany(sql_maestro, records_maestro)
 
-        # 2. Importar mapeo_productos sin duplicados (Primary Key: comercio, producto_id)
-        print(f"Procesando {len(mapeo):,} vinculaciones mapeo...")
-        for r in mapeo:
-            cur.execute("""
+        # 2. Importar mapeo_productos en batch (Primary Key: comercio, producto_id)
+        if mapeo:
+            print(f"Procesando {len(mapeo):,} vinculaciones mapeo...")
+            sql_mapeo = """
                 INSERT OR REPLACE INTO mapeo_productos (comercio, producto_id, codigo_universal)
                 VALUES (?, ?, ?)
-            """, (r["comercio"], str(r["producto_id"]), r["codigo_universal"]))
+            """
+            records_mapeo = [
+                (r["comercio"], str(r["producto_id"]), r["codigo_universal"])
+                for r in mapeo
+            ]
+            cur.executemany(sql_mapeo, records_mapeo)
 
-        # 3. Restaurar soft-deletes en productos_historico si existen
+        # 3. Restaurar soft-deletes en productos_historico
         if deleted:
             print(f"Aplicando {len(deleted):,} flags de depuración...")
-            for r in deleted:
-                cur.execute("""
-                    UPDATE productos_historico SET deleted = 1
-                    WHERE comercio = ? AND producto_id = ?
-                """, (r["comercio"], str(r["producto_id"])))
+            sql_deleted = """
+                UPDATE productos_historico SET deleted = 1
+                WHERE comercio = ? AND producto_id = ?
+            """
+            records_deleted = [
+                (r["comercio"], str(r["producto_id"]))
+                for r in deleted
+            ]
+            cur.executemany(sql_deleted, records_deleted)
 
         conn.commit()
 
@@ -73,19 +92,31 @@ def import_mdm():
         cur.execute("SELECT COUNT(*) FROM mapeo_productos")
         mapeo_final_count = cur.fetchone()[0]
 
-    print("Ejecutando proceso ETL de normalización...")
-    database.run_normalization_etl()
+    # 4. Restaurar archivo de memoria humana si está presente
+    if human_mem:
+        os.makedirs("data", exist_ok=True)
+        human_mem_file = "data/human_corrections_memory.json"
+        with open(human_mem_file, "w", encoding="utf-8") as f:
+            json.dump(human_mem, f, ensure_ascii=False, indent=2)
+        print(f"[OK] Memoria de correcciones humanas restaurada ({len(human_mem):,} reglas en {human_mem_file}).")
 
-    new_maestro = maestro_final_count - maestro_prev_count
-    new_mapeo = mapeo_final_count - mapeo_prev_count
+    if not SKIP_ETL:
+        print("Ejecutando proceso ETL de normalización...")
+        database.run_normalization_etl()
+    else:
+        print("[AVISO] Proceso ETL omitido por bandera --skip-etl.")
+
+    new_maestro = max(0, maestro_final_count - maestro_prev_count)
+    new_mapeo = max(0, mapeo_final_count - mapeo_prev_count)
 
     print("=" * 60)
-    print(" SINCRONIZACIÓN MDM COMPLETADA (CERO DUPLICADOS) ")
+    print(" SINCRONIZACIÓN MDM COMPLETADA CON ÉXITO ")
     print("=" * 60)
     print(f"[OK] Total Productos Maestros: {maestro_final_count:,} ({new_maestro:,} nuevos agregados)")
     print(f"[OK] Total Mapeos Vinculados: {mapeo_final_count:,} ({new_mapeo:,} nuevos agregados)")
     print(f"[OK] Total Depuraciones (Soft Delete): {len(deleted):,}")
-    print("[OK] Tabla `productos_normalizados` actualizada correctamente.")
+    if not SKIP_ETL:
+        print("[OK] Tabla `productos_normalizados` actualizada correctamente.")
     print("=" * 60)
 
 

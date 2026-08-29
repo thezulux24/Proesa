@@ -183,7 +183,10 @@ Para mantener la UI funcionando sin reescribir todo `suite_app.py`, `database.py
     - **Alcohol (13)**: `Vinos` (unifica vinos tintos, blancos, rosados, espumosos, generosos, sangría, sidra), `Cerveza`, `Whisky`, `Ron`, `Aguardiente`, `Tequila`, `Mezcal`, `Vodka`, `Ginebra`, `Brandy` (unifica brandy, cognac, pisco), `Cremas y aperitivos` (unifica aperitivos, cremas, licores dulces, sabajón, macerados), `Coctelería` (unifica coctel y coctelería), `Combo` (unifica combos y anchetas).
     - **Tabaco (3)**: `Cigarrillos y vapeadores` (unifica cigarrillos, cigarros, puros, habanos, vapeadores, pods, e-líquidos), `Bolsas de nicotina` (ZYN, VELO, etc.), `Accesorios para tabaco` (papel de liar/fumar, filtros, grinders, narguila, envolturas).
   - **Función Central (`core.database.standardize_subcategory`)**: Normaliza texto sin tildes e infiere subcategorías canónicas automáticamente.
-  - **Sincronización en Base de Datos**: Se migraron los 4,132 productos maestros, se corrigió el tipo de productos alcohólicos mal marcados como tabaco, se actualizó la tabla `productos_normalizados` y se regeneró `data/mdm_export.json`.
+- **Sincronización y Portabilidad MDM Servidor (`export_mdm.py` y `import_mdm.py`)**:
+  - **Exportación (`export_mdm.py`)**: Centraliza en `data/mdm_export.json` todo el catálogo maestro (`maestro_productos`), los mapeos tienda $\rightarrow$ maestro (`mapeo_productos`), los registros descartados (`deleted_historico`) y la memoria de reglas humanas (`human_corrections_memory.json`).
+  - **Importación (`import_mdm.py`)**: Diseñado para ejecutarse en el servidor destino (Windows Server 2016). Usa inserciones por lotes (`executemany`) con `INSERT OR REPLACE` para garantizar cero duplicados, restaura soft deletes y reglas humanas, y corre automáticamente `database.run_normalization_etl()` para actualizar la tabla `productos_normalizados`.
+
 
 
 
