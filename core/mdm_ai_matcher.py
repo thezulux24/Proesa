@@ -289,7 +289,7 @@ DEBES RESPONDER ÚNICAMENTE EN FORMATO JSON VÁLIDO CON LA SIGUIENTE ESTRUCTURA 
     "nombre_estandar": "Nombre Estándar Limpio",
     "marca_estandar": "MARCA",
     "tipo_producto_estandar": "Alcohol" | "Tabaco",
-    "subcategoria_estandar": "Aguardiente" | "Brandy" | "Cerveza" | "Coctelería" | "Combo" | "Cremas y aperitivos" | "Ginebra" | "Mezcal" | "Ron" | "Tequila" | "Vinos" | "Vodka" | "Whisky" | "Cigarrillos y vapeadores" | "Bolsas de nicotina" | "Accesorios para tabaco",
+    "subcategoria_estandar": "Aguardiente" | "Brandy" | "Cerveza" | "Coctelería" | "Combo" | "Cremas y aperitivos" | "Ginebra" | "Mezcal" | "Ron" | "Tequila" | "Vinos" | "Vodka" | "Whisky" | "Cigarrillos" | "Vapeadores" | "Tabaco calentado" | "Bolsas de nicotina" | "Accesorios para tabaco",
     "volumen_estandar": "750 Mililitro" | "1000 Mililitro" | "355 Mililitro" | "1 Unidad" | "20 Unidad" | etc,
     "grados_alcohol_estandar": 29.0 | 35.0 | null
   } (solo si action es CREATE, de lo contrario null),

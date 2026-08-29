@@ -632,8 +632,8 @@ class CreateMasterModal(ctk.CTkToplevel):
             subcats = [
                 "Aguardiente", "Brandy", "Cerveza", "Coctelería", "Combo", 
                 "Cremas y aperitivos", "Ginebra", "Mezcal", "Ron", "Tequila", 
-                "Vinos", "Vodka", "Whisky", "Cigarrillos y vapeadores", 
-                "Bolsas de nicotina", "Accesorios para tabaco"
+                "Vinos", "Vodka", "Whisky", "Cigarrillos", "Vapeadores", 
+                "Tabaco calentado", "Bolsas de nicotina", "Accesorios para tabaco"
             ]
         
         default_subcat = subcats[0]

@@ -181,9 +181,11 @@ def standardize_subcategory(subcat, tipo="Alcohol", name=""):
     - Combo (unifica Combo, Ancheta)
     
     Subcategorías Oficiales Tabaco:
-    - Cigarrillos y vapeadores (unifica Cigarrillos, Cigarros, Puros, Habanos, Vapeadores, Pods, E-líquidos)
+    - Cigarrillos (unifica Cigarrillos, Cigarros, Puros, Habanos, Picadura)
+    - Vapeadores (unifica Vapeadores, Vapes, Pods, E-líquidos, Esencias)
+    - Tabaco calentado (unifica IQOS, HEETS, TEREA, Iluma, Glo, Fiit)
     - Bolsas de nicotina (ZYN, VELO, etc.)
-    - Accesorios para tabaco (Papel de liar/fumar, filtros, grinders, narguila, cueros)
+    - Accesorios para tabaco (Papel de liar/fumar, filtros, grinders, narguila, cueros, blunts)
     """
     s = (subcat or "").strip()
     n = strip_accents_text(name)
@@ -207,19 +209,32 @@ def standardize_subcategory(subcat, tipo="Alcohol", name=""):
         if "cerveza" in n: return "Cerveza", t
         if "tequila" in n: return "Tequila", t
         if any(k in n for k in ["ginebra", "gin "]): return "Ginebra", t
-        if any(k in n for k in ["cigar", "vape", "tabaco"]): return "Cigarrillos y vapeadores", "Tabaco"
+        if any(k in n for k in ["heets", "iqos", "terea", "iluma", "calentado"]): return "Tabaco calentado", "Tabaco"
+        if any(k in n for k in ["vape", "pod", "e-liquid", "e-liquido", "esencia"]): return "Vapeadores", "Tabaco"
+        if any(k in n for k in ["cigar", "puro", "tabaco"]): return "Cigarrillos", "Tabaco"
         return "Cremas y aperitivos", t
 
     # --- TABACO ---
-    if t == "Tabaco" or any(k in s_clean for k in ["cigar", "tabaco", "vape", "puro", "nicotina", "liar", "fumar", "narguila"]):
+    if t == "Tabaco" or any(k in s_clean for k in ["cigar", "tabaco", "vape", "puro", "nicotina", "liar", "fumar", "narguila", "heets", "iqos", "terea"]):
         t = "Tabaco"
-        if any(k in s_clean for k in ["papel", "envolver", "liar", "fumar", "accesorio", "filtro", "grinder", "narguila", "cuero"]):
+        # 1. Tabaco calentado
+        if any(k in s_clean or k in n for k in ["heets", "iqos", "terea", "iluma", "calentado", "heatstick", "heat stick", "fiit", "glo ", "ploom"]):
+            return "Tabaco calentado", t
+        # 2. Accesorios
+        if any(k in s_clean for k in ["papel", "envolver", "liar", "fumar", "accesorio", "filtro", "grinder", "narguila", "cuero", "blunt", "ocb", "raw"]):
             return "Accesorios para tabaco", t
-        if "nicotina" in s_clean or "pouches" in n or "velo" in n or "zyn" in n:
+        # 3. Bolsas de nicotina
+        if "nicotina" in s_clean or "pouches" in n or "velo" in n or "zyn" in n or "on!" in n:
             return "Bolsas de nicotina", t
-        if any(k in s_clean for k in ["cigar", "vape", "puro", "habano", "e-liquido", "e-liquid", "pod"]):
-            return "Cigarrillos y vapeadores", t
-        return "Cigarrillos y vapeadores", t
+        # 4. Vapeadores
+        if any(k in s_clean or k in n for k in [
+            "vape", "vapeador", "vapeadores", "pod", "pods", "e-liquido", "e-liquid", "e-juice", "esencia", 
+            "desechable", "disposable", "elf bar", "vuse", "maskking", "geekbar", "oxbar", "vozol", "ignite", 
+            "lost mary", "smok", "iplay", "puff", "vaporizador"
+        ]):
+            return "Vapeadores", t
+        # 5. Cigarrillos
+        return "Cigarrillos", t
 
     # --- ALCOHOL ---
     if s_clean in ["vino", "vinos", "vino espumoso", "vino generoso", "sidra", "sangria"]:

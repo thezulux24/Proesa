@@ -177,15 +177,20 @@ Para mantener la UI funcionando sin reescribir todo `suite_app.py`, `database.py
     - Tabaco y Unidades: `1,0 Unidad`, `1 und`, `1 UND`, `1 Unidades` $\rightarrow$ `1 Unidad`; `20 und` $\rightarrow$ `20 Unidad`.
     - Combos y Gramos: `1 COMBO`, `Combo` $\rightarrow$ `1 Combo`; `703 g` $\rightarrow$ `703 Gramos`.
   - **Migración Ejecutada**: Se migraron 1,324 productos maestros existentes, se re-ejecutó el ETL de normalización para actualizar las 106,000+ lecturas normalizadas y se regeneró `data/mdm_export.json`.
-- **Estandarización y Unificación de Subcategorías MDM**:
-  - **Problema previo**: Existían 51 subcategorías fragmentadas y duplicadas por mayúsculas/minúsculas, plurales y variaciones (`Vino Espumoso` vs `Vino espumoso` vs `Vino` vs `Vinos`, `Cigarrillos` vs `Cigarros` vs `Cigarrillos y vapeadores` vs `Vapeadores`, `Papel de liar` vs `Papel de fumar` vs `Papel para liar`).
-  - **Taxonomía Canónica Oficial (16 Subcategorías)**:
-    - **Alcohol (13)**: `Vinos` (unifica vinos tintos, blancos, rosados, espumosos, generosos, sangría, sidra), `Cerveza`, `Whisky`, `Ron`, `Aguardiente`, `Tequila`, `Mezcal`, `Vodka`, `Ginebra`, `Brandy` (unifica brandy, cognac, pisco), `Cremas y aperitivos` (unifica aperitivos, cremas, licores dulces, sabajón, macerados), `Coctelería` (unifica coctel y coctelería), `Combo` (unifica combos y anchetas).
-    - **Tabaco (3)**: `Cigarrillos y vapeadores` (unifica cigarrillos, cigarros, puros, habanos, vapeadores, pods, e-líquidos), `Bolsas de nicotina` (ZYN, VELO, etc.), `Accesorios para tabaco` (papel de liar/fumar, filtros, grinders, narguila, envolturas).
+- **Estandarización y Unificación de Subcategorías MDM (18 Subcategorías Canónicas)**:
+  - **Alcohol (13)**: `Vinos` (unifica vinos tintos, blancos, rosados, espumosos, generosos, sangría, sidra), `Cerveza`, `Whisky`, `Ron`, `Aguardiente`, `Tequila`, `Mezcal`, `Vodka`, `Ginebra`, `Brandy` (unifica brandy, cognac, pisco), `Cremas y aperitivos` (unifica aperitivos, cremas, licores dulces, sabajón, macerados), `Coctelería` (unifica coctel y coctelería), `Combo` (unifica combos y anchetas).
+  - **Tabaco (5)**:
+    1. `Cigarrillos`: Cigarrillos tradicionales, cajetillas, cartones, cigarros, puros, habanos, picadura de tabaco.
+    2. `Vapeadores`: Vapeadores desechables, pods, esencias, e-líquidos, vapes electrónicos.
+    3. `Tabaco calentado`: Sistemas de calentamiento de tabaco (IQOS, Glo, Ploom, consumibles HEETS, TEREA, Fiit).
+    4. `Bolsas de nicotina`: Pouches/bolsas de nicotina libre de tabaco (ZYN, VELO, etc.).
+    5. `Accesorios para tabaco`: Papel de liar/fumar, filtros, grinders, narguila, envolturas, blunts.
   - **Función Central (`core.database.standardize_subcategory`)**: Normaliza texto sin tildes e infiere subcategorías canónicas automáticamente.
+  - **Script de Clasificación IA (`classify_tobacco_subcategories.py`)**: Clasifica y reubica productos de tabaco utilizando DeepSeek AI y reglas determinísticas, sincronizando `maestro_productos`, `productos_normalizados` y `data/mdm_export.json`.
 - **Sincronización y Portabilidad MDM Servidor (`export_mdm.py` y `import_mdm.py`)**:
   - **Exportación (`export_mdm.py`)**: Centraliza en `data/mdm_export.json` todo el catálogo maestro (`maestro_productos`), los mapeos tienda $\rightarrow$ maestro (`mapeo_productos`), los registros descartados (`deleted_historico`) y la memoria de reglas humanas (`human_corrections_memory.json`).
   - **Importación (`import_mdm.py`)**: Diseñado para ejecutarse en el servidor destino (Windows Server 2016). Usa inserciones por lotes (`executemany`) con `INSERT OR REPLACE` para garantizar cero duplicados, restaura soft deletes y reglas humanas, y corre automáticamente `database.run_normalization_etl()` para actualizar la tabla `productos_normalizados`.
+
 
 
 
