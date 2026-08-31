@@ -836,16 +836,11 @@ def get_unmapped_products(fuente="Todas", tipo="Todos", search_term=None, hide_z
     where_sql = " AND ".join(where_clauses)
     query = f"""
         SELECT h.comercio, h.producto_id, h.nombre, h.marca, h.tipo_producto, h.grados_alcohol, h.medida,
-               h.precio_final AS ultimo_precio, h.url_producto, h.fecha_extraccion
+               MAX(h.precio_final) AS ultimo_precio, MAX(h.url_producto) AS url_producto, MAX(h.fecha_extraccion) AS fecha_extraccion
         FROM productos_historico h
-        INNER JOIN (
-            SELECT comercio, producto_id, MAX(fecha_extraccion) AS max_fecha, MAX(id) AS max_id
-            FROM productos_historico
-            WHERE deleted = 0
-            GROUP BY comercio, producto_id
-        ) latest ON h.comercio = latest.comercio AND h.producto_id = latest.producto_id AND h.id = latest.max_id
         LEFT JOIN mapeo_productos m ON h.comercio = m.comercio AND h.producto_id = m.producto_id
         WHERE {where_sql}
+        GROUP BY h.comercio, h.producto_id
         ORDER BY h.nombre
     """
     with db.get_connection() as conn:
@@ -872,48 +867,15 @@ def get_maestro_products(tipo="Todos", subcategoria="Todas", search_term=None, i
     if include_prices:
         query = f"""
             SELECT m.*, 
-                   COALESCE(pn.ultimo_precio, ph.ultimo_precio, 0) AS ultimo_precio,
-                   COALESCE(ex.url_producto, '') AS url_producto
+                   COALESCE(pn.ultimo_precio, 0) AS ultimo_precio,
+                   COALESCE(pn.url_producto, '') AS url_producto
             FROM maestro_productos m
             LEFT JOIN (
-                SELECT codigo_universal, MAX(precio_final) as ultimo_precio
+                SELECT codigo_universal, MAX(precio_final) as ultimo_precio, MAX(url_producto) as url_producto
                 FROM productos_normalizados
                 WHERE precio_final > 0
                 GROUP BY codigo_universal
             ) pn ON m.codigo_universal = pn.codigo_universal
-            LEFT JOIN (
-                SELECT map.codigo_universal, MAX(h.precio_final) as ultimo_precio
-                FROM mapeo_productos map
-                JOIN productos_historico h ON map.comercio = h.comercio AND map.producto_id = h.producto_id
-                WHERE h.deleted = 0 AND h.precio_final > 0
-                GROUP BY map.codigo_universal
-            ) ph ON m.codigo_universal = ph.codigo_universal
-            LEFT JOIN (
-                SELECT codigo_universal, url_producto
-                FROM (
-                    SELECT map.codigo_universal, h.url_producto,
-                           ROW_NUMBER() OVER (
-                               PARTITION BY map.codigo_universal 
-                               ORDER BY 
-                                   CASE h.comercio
-                                       WHEN 'Exito' THEN 1
-                                       WHEN 'Carulla' THEN 2
-                                       WHEN 'Jumbo' THEN 3
-                                       WHEN 'Olimpica' THEN 4
-                                       WHEN 'Canaveral' THEN 5
-                                       WHEN 'D1' THEN 6
-                                       WHEN 'Makro' THEN 7
-                                       WHEN 'Rappi' THEN 8
-                                       ELSE 9
-                                   END,
-                                   h.fecha_extraccion DESC, h.id DESC
-                           ) as rn
-                    FROM mapeo_productos map
-                    JOIN productos_historico h ON map.comercio = h.comercio AND map.producto_id = h.producto_id
-                    WHERE h.deleted = 0 AND h.url_producto IS NOT NULL AND h.url_producto != ''
-                )
-                WHERE rn = 1
-            ) ex ON m.codigo_universal = ex.codigo_universal
             WHERE {where_sql}
             ORDER BY m.codigo_universal
         """

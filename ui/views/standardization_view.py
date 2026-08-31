@@ -18,7 +18,7 @@ class UnifiedStandardizationFrame(ctk.CTkFrame):
         self.label.grid(row=0, column=0, padx=20, pady=(20, 10), sticky="w")
 
         # Tabview con los 4 pasos de estandarización e INVIMA
-        self.tabview = ctk.CTkTabview(self, fg_color=("#e2e8f0", "#1f2937"))
+        self.tabview = ctk.CTkTabview(self, fg_color=("#e2e8f0", "#1f2937"), command=self._on_tab_changed)
         self.tabview.grid(row=1, column=0, padx=20, pady=(0, 20), sticky="nsew")
 
         self.tab_mapeo = self.tabview.add("1. Mapeo y Vinculación MDM")
@@ -35,6 +35,18 @@ class UnifiedStandardizationFrame(ctk.CTkFrame):
         self._setup_invima_tab()
         self._setup_catalogo_tab()
 
+    def _on_tab_changed(self):
+        selected = self.tabview.get()
+        if "1. Mapeo" in selected:
+            if not hasattr(self, 'df_raw') or self.df_raw is None:
+                self.load_mapeo_data()
+        elif "3. Homologación" in selected:
+            if not hasattr(self, 'df_invima_current') or self.df_invima_current is None:
+                self.load_invima_data()
+        elif "4. Catálogo" in selected:
+            if not hasattr(self, 'df_catalogo_current') or self.df_catalogo_current is None:
+                self.load_catalogo_data()
+
     def load_filters(self):
         sources = ["Todas"] + database.get_available_sources()
         subcats = database.get_available_subcategories()
@@ -42,9 +54,8 @@ class UnifiedStandardizationFrame(ctk.CTkFrame):
         self.map_fuente_combo.configure(values=sources)
         self.inv_subcat_combo.configure(values=subcats)
         
+        # Cargar solo el tab activo de inmediato
         self.load_mapeo_data()
-        self.load_invima_data()
-        self.load_catalogo_data()
 
     # -------------------------------------------------------------
     # PASO 1: Mapeo y Vinculación MDM
