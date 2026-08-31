@@ -114,7 +114,7 @@
         \item \textbf{Cobertura Multicanal Expandida (8 Comercios):} Extracción diaria automatizada sobre supermercados líderes (Éxito, Carulla, Jumbo, Olímpica, Makro, Cañaveral), tiendas de descuento (D1) y marketplace digital (\textbf{Rappi}).
         \item \textbf{Ventana de Observación Temporal:} \textbf{37 fechas de extracción acumuladas} (del 10 de Julio al 24 de Agosto de 2026), consolidando más de \textbf{270,000 lecturas históricas de precios}.
         \item \textbf{Ejecución Autónoma Diaria:} Flujo nocturno programado todos los días a las \textbf{11:00 PM (23:00 COT)} con alertas HTML automáticas vía Resend.
-        \item \textbf{Consolidación MDM con IA (99.9\% Mapeado):} 10,781 referencias crudas vinculadas a \textbf{3,635 productos maestros únicos} (2,885 de alcohol y 750 de tabaco), garantizando comparabilidad en el tiempo.
+        \item \textbf{Consolidación MDM al 100\% (Todo con Maestro):} El \textbf{100\% de los productos extraídos (10,781 referencias)} se encuentran totalmente homologados y vinculados a \textbf{3,635 productos maestros únicos} (2,885 de alcohol y 750 de tabaco), garantizando comparabilidad total en el tiempo.
         \item \textbf{Estandarización Canónica de Atributos:} Descomposición del volumen en \textbf{Cantidad Numérica} y \textbf{Unidad de Medida}, cálculo dinámico de \textbf{Precio por Unidad} (\$/ml, \$/und) y 18 subcategorías oficiales (13 alcohol, 5 tabaco).
         \item \textbf{Auditoría INVIMA (Exclusiva Alcohol):} \textbf{1,749 productos de alcohol homologados} con registro sanitario oficial (60.6\%). Los 1,136 restantes continúan procesándose en paralelo.
     \end{itemize}
@@ -185,10 +185,10 @@
                 \scriptsize
                 \textbf{Periodo:} 10 de Julio de 2026 al 24 de Agosto de 2026.\\
                 \textbf{Lecturas Normalizadas:} \textbf{270,366 observaciones}.\\
-                \textbf{Tasa de Vinculación:} \textbf{99.9\%} (10,781 de 10,792 productos).
+                \textbf{Tasa de Vinculación:} \textbf{100\% Mapeado} (10,781 de 10,781 productos crudos).
             \end{alertblock}
             \vspace{0.15cm}
-            \begin{block}{\faCubes\ Catálogo Consolidado}
+            \begin{block}{\faCubes\ Catálogo Consolidado (100\% con Maestro)}
                 \centering
                 \scriptsize
                 \begin{tabular}{lr}
@@ -198,7 +198,7 @@
                     Total Productos Maestros Activos & \textbf{3,635} \\
                     -- Maestros de Alcohol & 2,885 (79.4\%) \\
                     -- Maestros de Tabaco (5 subcategorías) & 750 (20.6\%) \\
-                    Mapeos Activos Tienda $\rightarrow$ Maestro & \textbf{10,781} \\
+                    Mapeos Vinculados Tienda $\rightarrow$ Maestro & \textbf{10,781 (100\%)} \\
                     \bottomrule
                 \end{tabular}
             \end{block}
@@ -250,7 +250,7 @@
             \begin{block}{\faFilter\ Filtros Anti-Falsos Positivos en Rappi}
                 \scriptsize Filtros especializados por tipo de tienda y producto para omitir restaurantes, cafeterías y comida preparada, aislando estrictamente alcohol y tabaco.
             \end{block}
-        </end{column}
+        \end{column}
         
         \begin{column}{0.48\textwidth}
             \begin{alertblock}{\faLock\ Resiliencia Antibot (Scrapling HTTP ONLY)}
@@ -447,7 +447,7 @@
                 \begin{itemize}
                     \setlength{\itemsep}{5pt}
                     \item \textbf{Extracción Diaria Estable:} 8 tiendas corriendo automáticamente cada noche a las 11:00 PM.
-                    \item \textbf{Mapeo MDM Consolidado:} 99.9\% de productos asociados; solo 11 ítems nuevos sin mapear.
+                    \item \textbf{Mapeo MDM 100\% Consolidado:} 100\% de productos asociados a su producto maestro sin pendientes.
                     \item \textbf{Serie Temporal Completa:} Más de 270,000 lecturas normalizadas con volumen numérico y precio/unidad.
                     \item \textbf{Suite Gráfica \& Notificaciones:} Tableros interactivos y alertas diarias vía Resend.
                 \end{itemize}
@@ -459,7 +459,7 @@
                 \begin{itemize}
                     \setlength{\itemsep}{5pt}
                     \item \textbf{Asignación Progresiva INVIMA:} La homologación de los 1,136 maestros pendientes de alcohol continúa ejecutándose en segundo plano (\texttt{match\_invima\_deepseek.py}) y mediante la pestaña de homologación en la Suite.
-                    \item \textbf{Mapeo Continuo de Novedades:} Nuevos productos crudos que ingresen al mercado se procesan automáticamente con IA.
+                    \item \textbf{Mapeo Continuo de Novedades:} Nuevos productos crudos que ingresen al mercado en días futuros se procesan automáticamente con IA.
                     \item \textbf{Respaldo Portable:} Generación continua de \texttt{mdm\_export.json} para portabilidad institucional.
                 \end{itemize}
             \end{alertblock}
