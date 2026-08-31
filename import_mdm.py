@@ -7,6 +7,7 @@ CERO DUPLICADOS: Utiliza llaves primarias unificadas (INSERT OR REPLACE / UPSERT
 """
 import os
 import sys
+import time
 import json
 import sqlite3
 import database
@@ -22,6 +23,7 @@ def import_mdm():
         print(f"Error: No se encontró el archivo de exportación MDM: {INPUT_FILE}")
         return
 
+    t_start = time.time()
     print(f"Cargando datos desde {INPUT_FILE}...")
     with open(INPUT_FILE, "r", encoding="utf-8") as f:
         data = json.load(f)
@@ -45,8 +47,8 @@ def import_mdm():
         
         # 1. Importar maestro_productos en batch (INSERT OR REPLACE)
         if maestro:
+            t0 = time.time()
             print(f"Procesando {len(maestro):,} productos maestros...")
-            # Detectar todas las columnas posibles
             all_cols = list(maestro[0].keys())
             placeholders = ", ".join(["?"] * len(all_cols))
             col_names = ", ".join(all_cols)
@@ -57,9 +59,11 @@ def import_mdm():
                 for r in maestro
             ]
             cur.executemany(sql_maestro, records_maestro)
+            print(f"  [OK] Productos maestros guardados en {time.time() - t0:.2f}s")
 
         # 2. Importar mapeo_productos en batch (Primary Key: comercio, producto_id)
         if mapeo:
+            t0 = time.time()
             print(f"Procesando {len(mapeo):,} vinculaciones mapeo...")
             sql_mapeo = """
                 INSERT OR REPLACE INTO mapeo_productos (comercio, producto_id, codigo_universal)
@@ -70,19 +74,43 @@ def import_mdm():
                 for r in mapeo
             ]
             cur.executemany(sql_mapeo, records_mapeo)
+            print(f"  [OK] Vinculaciones de mapeo guardadas en {time.time() - t0:.2f}s")
 
-        # 3. Restaurar soft-deletes en productos_historico
+        # 3. Restaurar soft-deletes en productos_historico usando tabla temporal indexada (ultra-rápido)
         if deleted:
-            print(f"Aplicando {len(deleted):,} flags de depuración...")
-            sql_deleted = """
-                UPDATE productos_historico SET deleted = 1
-                WHERE comercio = ? AND producto_id = ?
-            """
+            t0 = time.time()
+            print(f"Aplicando {len(deleted):,} flags de depuración (modo optimizado)...")
+            cur.execute("""
+                CREATE TEMP TABLE IF NOT EXISTS temp_soft_deletes (
+                    comercio TEXT NOT NULL,
+                    producto_id TEXT NOT NULL,
+                    PRIMARY KEY (comercio, producto_id)
+                )
+            """)
+            cur.execute("DELETE FROM temp_soft_deletes")
+            
             records_deleted = [
                 (r["comercio"], str(r["producto_id"]))
                 for r in deleted
             ]
-            cur.executemany(sql_deleted, records_deleted)
+            cur.executemany(
+                "INSERT OR IGNORE INTO temp_soft_deletes (comercio, producto_id) VALUES (?, ?)",
+                records_deleted
+            )
+            
+            # Ejecutar update en bloque utilizando el índice
+            cur.execute("""
+                UPDATE productos_historico 
+                SET deleted = 1 
+                WHERE deleted = 0 
+                  AND EXISTS (
+                      SELECT 1 FROM temp_soft_deletes t 
+                      WHERE t.comercio = productos_historico.comercio 
+                        AND t.producto_id = productos_historico.producto_id
+                  )
+            """)
+            cur.execute("DROP TABLE IF EXISTS temp_soft_deletes")
+            print(f"  [OK] Banderas de depuración aplicadas en {time.time() - t0:.2f}s")
 
         conn.commit()
 
@@ -101,8 +129,10 @@ def import_mdm():
         print(f"[OK] Memoria de correcciones humanas restaurada ({len(human_mem):,} reglas en {human_mem_file}).")
 
     if not SKIP_ETL:
+        t_etl = time.time()
         print("Ejecutando proceso ETL de normalización...")
         database.run_normalization_etl()
+        print(f"  [OK] Proceso ETL finalizado en {time.time() - t_etl:.2f}s")
     else:
         print("[AVISO] Proceso ETL omitido por bandera --skip-etl.")
 
@@ -117,6 +147,7 @@ def import_mdm():
     print(f"[OK] Total Depuraciones (Soft Delete): {len(deleted):,}")
     if not SKIP_ETL:
         print("[OK] Tabla `productos_normalizados` actualizada correctamente.")
+    print(f"[OK] Tiempo total de sincronización: {time.time() - t_start:.2f}s")
     print("=" * 60)
 
 

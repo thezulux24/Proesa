@@ -408,6 +408,10 @@ class DataSuiteDB:
                     except Exception:
                         pass
 
+                cur.execute("CREATE INDEX IF NOT EXISTS idx_hist_comercio_prod ON productos_historico(comercio, producto_id)")
+                cur.execute("CREATE INDEX IF NOT EXISTS idx_hist_deleted ON productos_historico(deleted)")
+                cur.execute("CREATE INDEX IF NOT EXISTS idx_mapeo_codigo ON mapeo_productos(codigo_universal)")
+                cur.execute("CREATE INDEX IF NOT EXISTS idx_maestro_deleted ON maestro_productos(deleted)")
                 cur.execute("CREATE INDEX IF NOT EXISTS idx_norm_comercio ON productos_normalizados(comercio)")
                 cur.execute("CREATE INDEX IF NOT EXISTS idx_norm_fecha ON productos_normalizados(fecha_extraccion)")
                 cur.execute("CREATE INDEX IF NOT EXISTS idx_norm_codigo ON productos_normalizados(codigo_universal)")
