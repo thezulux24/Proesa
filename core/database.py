@@ -154,6 +154,58 @@ def standardize_volume(val):
     s_sub = re.sub(r'\s+', ' ', s_sub).strip()
     return s_sub
 
+def parse_volume_components(vol_str):
+    """
+    Retorna una tupla (volumen_cantidad: float|None, volumen_unidad_medida: str)
+    a partir de cualquier string de volumen estandarizado.
+    Ejemplos:
+      - '750 Mililitro' -> (750.0, 'Mililitro')
+      - '20 Unidad' -> (20.0, 'Unidad')
+      - '4 x 187 Mililitro' -> (748.0, 'Mililitro')
+      - '700 Mililitro + 1500 Mililitro' -> (2200.0, 'Mililitro')
+      - '703 Gramos' -> (703.0, 'Gramos')
+      - '1 Combo' -> (1.0, 'Combo')
+    """
+    if not vol_str or str(vol_str).strip().lower() in ('', 'n/a', 'none', 'null', 'nan'):
+        return None, ''
+    s = str(vol_str).strip()
+    
+    # 1. Detectar unidad de medida principal
+    unidad = 'Mililitro'
+    if 'gramo' in s.lower() or ' g' in s.lower():
+        unidad = 'Gramos'
+    elif 'combo' in s.lower() or 'ancheta' in s.lower():
+        unidad = 'Combo'
+    elif 'unidad' in s.lower() or 'und' in s.lower() or 'paquete' in s.lower() or 'cajetilla' in s.lower() or 'cigarro' in s.lower():
+        unidad = 'Unidad'
+    elif 'mililitro' in s.lower() or 'ml' in s.lower() or 'lt' in s.lower():
+        unidad = 'Mililitro'
+
+    # 2. Multiplicaciones compuestas: '4 x 187 Mililitro', '4x300 Mililitro'
+    m_mult = re.search(r'(\d+(?:\.\d+)?)\s*[xX*]\s*(\d+(?:\.\d+)?)', s)
+    if m_mult:
+        cnt = float(m_mult.group(1)) * float(m_mult.group(2))
+        return round(cnt, 2), unidad
+        
+    # 3. Multiplicación con unidad intercalada: '330 Mililitro x4'
+    m_mult2 = re.search(r'(\d+(?:\.\d+)?)\s*(?:Mililitro|Unidad|Gramos)\s*[xX*]\s*(\d+(?:\.\d+)?)', s, re.IGNORECASE)
+    if m_mult2:
+        cnt = float(m_mult2.group(1)) * float(m_mult2.group(2))
+        return round(cnt, 2), unidad
+
+    # 4. Sumas compuestas: '700 Mililitro + 1500 Mililitro'
+    if '+' in s:
+        nums = [float(x) for x in re.findall(r'(\d+(?:\.\d+)?)', s)]
+        if nums:
+            return round(sum(nums), 2), unidad
+
+    # 5. Número simple: '750 Mililitro', '20 Unidad'
+    m_num = re.search(r'(\d+(?:\.\d+)?)', s)
+    if m_num:
+        return float(m_num.group(1)), unidad
+
+    return None, unidad
+
 def strip_accents_text(text):
     if not text:
         return ""
@@ -378,7 +430,9 @@ class DataSuiteDB:
                     ("registro_sanitario_invima", "VARCHAR(200)"),
                     ("codigo_unico_invima", "VARCHAR(100)"),
                     ("nombre_invima", "TEXT"),
-                    ("precio_referencia_invima", "NUMERIC(12,2)")
+                    ("precio_referencia_invima", "NUMERIC(12,2)"),
+                    ("volumen_cantidad", "NUMERIC(12,2)"),
+                    ("volumen_unidad_medida", "VARCHAR(50)")
                 ]:
                     try:
                         cur.execute(f"ALTER TABLE maestro_productos ADD COLUMN {col[0]} {col[1]}")
@@ -389,7 +443,10 @@ class DataSuiteDB:
                 for col in [
                     ("registro_sanitario_invima", "VARCHAR(200)"),
                     ("codigo_unico_invima", "VARCHAR(100)"),
-                    ("nombre_invima", "TEXT")
+                    ("nombre_invima", "TEXT"),
+                    ("volumen_cantidad", "NUMERIC(12,2)"),
+                    ("volumen_unidad_medida", "VARCHAR(50)"),
+                    ("precio_unidad_numerico", "NUMERIC(12,4)")
                 ]:
                     try:
                         cur.execute(f"ALTER TABLE productos_normalizados ADD COLUMN {col[0]} {col[1]}")
@@ -1043,31 +1100,111 @@ def add_mapping(comercio, producto_id, codigo_universal):
         conn.commit()
 
 def run_normalization_etl():
+    """
+    Ejecuta el proceso ETL de normalización:
+    1. Calcula volumen_cantidad y volumen_unidad_medida a partir de volumen_estandar.
+    2. Calcula dinámicamente precio_unidad formateado y precio_unidad_numerico.
+    3. Re-puebla productos_normalizados de forma optimizada en batch.
+    """
     db = DataSuiteDB()
     with db.get_connection() as conn:
         cur = conn.cursor()
+        
+        # 1. Asegurar columnas en ambas tablas
+        for col in [("volumen_cantidad", "NUMERIC(12,2)"), ("volumen_unidad_medida", "VARCHAR(50)")]:
+            try:
+                cur.execute(f"ALTER TABLE maestro_productos ADD COLUMN {col[0]} {col[1]}")
+                conn.commit()
+            except Exception:
+                pass
+                
+        for col in [("volumen_cantidad", "NUMERIC(12,2)"), ("volumen_unidad_medida", "VARCHAR(50)"), ("precio_unidad_numerico", "NUMERIC(12,4)")]:
+            try:
+                cur.execute(f"ALTER TABLE productos_normalizados ADD COLUMN {col[0]} {col[1]}")
+                conn.commit()
+            except Exception:
+                pass
+
+        # 2. Sincronizar volumen_cantidad y volumen_unidad_medida en maestro_productos
+        cur.execute("SELECT codigo_universal, volumen_estandar FROM maestro_productos")
+        masters = cur.fetchall()
+        master_vols = {}
+        for code, v_est in masters:
+            cant, u = parse_volume_components(v_est)
+            master_vols[code] = (cant, u)
+            cur.execute("UPDATE maestro_productos SET volumen_cantidad = ?, volumen_unidad_medida = ? WHERE codigo_universal = ?", (cant, u, code))
+        conn.commit()
+
+        # 3. Vaciar y repoblar productos_normalizados
         cur.execute("DELETE FROM productos_normalizados")
         
-        insert_query = """
-            INSERT INTO productos_normalizados (
-                fecha_extraccion, codigo_universal, comercio, nombre_estandar, 
-                marca_estandar, tipo_producto_estandar, subcategoria_estandar, 
-                volumen_estandar, grados_alcohol_estandar, registro_sanitario_invima,
-                codigo_unico_invima, nombre_invima, precio_original, 
-                precio_final, descuento_porcentaje, precio_unidad, url_producto
-            )
+        select_query = """
             SELECT 
                 h.fecha_extraccion, m.codigo_universal, h.comercio, 
                 mp.nombre_estandar, mp.marca_estandar, mp.tipo_producto_estandar, 
                 mp.subcategoria_estandar, mp.volumen_estandar, mp.grados_alcohol_estandar,
                 mp.registro_sanitario_invima, mp.codigo_unico_invima, mp.nombre_invima,
-                h.precio_original, h.precio_final, h.descuento_porcentaje, h.precio_unidad, h.url_producto
+                h.precio_original, h.precio_final, h.descuento_porcentaje, h.precio_unidad, 
+                h.url_producto, h.medida
             FROM productos_historico h
             JOIN mapeo_productos m ON h.comercio = m.comercio AND h.producto_id = m.producto_id
             JOIN maestro_productos mp ON m.codigo_universal = mp.codigo_universal
             WHERE h.deleted = 0 AND mp.deleted = 0
         """
-        cur.execute(insert_query)
+        cur.execute(select_query)
+        rows = cur.fetchall()
+        
+        insert_rows = []
+        for r in rows:
+            f_ext, c_univ, com, n_est, m_est, t_est, s_est, v_est, g_est, reg_inv, cod_inv, nom_inv, p_orig, p_fin, desc_p, p_uni_raw, url_p, med_raw = r
+            
+            vol_cant, vol_u = master_vols.get(c_univ, parse_volume_components(v_est))
+            
+            pum_str = ""
+            pum_num = None
+            
+            # Calcular precio por unidad numérico y con formato
+            if p_fin and p_fin > 0 and vol_cant and vol_cant > 0:
+                pum_num = round(float(p_fin) / float(vol_cant), 4)
+                if vol_u == 'Mililitro':
+                    pum_str = f"${pum_num:,.2f}/ml".replace(',', 'X').replace('.', ',').replace('X', '.')
+                elif vol_u == 'Unidad':
+                    pum_str = f"${pum_num:,.2f}/und".replace(',', 'X').replace('.', ',').replace('X', '.')
+                elif vol_u == 'Gramos':
+                    pum_str = f"${pum_num:,.2f}/g".replace(',', 'X').replace('.', ',').replace('X', '.')
+                elif vol_u == 'Combo':
+                    pum_str = f"${pum_num:,.2f}/combo".replace(',', 'X').replace('.', ',').replace('X', '.')
+                else:
+                    pum_str = f"${pum_num:,.2f}/{vol_u}".replace(',', 'X').replace('.', ',').replace('X', '.')
+            elif p_fin and p_fin > 0:
+                # Fallback al cálculo con medida cruda
+                pum_str = calculate_unit_price(p_fin, med_raw)
+                if pum_str:
+                    m_num = re.search(r'(\d+(?:[.,]\d+)?)', pum_str.replace('.', ''))
+                    if m_num:
+                        try: pum_num = float(m_num.group(1).replace(',', '.'))
+                        except Exception: pass
+                elif p_uni_raw:
+                    pum_str = str(p_uni_raw)
+
+            insert_rows.append((
+                f_ext, c_univ, com, n_est, m_est, t_est, s_est, 
+                v_est, vol_cant, vol_u, g_est,
+                reg_inv, cod_inv, nom_inv, 
+                p_orig, p_fin, desc_p, pum_str, pum_num, url_p
+            ))
+
+        insert_query = """
+            INSERT INTO productos_normalizados (
+                fecha_extraccion, codigo_universal, comercio, nombre_estandar, 
+                marca_estandar, tipo_producto_estandar, subcategoria_estandar, 
+                volumen_estandar, volumen_cantidad, volumen_unidad_medida, grados_alcohol_estandar, 
+                registro_sanitario_invima, codigo_unico_invima, nombre_invima, 
+                precio_original, precio_final, descuento_porcentaje, precio_unidad, 
+                precio_unidad_numerico, url_producto
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """
+        cur.executemany(insert_query, insert_rows)
         conn.commit()
 
 def get_unmapped_invima_masters(subcategoria="Todas", limit=0):

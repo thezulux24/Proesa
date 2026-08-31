@@ -82,31 +82,33 @@ class NormalizedViewerFrame(ctk.CTkFrame):
         self.tree_frame.grid_rowconfigure(0, weight=1)
         self.tree_frame.grid_columnconfigure(0, weight=1)
 
-        columns = ("Código", "Fuente", "Fecha", "Nombre Estándar", "Marca", "Categoría", "Descuento", "Volumen Estándar", "Precio Final", "Precio/Unidad", "Registro INVIMA")
+        columns = ("Código", "Fuente", "Fecha", "Nombre Estándar", "Marca", "Categoría", "Descuento", "Vol. Cantidad", "Unidad Medida", "Precio Final", "Precio/Unidad", "Registro INVIMA")
         self.tree = ttk.Treeview(self.tree_frame, columns=columns, show="headings")
         
-        self.tree.heading("Código", text="Código Universal")
-        self.tree.column("Código", width=105, anchor="center")
+        self.tree.heading("Código", text="Código")
+        self.tree.column("Código", width=95, anchor="center")
         self.tree.heading("Fuente", text="Fuente")
-        self.tree.column("Fuente", width=85, anchor="center")
+        self.tree.column("Fuente", width=80, anchor="center")
         self.tree.heading("Fecha", text="Fecha")
-        self.tree.column("Fecha", width=85, anchor="center")
+        self.tree.column("Fecha", width=80, anchor="center")
         self.tree.heading("Nombre Estándar", text="Nombre Estándar")
-        self.tree.column("Nombre Estándar", width=250)
+        self.tree.column("Nombre Estándar", width=230)
         self.tree.heading("Marca", text="Marca")
-        self.tree.column("Marca", width=110)
+        self.tree.column("Marca", width=100)
         self.tree.heading("Categoría", text="Categoría")
-        self.tree.column("Categoría", width=110)
-        self.tree.heading("Descuento", text="Descuento")
-        self.tree.column("Descuento", width=80, anchor="center")
-        self.tree.heading("Volumen Estándar", text="Vol. Estándar")
-        self.tree.column("Volumen Estándar", width=95, anchor="center")
+        self.tree.column("Categoría", width=100)
+        self.tree.heading("Descuento", text="Desc.")
+        self.tree.column("Descuento", width=70, anchor="center")
+        self.tree.heading("Vol. Cantidad", text="Vol. Cantidad")
+        self.tree.column("Vol. Cantidad", width=90, anchor="e")
+        self.tree.heading("Unidad Medida", text="Unidad")
+        self.tree.column("Unidad Medida", width=85, anchor="center")
         self.tree.heading("Precio Final", text="Precio Final")
-        self.tree.column("Precio Final", width=95, anchor="e")
+        self.tree.column("Precio Final", width=90, anchor="e")
         self.tree.heading("Precio/Unidad", text="Precio/Unidad")
-        self.tree.column("Precio/Unidad", width=110, anchor="center")
+        self.tree.column("Precio/Unidad", width=105, anchor="center")
         self.tree.heading("Registro INVIMA", text="Registro INVIMA")
-        self.tree.column("Registro INVIMA", width=150, anchor="center")
+        self.tree.column("Registro INVIMA", width=145, anchor="center")
 
         self.tree.grid(row=0, column=0, sticky="nsew")
 
@@ -187,8 +189,15 @@ class NormalizedViewerFrame(ctk.CTkFrame):
                 pf_str = f"${pf:,.0f}" if pd.notnull(pf) and pf > 0 else "No Disponible"
                 invima_val = row.get('registro_sanitario_invima', '') or 'SIN_REGISTRO_ENCONTRADO'
                 desc_val = row.get('descuento', '0%') or '0%'
-                vol_val = row.get('volumen_estandar', 'N/A') or 'N/A'
-                pum_val = row.get('precio_unidad', 'N/A') or 'N/A'
+                
+                vol_cant = row.get('volumen_cantidad')
+                if pd.notnull(vol_cant) and vol_cant is not None:
+                    vol_cant_str = f"{vol_cant:,.0f}" if float(vol_cant).is_integer() else f"{vol_cant:,.2f}"
+                else:
+                    vol_cant_str = "-"
+                    
+                vol_u_str = str(row.get('volumen_unidad_medida') or '') or "-"
+                pum_val = str(row.get('precio_unidad') or '') or "-"
 
                 self.tree.insert("", "end", values=(
                     row.get('id', ''),
@@ -198,7 +207,8 @@ class NormalizedViewerFrame(ctk.CTkFrame):
                     row.get('marca_estandar', ''),
                     row.get('subcategoria_estandar', ''),
                     desc_val,
-                    vol_val,
+                    vol_cant_str,
+                    vol_u_str,
                     pf_str,
                     pum_val,
                     invima_val
