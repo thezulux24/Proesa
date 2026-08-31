@@ -14,13 +14,13 @@
 \setbeamertemplate{footline}{
   \leavevmode%
   \hbox{%
-  \begin{beamercolorbox}[wd=.4\paperwidth,ht=2.25ex,dp=1ex,left,leftskip=2ex]{author in head/foot}%
-    \usebeamerfont{author in head/foot}\textbf{PROESA} -- Inteligencia de Mercado
+  \begin{beamercolorbox}[wd=.35\paperwidth,ht=2.2ex,dp=0.8ex,left,leftskip=2ex]{author in head/foot}%
+    \usebeamerfont{author in head/foot}\textbf{PROESA}
   \end{beamercolorbox}%
-  \begin{beamercolorbox}[wd=.3\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
-    \usebeamerfont{title in head/foot}Alcohol y Tabaco
+  \begin{beamercolorbox}[wd=.35\paperwidth,ht=2.2ex,dp=0.8ex,center]{title in head/foot}%
+    \usebeamerfont{title in head/foot}Inteligencia de Mercado -- Alcohol y Tabaco
   \end{beamercolorbox}%
-  \begin{beamercolorbox}[wd=.3\paperwidth,ht=2.25ex,dp=1ex,right,rightskip=2ex]{date in head/foot}%
+  \begin{beamercolorbox}[wd=.30\paperwidth,ht=2.2ex,dp=0.8ex,right,rightskip=2ex]{date in head/foot}%
     \insertframenumber{} / \inserttotalframenumber
   \end{beamercolorbox}}%
   \vskip0pt%
@@ -109,15 +109,31 @@
 
 % --- DIAPOSITIVA 2: RESUMEN EJECUTIVO DE ENTREGABLES ---
 \begin{frame}{Resumen Ejecutivo de Entregables}
-    \begin{itemize}
-        \setlength{\itemsep}{6pt}
-        \item \textbf{Cobertura Multicanal Expandida (8 Comercios):} Extracción diaria automatizada sobre supermercados líderes (Éxito, Carulla, Jumbo, Olímpica, Makro, Cañaveral), tiendas de descuento (D1) y marketplace digital (\textbf{Rappi}).
-        \item \textbf{Ventana de Observación Temporal:} \textbf{37 fechas de extracción acumuladas} (del 10 de Julio al 24 de Agosto de 2026), consolidando más de \textbf{270,000 lecturas históricas de precios}.
-        \item \textbf{Ejecución Autónoma Diaria:} Flujo nocturno programado todos los días a las \textbf{11:00 PM (23:00 COT)} con alertas HTML automáticas vía Resend.
-        \item \textbf{Consolidación MDM al 100\% (Todo con Maestro):} El \textbf{100\% de los productos extraídos (10,781 referencias)} se encuentran totalmente homologados y vinculados a \textbf{3,635 productos maestros únicos} (2,885 de alcohol y 750 de tabaco), garantizando comparabilidad total en el tiempo.
-        \item \textbf{Estandarización Canónica de Atributos:} Descomposición del volumen en \textbf{Cantidad Numérica} y \textbf{Unidad de Medida}, cálculo dinámico de \textbf{Precio por Unidad} (\$/ml, \$/und) y 18 subcategorías oficiales (13 alcohol, 5 tabaco).
-        \item \textbf{Auditoría INVIMA (Exclusiva Alcohol):} \textbf{1,749 productos de alcohol homologados} con registro sanitario oficial (60.6\%). Los 1,136 restantes continúan procesándose en paralelo.
-    \end{itemize}
+    \begin{columns}[T]
+        \begin{column}{0.48\textwidth}
+            \begin{block}{\faCheckCircle\ Cobertura y Operación Continua}
+                \footnotesize
+                \begin{itemize}
+                    \setlength{\itemsep}{4pt}
+                    \item \textbf{8 Cadenas Monitoreadas:} Éxito, Carulla, Jumbo, Olímpica, Makro, Cañaveral, D1 y \textbf{Rappi}.
+                    \item \textbf{Ventana Temporal (37 fechas):} 10 de Julio al 24 de Agosto de 2026 ($>270,000$ observaciones).
+                    \item \textbf{Automatización Diaria (11:00 PM):} Extracción nocturna en Windows Server 2016 y alertas vía Resend.
+                \end{itemize}
+            \end{block}
+        \end{column}
+
+        \begin{column}{0.48\textwidth}
+            \begin{block}{\faLayerGroup\ Consolidación MDM y Atributos}
+                \footnotesize
+                \begin{itemize}
+                    \setlength{\itemsep}{4pt}
+                    \item \textbf{MDM 100\% con Maestro:} 10,781 productos crudos homologados a \textbf{3,635 maestros únicos} (0 pendientes).
+                    \item \textbf{Volumen y Precio Unitario:} Desagregado en Cantidad + Unidad (\$/ml, \$/und) y 18 subcategorías.
+                    \item \textbf{Auditoría INVIMA (Alcohol):} 1,749 maestros con registro oficial (60.6\%) y 1,136 en paralelo.
+                \end{itemize}
+            \end{block}
+        \end{column}
+    \end{columns}
 \end{frame}
 
 % --- DIAPOSITIVA 3: ARQUITECTURA TÉCNICA DEL SISTEMA ---
