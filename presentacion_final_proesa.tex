@@ -92,16 +92,13 @@
 \begin{frame}[plain]
     \begin{tikzpicture}[remember picture,overlay]
         \fill[proesablue] (current page.north west) rectangle ([yshift=-0.18cm]current page.north east);
-        \fill[proesagray] (current page.south we\textbf{}st) rectangle ([yshift=1.8cm]current page.south east);
+        \fill[proesagray] (current page.south west) rectangle ([yshift=1.8cm]current page.south east);
     \end{tikzpicture}
     
     \vspace{0.8cm}
     {\color{proesadark}\Huge \textbf{Informe Final de Resultados}} \\
     \vspace{0.3cm}
     {\color{proesablue}\Large Webscraping de Alcohol y Tabaco en Colombia}
-    
-    \vspace{1.0cm}
-    {\small \textbf{Consolidado Ejecutivo y Balance Metodológico}}
     
     \vfill
     {\small \textbf{PROESA} \\ \href{http://www.icesi.edu.co/proesa}{www.icesi.edu.co/proesa} \\ Agosto de 2026}
@@ -115,9 +112,9 @@
                 \footnotesize
                 \begin{itemize}
                     \setlength{\itemsep}{4pt}
-                    \item \textbf{8 Cadenas Monitoreadas:} Éxito, Carulla, Jumbo, Olímpica, Makro, Cañaveral, D1 y \textbf{Rappi}.
+                    \item \textbf{8 Cadenas Monitoreadas:} Éxito, Carulla, Jumbo, Olímpica, Makro, Cañaveral, D1 y Rappi.
                     \item \textbf{Ventana Temporal (37 fechas):} 10 de Julio al 24 de Agosto de 2026 ($>270,000$ observaciones de precios).
-                    \item \textbf{Monitoreo Automático (11:00 PM):} Ejecución nocturna diaria con reporte automático al correo.
+                    \item \textbf{Monitoreo Automático (11:00 PM):} Ejecución nocturna diaria en el servidor de PROESA con reporte automático al correo.
                 \end{itemize}
             \end{block}
         \end{column}
@@ -128,7 +125,7 @@
                 \begin{itemize}
                     \setlength{\itemsep}{4pt}
                     \item \textbf{100\% del Catálogo Unificado:} 10,781 productos de tiendas organizados en \textbf{3,635 productos únicos}.
-                    \item \textbf{Precios por Unidad y Medidas:} Desagregación de volumen numérico y cálculo de \textbf{precio por unidad} (\$/ml, \$/und).
+                    \item \textbf{Volumen:} Desagregación de volumen numérico.
                     \item \textbf{Registros Sanitarios INVIMA:} 1,749 bebidas alcohólicas homologadas con registro oficial (60.6\%).
                 \end{itemize}
             \end{block}
@@ -148,7 +145,7 @@
                 {\textbf{\faFilter\ 2. Limpieza y Filtros}\\[2pt]\scriptsize Descarte de productos no relevantes y validación de precios};
             
             \node (step3) [draw=proesablue, fill=proesablue!10, rounded corners, thick, text width=3.6cm, align=center, inner sep=6pt] at (9.6, 2)
-                {\textbf{\faRobot\ 3. Inteligencia Artificial}\\[2pt]\scriptsize Identificación y agrupación de productos idénticos entre comercios};
+                {\textbf{\faRobot\ 3. IA}\\[2pt]\scriptsize Identificación y agrupación de productos idénticos entre comercios};
 
             % Fila Inferior
             \node (step6) [draw=proesalight, fill=white, rounded corners, thick, text width=3.6cm, align=center, inner sep=6pt] at (0, -0.6)
@@ -158,7 +155,7 @@
                 {\textbf{\faDatabase\ 5. Base Consolidada}\\[2pt]\scriptsize Histórico de precios comparables, marcas, volúmenes y subcategorías};
 
             \node (step4) [draw=proesagreen, fill=proesagreen!10, rounded corners, thick, text width=3.6cm, align=center, inner sep=6pt] at (9.6, -0.6)
-                {\textbf{\faFileMedical\ 4. Cruce Sanitario INVIMA}\\[2pt]\scriptsize Asociación oficial con el catálogo nacional de licores};
+                {\textbf{\faFileMedical\ 4. Cruce con INVIMA}\\[2pt]\scriptsize Asociación oficial con el catálogo nacional de licores};
 
             % Conexiones
             \draw[->, >=stealth, ultra thick, proesablue] (step1) -- (step2);
@@ -170,7 +167,7 @@
     \end{center}
     \vspace{0.1cm}
     \begin{alertblock}{\faClock\ Operación Autónoma Continua}
-        \scriptsize Todo el proceso se ejecuta cada noche a las \textbf{11:00 PM} de forma totalmente automática, garantizando la actualización diaria de la serie de precios sin requerir intervención manual.
+        \scriptsize Todo el proceso se ejecuta cada noche a las \textbf{11:00 PM} en el servidor de PROESA de forma totalmente automática, garantizando la actualización diaria de la serie de precios sin requerir intervención manual.
     \end{alertblock}
 \end{frame}
 
@@ -259,7 +256,7 @@
                     \setlength{\itemsep}{4pt}
                     \item \textbf{Supermercados Líderes:} Éxito, Carulla, Jumbo, Olímpica, Cañaveral y Makro.
                     \item \textbf{Tiendas de Descuento:} D1.
-                    \item \textbf{Canal de Entrega Rápida:} \textbf{Rappi} (2,170 observaciones de precios activas).
+                    \item \textbf{Canal de Entrega Rápida:} Rappi (2,170 observaciones de precios activas).
                 \end{itemize}
             \end{block}
             \vspace{0.15cm}
@@ -412,43 +409,41 @@
 % --- DIAPOSITIVA 9: AUDITORÍA SANITARIA INVIMA ---
 \begin{frame}{Homologación de Registros Sanitarios INVIMA (Exclusiva Alcohol)}
     \begin{columns}[c]
-        \begin{column}{0.52\textwidth}
+        \begin{column}{0.50\textwidth}
             \begin{block}{\faCheckCircle\ Cobertura del 60.6\% en Bebidas Alcohólicas}
-                Se vincularon formalmente \textbf{1,749 bebidas alcohólicas} con su respectivo Registro Sanitario oficial expedido por el INVIMA.
+                \small Se vincularon formalmente \textbf{1,749 bebidas alcohólicas} con su respectivo Registro Sanitario oficial expedido por el INVIMA (existen bebidas a las que no se les pudo asignar registro sanitario oficial).
             \end{block}
             \vspace{0.15cm}
             \begin{alertblock}{\faInfoCircle\ Aclaración Normativa: Tabaco No Requiere INVIMA}
                 \scriptsize Bajo la legislación sanitaria colombiana (Ley 9 de 1979 y Decreto 1686 de 2012), los registros sanitarios INVIMA aplican \textbf{exclusivamente a alimentos y bebidas alcohólicas}. Los productos de \textbf{tabaco y nicotina no son objeto de registro sanitario ante el INVIMA}.
             \end{alertblock}
             \vspace{0.15cm}
-            \begin{block}{\faExclamationCircle\ Referencias en Proceso: 1,136 Licores (39.4\%)}
-                \scriptsize Corresponden principalmente a vinos importados de edición limitada o licores de baja rotación. Su asociación continúa ejecutándose en paralelo.
-            \end{block}
+
         \end{column}
 
-        \begin{column}{0.46\textwidth}
+        \begin{column}{0.48\textwidth}
             \begin{center}
-                \begin{tikzpicture}[scale=0.85]
-                    \draw[->, >=stealth, gray!70] (0,0) -- (5.2,0);
+                \begin{tikzpicture}[scale=0.82]
+                    \draw[->, >=stealth, gray!70] (0,0) -- (5.6,0);
                     \draw[->, >=stealth, gray!70] (0,0) -- (0,4.2) node[above, text=proesadark, font=\tiny\bfseries] {Cantidad de Productos};
                     
-                    \draw[dashed, gray!30] (0, 3.5) -- (4.8, 3.5) node[right, gray, font=\tiny] {2,000};
-                    \draw[dashed, gray!30] (0, 1.75) -- (4.8, 1.75) node[right, gray, font=\tiny] {1,000};
+                    \draw[dashed, gray!30] (0, 3.5) -- (5.3, 3.5) node[right, gray, font=\tiny] {2,000};
+                    \draw[dashed, gray!30] (0, 1.75) -- (5.3, 1.75) node[right, gray, font=\tiny] {1,000};
 
                     % Barra 1: Con INVIMA (1,749)
-                    \fill[proesagreen, rounded corners=2pt] (0.5,0) rectangle (1.5, 3.06);
-                    \node[above, font=\bfseries\footnotesize, text=proesagreen] at (1.0, 3.06) {1,749};
-                    \node[below, font=\scriptsize, align=center] at (1.0, -0.1) {\textbf{Con INVIMA}\\[-2pt]\tiny (60.6\% Alcohol)};
+                    \fill[proesagreen, rounded corners=2pt] (0.5,0) rectangle (1.4, 3.06);
+                    \node[above, font=\bfseries\footnotesize, text=proesagreen] at (0.95, 3.06) {1,749};
+                    \node[below, font=\scriptsize, align=center] at (0.95, -0.15) {\textbf{Con INVIMA}\\[2pt]\tiny 60.6\% Alcohol};
 
                     % Barra 2: Pendientes Alcohol (1,136)
-                    \fill[proesablue, rounded corners=2pt] (2.1,0) rectangle (3.1, 1.99);
-                    \node[above, font=\bfseries\footnotesize, text=proesablue] at (2.6, 1.99) {1,136};
-                    \node[below, font=\scriptsize, align=center] at (2.6, -0.1) {\textbf{En Proceso}\\[-2pt]\tiny (39.4\% Alcohol)};
+                    \fill[proesablue, rounded corners=2pt] (2.3,0) rectangle (3.2, 1.99);
+                    \node[above, font=\bfseries\footnotesize, text=proesablue] at (2.75, 1.99) {1,136};
+                    \node[below, font=\scriptsize, align=center] at (2.75, -0.15) {\textbf{En Proceso}\\[2pt]\tiny 39.4\% Alcohol};
 
                     % Barra 3: Tabaco No Aplica (750)
-                    \fill[gray!60, rounded corners=2pt] (3.7,0) rectangle (4.7, 1.31);
-                    \node[above, font=\bfseries\footnotesize, text=gray!80!black] at (4.2, 1.31) {750};
-                    \node[below, font=\scriptsize, align=center] at (4.2, -0.1) {\textbf{Tabaco}\\[-2pt]\tiny (No Aplica)};
+                    \fill[gray!60, rounded corners=2pt] (4.1,0) rectangle (5.0, 1.31);
+                    \node[above, font=\bfseries\footnotesize, text=gray!80!black] at (4.55, 1.31) {750};
+                    \node[below, font=\scriptsize, align=center] at (4.55, -0.15) {\textbf{Tabaco}\\[2pt]\tiny No Aplica};
                 \end{tikzpicture}
             \end{center}
         \end{column}
@@ -462,9 +457,9 @@
             \begin{block}{\faCheckCircle\ Sistema 100\% Operativo y Entregado}
                 \begin{itemize}
                     \setlength{\itemsep}{5pt}
-                    \item \textbf{Monitoreo Diario Estable:} 8 cadenas recolectando información cada noche a las 11:00 PM.
+                    \item \textbf{Monitoreo Diario Estable:} 8 cadenas recolectando información cada noche a las 11:00 PM en el servidor de PROESA.
                     \item \textbf{Catálogo 100\% Unificado:} Todas las referencias asignadas a su producto estándar sin pendientes.
-                    \item \textbf{Serie Temporal Completa:} Más de 270,000 observaciones listas para análisis econométrico y de precios.
+                    \item \textbf{Serie Temporal Completa:} Más de 270,000 observaciones listas para analizar.
                     \item \textbf{Plataforma Gráfica y Reportes:} Interfaz visual de consulta y alertas diarias por correo.
                 \end{itemize}
             \end{block}
@@ -476,7 +471,6 @@
                     \setlength{\itemsep}{5pt}
                     \item \textbf{Homologación Sanitaria Progresiva:} El cruce de los licores restantes continúa ejecutándose mediante asistentes de IA y la interfaz gráfica de auditoría.
                     \item \textbf{Incorporación de Nuevos Productos:} Nuevos lanzamientos que aparezcan en los comercios se integran automáticamente al catálogo.
-                    \item \textbf{Respaldos Portables:} Copias de seguridad periódicas para disponibilidad de todo el equipo de PROESA.
                 \end{itemize}
             \end{alertblock}
         \end{column}
