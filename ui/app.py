@@ -1,7 +1,9 @@
 import os
+import threading
 import customtkinter as ctk
 from PIL import Image
 import database
+from core import replica
 from ui.styles import configure_treeview_style
 from ui.views.extraction_view import ExtraccionFrame
 from ui.views.raw_viewer_view import DataViewerFrame
@@ -18,6 +20,14 @@ class DataSuiteApp(ctk.CTk):
 
         db = database.DataSuiteDB()
         db.init_db()
+
+        # Backup diario de la maestra y réplica siempre al día con lo que se edite en la suite
+        threading.Thread(target=replica.hacer_backup, kwargs={"solo_si_no_hay_hoy": True}, daemon=True).start()
+        self._firma_publicada = None
+        self._firma_vista = replica.firma_maestra()
+        self._publicando = False
+        self.after(1000, self._sincronizar_replica)
+        self.protocol("WM_DELETE_WINDOW", self._al_cerrar)
         
         self.title("PROESA - Suite Data & Mercado (Alcohol y Tabaco)")
         self.geometry("1420x920")
@@ -88,6 +98,32 @@ class DataSuiteApp(ctk.CTk):
         self.frame_standardization = UnifiedStandardizationFrame(self)
 
         self.show_norm_viewer()
+
+    def _sincronizar_replica(self):
+        """Cada 30 s: si la maestra cambió y ya no se está escribiendo, republica la réplica."""
+        firma = replica.firma_maestra()
+        if not self._publicando and firma != self._firma_publicada and firma == self._firma_vista:
+            self._publicando = True
+            threading.Thread(target=self._publicar_replica, args=(firma,), daemon=True).start()
+        self._firma_vista = firma
+        self.after(30000, self._sincronizar_replica)
+
+    def _publicar_replica(self, firma):
+        try:
+            replica.publicar_replica()
+            self._firma_publicada = firma
+        except Exception as e:
+            print(f"[REPLICA] No se pudo publicar la réplica (se reintenta en 30 s): {e}")
+        finally:
+            self._publicando = False
+
+    def _al_cerrar(self):
+        if not self._publicando and replica.firma_maestra() != self._firma_publicada:
+            try:
+                replica.publicar_replica()
+            except Exception as e:
+                print(f"[REPLICA] No se pudo publicar la réplica al cerrar: {e}")
+        self.destroy()
 
     def toggle_theme(self):
         if self.switch_theme.get() == 1:

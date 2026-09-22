@@ -20,7 +20,7 @@ from openai import OpenAI
 
 load_dotenv()
 
-DB_PATH = "suite_data.db"
+from core.replica import MASTER_DB as DB_PATH
 DEEPSEEK_API_KEY = os.getenv("DEEPSEEK_API_KEY")
 
 def strip_accents(text):

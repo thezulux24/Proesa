@@ -5,6 +5,8 @@ import sqlite3
 import pandas as pd
 from dotenv import load_dotenv
 
+from core.replica import MASTER_DB
+
 def calculate_unit_price(precio_final, medida):
     """Calcula el precio por unidad/medida ($/ml, $/und, $/g) de forma estandarizada."""
     try:
@@ -319,7 +321,7 @@ def standardize_subcategory(subcat, tipo="Alcohol", name=""):
     return s.capitalize(), t
 
 class DataSuiteDB:
-    def __init__(self, db_name="suite_data.db"):
+    def __init__(self, db_name=MASTER_DB):
         load_dotenv()
         self.db_name = db_name
         

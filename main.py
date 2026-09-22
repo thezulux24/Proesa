@@ -7,6 +7,7 @@ import traceback
 
 # Import modules
 from core import DataSuiteDB, Notifier, database
+from core.replica import hacer_backup, publicar_replica
 from export_mdm import export_mdm
 
 # Import Scrapers desde el paquete scrapers/
@@ -145,6 +146,13 @@ def main():
         
     stats = {}
     errores = {}
+
+    # Backup de la maestra antes de modificarla
+    try:
+        print(f"[OK] Backup de la base maestra: {hacer_backup()}")
+    except Exception as e:
+        errores["Backup_Maestra"] = f"No se pudo hacer el backup de la maestra: {e}"
+        print(f"[ERROR] {errores['Backup_Maestra']}")
     
     # Determinar comercios a procesar
     ALL_STORES = ["Exito", "Carulla", "Jumbo", "D1", "Canaveral", "Olimpica", "Makro", "Rappi"]
@@ -350,6 +358,13 @@ def main():
             traceback.print_exc()
     else:
         print("\n[FASE 3 OMITIDA] Matching y deduplicación con IA omitidos (--skip-ai).")
+
+    # Publicar la réplica de consulta (la que abren los usuarios desde su gestor)
+    try:
+        print(f"\n[OK] Réplica de consulta publicada en {publicar_replica()}")
+    except Exception as e:
+        errores["Replica_Consulta"] = f"No se publicó la réplica (sigue la anterior): {e}"
+        print(f"[ERROR] {errores['Replica_Consulta']}")
 
     # =========================================================================
     # FASE 4: ENVÍO DE REPORTE POR CORREO ELECTRÓNICO (SIN EMOJIS)

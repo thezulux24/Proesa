@@ -8,7 +8,7 @@ import json
 import sqlite3
 import pandas as pd
 
-DB_PATH = "suite_data.db"
+from core.replica import MASTER_DB as DB_PATH
 OUTPUT_FILE = "data/mdm_export.json"
 
 def export_mdm():

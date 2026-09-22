@@ -8,7 +8,7 @@ Este archivo sirve como memoria persistente para el agente de IA. Aquí se docum
 - **Notificaciones:** Se utiliza **Resend** para el envío de alertas y reportes diarios por correo (indicando éxito o detalles de fallo de cada scraper).
 
 ## 2. Esquema de Base de Datos (SQLite Local)
-Por requerimiento de simplicidad extrema, nula concurrencia de escritura, y retrocompatibilidad con la Interfaz Gráfica original, se decidió mantener la base de datos en **SQLite** (`suite_data.db`) tras un intento de migrar a PostgreSQL.
+Por requerimiento de simplicidad extrema, nula concurrencia de escritura, y retrocompatibilidad con la Interfaz Gráfica original, se decidió mantener la base de datos en **SQLite** (`db/suite_data_maestra.db`, antes `suite_data.db` en la raíz) tras un intento de migrar a PostgreSQL.
 Para mantener la UI funcionando sin reescribir todo `suite_app.py`, `database.py` actúa como una "vista" de traducción en memoria, renombrando dinámicamente columnas como `comercio -> fuente` y `descuento_porcentaje -> descuento` al entregar los DataFrames.
 **Tabla principal (`productos`)**:
 - `id` (PK)
@@ -60,7 +60,7 @@ Este archivo sirve como memoria persistente para el agente de IA. Aquí se docum
 - **Notificaciones:** Se utiliza **Resend** para el envío de alertas y reportes diarios por correo (indicando éxito o detalles de fallo de cada scraper).
 
 ## 2. Esquema de Base de Datos (SQLite Local)
-Por requerimiento de simplicidad extrema, nula concurrencia de escritura, y retrocompatibilidad con la Interfaz Gráfica original, se decidió mantener la base de datos en **SQLite** (`suite_data.db`) tras un intento de migrar a PostgreSQL.
+Por requerimiento de simplicidad extrema, nula concurrencia de escritura, y retrocompatibilidad con la Interfaz Gráfica original, se decidió mantener la base de datos en **SQLite** (`db/suite_data_maestra.db`, antes `suite_data.db` en la raíz) tras un intento de migrar a PostgreSQL.
 Para mantener la UI funcionando sin reescribir todo `suite_app.py`, `database.py` actúa como una "vista" de traducción en memoria, renombrando dinámicamente columnas como `comercio -> fuente` y `descuento_porcentaje -> descuento` al entregar los DataFrames.
 **Tabla principal (`productos`)**:
 - `id` (PK)
@@ -142,7 +142,7 @@ Para mantener la UI funcionando sin reescribir todo `suite_app.py`, `database.py
     - **Matching Inteligente por Texto:** Algoritmo combinado (SequenceMatcher + Jaccard token overlap + bonus por marca) que calcula similitud % y muestra el **Top 15 candidatos maestro** ordenados descendentemente.
   - **Migración y Portabilidad del MDM (`export_mdm.py` & `import_mdm.py`)**:
   - **`export_mdm.py`:** Genera un respaldo JSON portátil (`data/mdm_export.json`) que empaqueta las tablas `maestro_productos`, `mapeo_productos` y las banderas de depuración (`deleted = 1`).
-  - **`import_mdm.py`:** Lee `data/mdm_export.json`, restaura los registros en `suite_data.db` en cualquier PC mediante `INSERT OR REPLACE` y ejecuta automáticamente `database.run_normalization_etl()` para reconstruir `productos_normalizados`.
+  - **`import_mdm.py`:** Lee `data/mdm_export.json`, restaura los registros en `db/suite_data_maestra.db` en cualquier PC mediante `INSERT OR REPLACE` y ejecuta automáticamente `database.run_normalization_etl()` para reconstruir `productos_normalizados`.
 
 - **Módulo de Asignación de Registros Sanitarios INVIMA con IA (`core/invima_ai_matcher.py`)**:
   - Módulo backend ubicado en `core/invima_ai_matcher.py` con wrapper CLI en la raíz (`match_invima_deepseek.py`).
@@ -197,12 +197,11 @@ Para mantener la UI funcionando sin reescribir todo `suite_app.py`, `database.py
   - **Exportación (`export_mdm.py`)**: Centraliza en `data/mdm_export.json` todo el catálogo maestro (`maestro_productos`), los mapeos tienda $\rightarrow$ maestro (`mapeo_productos`), los registros descartados (`deleted_historico`) y la memoria de reglas humanas (`human_corrections_memory.json`).
   - **Importación (`import_mdm.py`)**: Diseñado para ejecutarse en el servidor destino (Windows Server 2016). Usa inserciones por lotes (`executemany`) con `INSERT OR REPLACE` para garantizar cero duplicados, restaura soft deletes y reglas humanas, y corre automáticamente `database.run_normalization_etl()` para actualizar la tabla `productos_normalizados`.
 
-
-
-
-
-
-
-
-
-
+## Base Maestra, Réplica de Consulta y Backups (carpeta `db/`)
+- **Maestra (`db/suite_data_maestra.db`)**: la ÚNICA base que se escribe. Solo la modifican el scraping (`main.py`) y la suite (`suite_app.py`). `DataSuiteDB()` apunta aquí por defecto (`core.replica.MASTER_DB`, ruta absoluta, no depende del directorio actual). Nunca volver a usar `"suite_data.db"` quemado en scripts: importar `MASTER_DB` de `core.replica`.
+- **Réplica (`db/suite_data_replica.db`)**: la que abren los usuarios desde sus gestores (DB Browser, DBeaver, Power BI). Se genera con `VACUUM INTO` (copia consistente aunque la maestra esté en uso), en modo `journal_mode=DELETE` y marcada como solo lectura. Se reemplaza de forma atómica (`os.replace`); si un usuario la tiene abierta en Windows, queda la versión anterior y se reintenta.
+  - `main.py` la publica al final de cada corrida (error registrado como `Replica_Consulta` en el correo).
+  - La suite (`ui/app.py`) revisa cada 30 s la firma (mtime/tamaño de la maestra y su `-wal`); si cambió y ya no se está escribiendo, la republica en segundo plano, y también al cerrar la ventana.
+  - A mano: `python publicar_replica.py`.
+- **Backups (`db/backups/`)**: `main.py` hace una copia `suite_data_maestra_AAAA-MM-DD_HHMMSS.db` antes de extraer; la suite hace una al abrir si no hay ninguna del día. Se conservan las últimas 7 (`BACKUPS_A_CONSERVAR`). Para restaurar: cerrar la suite, copiar el backup encima de `db/suite_data_maestra.db` y ejecutar `python publicar_replica.py`. Las copias viejas del 1-sep-2026 quedaron como `db/backups/antigua_*.db` (no las borra la rotación).
+- **Protección de la maestra**: `proteger_maestra.bat` (una vez, como administrador, con la cuenta que corre la tarea programada y la suite) quita la herencia NTFS y deja la maestra y los backups solo para esa cuenta, Administradores y SYSTEM. Los demás usuarios solo ven la réplica.
