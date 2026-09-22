@@ -547,6 +547,37 @@ class DataSuiteDB:
             print(f"Failed to insert products for {comercio}: {e}")
             raise e
 
+    def get_previous_day_count(self, comercio: str, before_date=None) -> tuple:
+        """
+        Retorna (count, fecha_str) del día previo más reciente para un comercio específico
+        en productos_historico con fecha_extraccion < before_date.
+        Si no existen registros previos, retorna (0, None).
+        """
+        if before_date is None:
+            before_date = datetime.date.today()
+            
+        before_date_str = before_date.isoformat() if hasattr(before_date, 'isoformat') else str(before_date)
+        
+        query = """
+        SELECT fecha_extraccion, COUNT(*)
+        FROM productos_historico
+        WHERE comercio = ? AND fecha_extraccion < ?
+        GROUP BY fecha_extraccion
+        ORDER BY fecha_extraccion DESC
+        LIMIT 1;
+        """
+        try:
+            with self.get_connection() as conn:
+                cur = conn.cursor()
+                cur.execute(query, (comercio, before_date_str))
+                row = cur.fetchone()
+                if row:
+                    return int(row[1]), str(row[0])
+                return 0, None
+        except Exception as e:
+            print(f"Error consultando conteo del dia anterior para {comercio}: {e}")
+            return 0, None
+
 # ==========================================
 # Funciones Helper para suite_app.py
 # ==========================================

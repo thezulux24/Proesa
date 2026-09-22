@@ -159,9 +159,15 @@ Para mantener la UI funcionando sin reescribir todo `suite_app.py`, `database.py
   - **Filtro a Nivel de Producto (`_is_authentic_alcohol_or_tobacco`)**: Verifica que cada ítem pertenezca de forma genuina a Tabaco o Alcohol, descartando platos de restaurante, combos de comida, bebidas no alcohólicas (sodas, jugos, aguas), pasabocas y artículos de aseo o pañales.
   - **Términos de Búsqueda Precisos**: En `config.py` se sustituyeron términos genéricos ambiguos (como `pod`, `capsula`, `raw`, `sedas`, `filtros`, `disposable`, `picadura`, `artesanal`, `andina`) por frases inequívocas (`vape pod`, `cigarrillos capsula`, `sedas para fumar`, `sedas raw`, `sedas ocb`, `filtros de cigarrillo`, `cerveza artesanal`, `cerveza andina`, etc.).
   - **Clasificación Estricta de Vapeadores (Tabaco)**: Todos los vaporizadores, vapes, pods y e-liquids (**con nicotina o SIN nicotina**) son clasificados OBLIGATORIAMENTE bajo la categoría **`"Tabaco"`** tanto en el scraper como en el prompt de la IA de matching MDM (`core/mdm_ai_matcher.py`).
-  - **Estrategia de Rondas en `main.py`**:
-    - Todos los supermercados tradicionales (Éxito, Carulla, Jumbo, D1, Cañaveral, Olímpica, Makro) ejecutan hasta **3 rondas** para maximizar cobertura, capturar cambios de stock y reintentar ante micro-cortes.
-    - **Rappi**: Ejecuta **únicamente 1 pasada** por sesión con **3 zonas estratégicas de Bogotá** (Norte/Chicó/Usaquén, Centro/Salitre y Sur-Occidente/Kennedy/Américas) x 100+ términos de búsqueda, logrando un balance óptimo de velocidad y cobertura.
+  - **Estrategia de Extracción Inteligente y Control de Variación Diaria en `main.py`**:
+    - **Metodología Basada en Variación Diaria**: Ya no se ejecutan rondas ciegas múltiples para todos los comercios. Cada comercio se ejecuta 1 sola vez por defecto.
+    - **Línea Base del Día Anterior**: Mediante `db.get_previous_day_count(store)`, el sistema consulta el conteo de productos del día previo más reciente registrado en `productos_historico` (`fecha_extraccion < hoy`).
+    - **Control de Caída (-10%) y Reintentos Focalizados (Máximo 3)**:
+      - Si la extracción de hoy obtiene un **10% o más de productos menos** que el día anterior (`caída >= 10%`), se activa el ciclo de reintentos para ese comercio específico (hasta un máximo de 3 intentos).
+      - **Regla Estricta de Comparación**: Cada reintento se evalúa **siempre contra el día anterior registrado**, nunca contra el intento anterior de hoy (evitando confusiones o falsos positivos de recuperación).
+      - Si el comercio iguala, supera o no cae más del 10% respecto al día anterior, aprueba en el intento 1 sin reintentos adicionales.
+    - **Excepción para Rappi**: Ejecuta **estrictamente 1 sola pasada**, sin reintentos por variación, debido a su cobertura multizona masiva (3 zonas de Bogotá) y alta volatilidad de marketplace.
+    - **Persistencia del Lote Óptimo**: En caso de reintentos, el orquestador conserva e inserta en la base de datos el lote con el mayor número de productos extraídos.
     - **Asignación INVIMA con IA**: Desactivada por defecto en `main.py` para optimizar velocidad y costos de API. Se activa únicamente pasando el flag `--with-invima`.
   - **Script de Deduplicación y Fusión MDM (`deduplicate_mdm_deepseek.py`)**:
     - Desarrollado para detectar y fusionar productos maestros duplicados o casi-idénticos generados durante la creación concurrente.

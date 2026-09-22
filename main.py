@@ -1,4 +1,5 @@
 import argparse
+import datetime
 import os
 import sys
 import time
@@ -20,10 +21,10 @@ from scrapers import (
     RappiScraper
 )
 
-def run_single_scraper(store_key, db):
+def fetch_store_products(store_key):
     """
-    Ejecuta un scraper individual y guarda los resultados en la base de datos SQLite.
-    Retorna la cantidad de productos insertados/actualizados.
+    Instancia el scraper correspondiente y extrae la lista cruda de productos.
+    Retorna una tupla (nombre_canonico, lista_productos).
     """
     key = store_key.lower().strip()
     
@@ -31,7 +32,7 @@ def run_single_scraper(store_key, db):
         exito = ExitoScraper(output_file="data/exito_historico.csv")
         facets = [{"key": "category-1", "value": "vinos-y-licores"}]
         all_exito = exito.fetch_products_for_facets(facets, "Vinos y Licores")
-        return db.insert_products("Exito", all_exito)
+        return "Exito", all_exito
 
     elif key == "carulla":
         carulla = CarullaScraper(output_file="data/carulla_historico.csv")
@@ -40,7 +41,7 @@ def run_single_scraper(store_key, db):
             "selectedFacets": [{"key": "category-1", "value": "vinos-y-licores"}]
         }
         all_carulla = carulla.fetch_products(query_licores, "Vinos y Licores", "Alcohol")
-        return db.insert_products("Carulla", all_carulla)
+        return "Carulla", all_carulla
 
     elif key == "jumbo":
         jumbo = JumboScraper(output_file="data/jumbo_historico.csv")
@@ -50,18 +51,18 @@ def run_single_scraper(store_key, db):
         tabaco_products = jumbo.fetch_products(tabacos_path, "Cigarrillos y Tabacos", "Tabaco")
         if tabaco_products:
             all_jumbo.extend(tabaco_products)
-        return db.insert_products("Jumbo", all_jumbo)
+        return "Jumbo", all_jumbo
 
     elif key == "d1":
         d1 = D1Scraper(output_file="data/d1_historico.csv")
         all_d1 = d1.fetch_products()
-        return db.insert_products("D1", all_d1)
+        return "D1", all_d1
 
     elif key in ["canaveral", "cañaveral"]:
         canaveral = CanaveralScraper(output_file="data/canaveral_historico.csv")
         licores_url = "https://www.domicilioscanaveral.com/ca/licores/03"
         p1 = canaveral.fetch_products(licores_url, "Licores", "Alcohol", max_pages=20)
-        return db.insert_products("Canaveral", p1)
+        return "Canaveral", p1
 
     elif key in ["olimpica", "olímpica"]:
         olimpica = OlimpicaScraper(output_file="data/olimpica_historico.csv")
@@ -72,21 +73,29 @@ def run_single_scraper(store_key, db):
         all_olimpica = []
         for path, name in olimpica_paths:
             all_olimpica.extend(olimpica.fetch_products(path, name))
-        return db.insert_products("Olimpica", all_olimpica)
+        return "Olimpica", all_olimpica
 
     elif key == "makro":
         makro = MakroScraper(output_file="data/makro_historico.csv")
         makro_url = "https://tienda.makro.com.co/ca/bebidas/CP_03?categories=Cervezas%2C+Vinos+y+Licores"
         all_makro = makro.fetch_products(makro_url, max_pages=15)
-        return db.insert_products("Makro", all_makro)
+        return "Makro", all_makro
 
     elif key == "rappi":
         rappi = RappiScraper(output_file="data/rappi_historico.csv")
         all_rappi = rappi.fetch_products()
-        return db.insert_products("Rappi", all_rappi)
+        return "Rappi", all_rappi
 
     else:
         raise ValueError(f"Comercio no reconocido: {store_key}")
+
+def run_single_scraper(store_key, db):
+    """
+    Ejecuta un scraper individual y guarda los resultados en la base de datos SQLite.
+    Retorna la cantidad de productos insertados/actualizados.
+    """
+    store_name, products = fetch_store_products(store_key)
+    return db.insert_products(store_name, products)
 
 def main():
     parser = argparse.ArgumentParser(description="Orquestador de Scrapers, ETL y Suite Data PROESA")
@@ -107,18 +116,20 @@ def main():
         help="Ejecutar asignación de registros sanitarios INVIMA con IA (desactivado por defecto)"
     )
     parser.add_argument(
+        "--max-intentos",
         "--rondas",
+        dest="max_intentos",
         type=int,
         default=3,
-        help="Número de rondas de scrapeo a ejecutar (por defecto: 3)"
+        help="Número máximo de intentos si la extracción cae >= 10%% vs día anterior (por defecto: 3; Rappi siempre 1)"
     )
     args = parser.parse_args()
 
     target = args.comercio.lower().strip()
-    total_rondas = max(1, args.rondas)
+    max_intentos_cli = max(1, args.max_intentos)
     print("=" * 75)
     print(f" PROESA - SUITE DATA SCRAPING & ANALYTICS ")
-    print(f" Objetivo: {target.upper()} | Rondas programadas: {total_rondas} ")
+    print(f" Objetivo: {target.upper()} | Intentos máximos por comercio: {max_intentos_cli} ")
     print("=" * 75)
     
     # Inicializar Base de Datos y Notificador
@@ -144,41 +155,118 @@ def main():
         stores_to_run = matched if matched else [target.capitalize()]
 
     # =========================================================================
-    # FASE 1: RONDA DE 3 SCRAPEOS CON TOLERANCIA A FALLOS Y REINTENTOS
+    # FASE 1: EXTRACCIÓN INTELIGENTE CON CONTROL DE VARIACIÓN DIARIA
     # =========================================================================
-    print(f"\n[FASE 1] INICIANDO RONDA DE {total_rondas} PASADAS DE EXTRACCIÓN...")
+    print(f"\n[FASE 1] INICIANDO EXTRACCIÓN CON CONTROL DE VARIACIÓN VS DÍA ANTERIOR...")
+    print("  * Política: 1 pasada normal. Si cae >= 10% vs día anterior, se reintenta hasta 3 veces.")
+    print("  * Excepción: Rappi ejecuta estrictamente 1 pasada (cobertura multizona amplia).")
+    print("  * Al reintentar, la comparación se hace SIEMPRE contra el día anterior registrado.")
     
-    for round_num in range(1, total_rondas + 1):
-        print(f"\n>>> INICIANDO RONDA {round_num}/{total_rondas} DE SCRAPEO <<<")
+    today = datetime.date.today()
+    
+    for store in stores_to_run:
+        print("\n" + "-" * 75)
+        is_rappi = (store.lower() == "rappi")
+        max_attempts = 1 if is_rappi else max_intentos_cli
         
-        for store in stores_to_run:
-            # Regla estricta: Rappi ejecuta solo 1 pasada completa por su amplia cobertura multizona (Bogotá 6 zonas)
-            if store.lower() == "rappi" and round_num > 1:
-                print(f"  [RONDA {round_num}] {store}: Omitido (Rappi configurado para 1 sola pasada).")
-                continue
-
-            print(f"  [RONDA {round_num}] Ejecutando Scraper {store}...")
+        # Obtener línea base inmutable del día anterior registrado (fecha < hoy)
+        baseline_count, baseline_date = db.get_previous_day_count(store, before_date=today)
+        
+        if baseline_count > 0:
+            umbral_minimo = int(baseline_count * 0.90)
+            print(f"  [LÍNEA BASE] {store}: {baseline_count:,} productos registrados el {baseline_date}.")
+            print(f"  [UMBRAL -10%] Mínimo requerido para aprobar sin reintentos: {umbral_minimo:,} productos.")
+        else:
+            print(f"  [LÍNEA BASE] {store}: Sin registros previos para comparación.")
+            
+        print(f"  [CONFIGURACIÓN] Intentos máximos: {max_attempts} ({'Rappi: 1 pasada fija' if is_rappi else 'Hasta 3 intentos si la caída es >= 10%'})")
+        
+        best_products = []
+        attempt = 1
+        last_error = None
+        
+        while attempt <= max_attempts:
+            print(f"\n  >> [{store}] Intento {attempt}/{max_attempts} en curso...")
             try:
-                inserted = run_single_scraper(store, db)
-                if inserted > 0:
-                    stats[store] = inserted
-                    if store in errores:
-                        del errores[store]  # Limpiar error previo si tuvo éxito en reintento
-                    print(f"  [RONDA {round_num}] [OK] {store}: {inserted:,} productos insertados/actualizados.")
+                _, products = fetch_store_products(store)
+                current_count = len(products) if products else 0
+                
+                # Conservar el lote con mayor cantidad de productos extraídos
+                if current_count > len(best_products):
+                    best_products = products
+                    
+                # Caso Rappi: 1 sola pasada obligatoria
+                if is_rappi:
+                    print(f"  [OK] Rappi: Extracción completada en 1 pasada con {current_count:,} productos.")
+                    break
+                    
+                # Caso tiendas tradicionales con línea base previa
+                if baseline_count > 0:
+                    diff_pct = (baseline_count - current_count) / baseline_count
+                    # Si diff_pct >= 0.10 significa caída del 10% o más
+                    if diff_pct >= 0.10:
+                        print(f"  [ALERTA] {store}: Intento {attempt}/{max_attempts} extrajo {current_count:,} productos.")
+                        print(f"           Caída del {diff_pct * 100:.1f}% respecto al día anterior ({baseline_date}: {baseline_count:,} productos).")
+                        if attempt < max_attempts:
+                            print(f"           --> Reintentando {store} (comparando nuevamente contra {baseline_date} [{baseline_count:,}])...")
+                            time.sleep(3.0)
+                            attempt += 1
+                            continue
+                        else:
+                            print(f"           --> Se agotaron los {max_attempts} intentos para {store}.")
+                            break
+                    else:
+                        var_str = f"{-diff_pct * 100:+.1f}%"
+                        print(f"  [OK] {store}: Intento {attempt}/{max_attempts} exitoso con {current_count:,} productos.")
+                        print(f"       Variación aceptable vs día anterior ({baseline_date}: {baseline_count:,} | Variación: {var_str}).")
+                        break
                 else:
-                    msg = f"Fallo silencioso en Ronda {round_num}: Se extrajeron 0 productos."
-                    print(f"  [RONDA {round_num}] [ALERTA] {store}: {msg}")
-                    if store not in stats or stats[store] == 0:
-                        errores[store] = msg
+                    # Sin línea base previa registrada
+                    if current_count > 0:
+                        print(f"  [OK] {store}: Intento {attempt}/{max_attempts} exitoso con {current_count:,} productos (Sin datos previos de comparación).")
+                        break
+                    else:
+                        print(f"  [ALERTA] {store}: Intento {attempt}/{max_attempts} extrajo 0 productos (Fallo silencioso).")
+                        if attempt < max_attempts:
+                            print(f"           --> Reintentando {store}...")
+                            time.sleep(3.0)
+                            attempt += 1
+                            continue
+                        else:
+                            break
+                            
             except Exception as e:
-                err_msg = f"Error en Ronda {round_num}: {str(e)}"
-                print(f"  [RONDA {round_num}] [ERROR] {store}: {err_msg}")
+                last_error = str(e)
+                print(f"  [ERROR] {store} en intento {attempt}/{max_attempts}: {last_error}")
                 traceback.print_exc()
-                if store not in stats or stats[store] == 0:
-                    errores[store] = err_msg
+                if attempt < max_attempts:
+                    print(f"  [REINTENTO] Reintentando tras excepción (comparando contra día anterior {baseline_date} [{baseline_count:,}])...")
+                    time.sleep(3.0)
+                    attempt += 1
+                    continue
+                else:
+                    break
 
-            # Pausa breve de cortesía entre comercios
-            time.sleep(1.5)
+        # Guardar en base de datos el mejor lote obtenido
+        if best_products:
+            inserted = db.insert_products(store, best_products)
+            stats[store] = inserted
+            print(f"  [GUARDADO] {store}: {inserted:,} productos guardados en SQLite.")
+            
+            # Si hubo caída >= 10% que no se pudo subsanar tras agotar los intentos
+            if baseline_count > 0 and inserted < int(baseline_count * 0.90) and not is_rappi:
+                drop_final = ((baseline_count - inserted) / baseline_count) * 100
+                msg = f"Caída no subsanada del {drop_final:.1f}% vs día anterior {baseline_date} ({inserted:,} vs {baseline_count:,}) tras {attempt} intentos."
+                errores[store] = msg
+                print(f"  [ALERTA FINAL] {store}: {msg}")
+        else:
+            stats[store] = 0
+            msg = f"Extracción fallida (0 productos) tras {attempt} intento(s): {last_error if last_error else 'Fallo silencioso'}"
+            errores[store] = msg
+            print(f"  [ERROR FINAL] {store}: {msg}")
+
+        # Pausa breve de cortesía entre comercios
+        time.sleep(1.5)
 
     print(f"\n[FASE 1 COMPLETADA] Extracción finalizada. Resultados por tienda: {stats}")
 
